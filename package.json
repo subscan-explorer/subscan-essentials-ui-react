@@ -1,0 +1,72 @@
+{
+  "name": "subscan-essential-ui-next",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "analyze-build": "ANALYZE=true npm run build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint-fix": "next lint --fix",
+    "prettier": "prettier './src/**/*.{ts,tsx}' --check",
+    "prettier-fix": "prettier './src/**/*.{ts,tsx}' --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,tsx}": [
+      "npm run prettier-fix"
+    ]
+  },
+  "dependencies": {
+    "@floating-ui/react": "^0.26.27",
+    "@headlessui/react": "1.7.14",
+    "@heroui/react": "^2.7.6",
+    "@next/bundle-analyzer": "^14.2.2",
+    "@tailwindcss/typography": "^0.5.12",
+    "@types/node": "18.15.11",
+    "@types/nprogress": "^0.2.0",
+    "@types/react": "18.2.19",
+    "@types/react-dom": "18.3.0",
+    "@uiw/react-json-view": "^2.0.0-alpha.32",
+    "ahooks": "^3.7.8",
+    "autoprefixer": "10.4.14",
+    "axios": "^1.9.0",
+    "bignumber.js": "9.1.1",
+    "clsx": "1.2.1",
+    "dayjs": "1.11.9",
+    "framer-motion": "^12.7.3",
+    "next": "^14.2.3",
+    "nprogress": "^0.2.0",
+    "postcss": "8.4.21",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "swr": "^2.1.5",
+    "tailwindcss": "3.4.3",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-react-jsx": "^7.12.12",
+    "@playwright/experimental-ct-react": "^1.50.1",
+    "@playwright/test": "^1.50.1",
+    "camelcase": "^6.0.0",
+    "cspell": "^8.14.2",
+    "eslint": "8.38.0",
+    "eslint-config-next": "^14.2.3",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.7",
+    "rimraf": "^3.0.2",
+    "sass": "^1.62.0",
+    "tsconfig-paths-webpack-plugin": "~4.0.1",
+    "tsx": "^4.19.2"
+  }
+}

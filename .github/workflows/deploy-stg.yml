@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: darwinia-network/devops/actions/smart-vercel@main
-        name: Deploy pubfi
+        name: Deploy
         with:
           node_version: 22
           vercel_token: ${{ secrets.VERCEL_TOKEN }}

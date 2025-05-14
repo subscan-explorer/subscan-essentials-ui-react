@@ -21,7 +21,6 @@ export default function Page({}: InferGetServerSidePropsType<typeof getServerSid
     <PageContent>
       <Container className="flex-1">
         <div className="py-6">
-          <h1 className="text-2xl font-bold mb-4">Subscan Essentials</h1>
           {isLoading ? (
             <div>Loading...</div>
           ) : (

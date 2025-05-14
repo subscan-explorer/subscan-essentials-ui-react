@@ -36,7 +36,7 @@ export default function Page() {
   }, [accountData?.reserved, accountData?.locked, accountData?.balance, metadata?.enabledNewTransferableFormulas])
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 p-6">
       {accountData && (
         <>
           <div className="">Account #{accountData.address}</div>

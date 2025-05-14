@@ -11,6 +11,7 @@ import { HydrationProvider } from '@/components/HydrationProvider'
 import RootLayout from './layout'
 import { HeroUIProvider } from '@heroui/react'
 import {type NextRouter} from "next/router";
+import { Navbar } from '@/components/navbar'
 
 
 // This config is required for number formatting
@@ -41,6 +42,7 @@ const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
       <HydrationProvider>
         <SWRConfig value={SWRDefaultConfig}>
           <RootLayout pageProps={pageProps}>
+            <Navbar value={''}></Navbar>
             <Component {...pageProps} />
           </RootLayout>
         </SWRConfig>

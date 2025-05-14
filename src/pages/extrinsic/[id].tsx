@@ -20,7 +20,7 @@ export default function Page() {
   const extrinsicData = unwrap(data)
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 p-6">
       {extrinsicData && (
         <>
           <div className="">Substrate Extrinsic #{extrinsicData.extrinsic_index}</div>

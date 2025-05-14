@@ -15,7 +15,7 @@ export default function Page() {
   const eventData = unwrap(data)
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 p-6">
       {eventData && (
         <>
           <div className="">Substrate Event #{eventData.extrinsic_index}</div>

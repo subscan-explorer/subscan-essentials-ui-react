@@ -17,7 +17,7 @@ export default function Page() {
   const blockData = unwrap(data)
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 p-6">
       <div className="">Substrate Block #{id}</div>
       {blockData && (
         <>

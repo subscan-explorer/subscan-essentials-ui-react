@@ -4,6 +4,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 const nextConfig = {
   output: 'standalone',
+  distDir: 'build',
   async rewrites() {
     return []
   },

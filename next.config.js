@@ -4,10 +4,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 const nextConfig = {
   output: 'standalone',
-  server: {
-    port: process.env.PORT,
-    hostname: process.env.HOSTNAME,
-  },
   async rewrites() {
     return []
   },

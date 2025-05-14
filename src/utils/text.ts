@@ -12,6 +12,15 @@ export function checkIsExtrinsicIndex(extrinsicKey: string): boolean {
   return reg.test(extrinsicKey)
 }
 
+export function formatHash(hash?: string, units = 12) {
+  if (hash && hash.length > units) {
+    const arr = hash.split('')
+    return `${arr.slice(0, Math.floor(units / 2)).join('')}....${arr.slice(-Math.floor(units / 2)).join('')}`
+  } else {
+    return hash
+  }
+}
+
 export function getBalanceAmount(amount: BigNumber, decimals?: number): BigNumber {
   return new BigNumber(amount).dividedBy(BIG_TEN.pow(decimals || 0))
 }

@@ -1,7 +1,7 @@
 // app/providers.tsx
 
+import { DataProvider } from '@/context';
 import { HeroUIProvider } from '@heroui/react';
-import { DataProvider } from '../context/DataContext';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (

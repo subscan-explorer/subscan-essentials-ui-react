@@ -1,7 +1,7 @@
+import { Providers } from '@/components/providers/providers'
 import { GetServerSidePropsContext } from 'next'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import { Providers } from './providers'
 
 export default function RootLayout({
   context,

@@ -21,7 +21,7 @@ const axiosInstance = axios.create({
 });
 
 const postFetcher = ([url, data]: [string, any]) => {
-  return axiosInstance.post(API_HOST + url, data).then((res) => res.data)
+    return axiosInstance.post(API_HOST + url, data).then((res) => res.data)
 }
 
 // const postFetcher = ([url, data]: [string, any]) => {
@@ -160,20 +160,18 @@ export const useExtrinsics = (data: getExtrinsicListParams) => {
 export type eventType = {
     block_num: number
     block_timestamp: number
-    module_id: string
     event_id: string
     event_idx: string
     event_index: string
     extrinsic_index: string
     id: number
-    nonce: number
+    module_id: number
     params: any[]
     phase: number
 }
 
 type getEventParams = {
-    hash?: string
-    extrinsic_index?: string
+    event_index?: string
 }
 
 export const useEvent = (data: getEventParams) => {
@@ -189,6 +187,7 @@ export type getEventListParams = {
     page?: number
     row?: number
     block_num?: number
+    extrinsic_index?: string
 }
 
 export const useEvents = (data: getEventListParams) => {
@@ -252,4 +251,135 @@ export type getAccountListParams = {
 
 export const useAccounts = (data: getAccountListParams) => {
     return useSWR<APIWrapperProps<accountListType>, Error>(['/api/plugin/balance/accounts', data], postFetcher);
+};
+
+export type logType = {
+    block_num: number
+    data: string
+    log_index: string
+    log_type: string
+}
+
+export type logListType = logType[]
+
+export type getLogListParams = {
+    page?: number
+    row?: number
+    block_num?: number
+}
+
+export const useLogs = (data: getLogListParams) => {
+    return useSWR<APIWrapperProps<logListType>, Error>(['/api/scan/logs', data], postFetcher);
+};
+
+
+//PVM
+export type pvmBlockInfoType = {
+    author: string;
+    base_fee_per_gas: string;
+    block_hash: string;
+    block_num: number;
+    block_size: string;
+    difficulty: string;
+    extra_data: string;
+    gas_limit: string;
+    gas_used: string;
+    logs_bloom: string;
+    miner: string;
+    parent_hash: string;
+    receipts_root: string;
+    seal_fields: string;
+    sha3_uncles: string;
+    state_root: string;
+    timestamp: number;
+    total_difficulty: string;
+    transaction_count: number;
+    transactions_root: string;
+    uncles: string;
+}
+
+type getPVMBlockParams = {
+    hash?: string
+    block_num?: number
+}
+
+export const usePVMBlock = (data: getPVMBlockParams) => {
+    return useSWR<APIWrapperProps<pvmBlockInfoType>, Error>(['/api/plugin/evm/block', data], postFetcher);
+};
+
+export type getPVMBlockListParams = {
+    page?: number
+    row?: number
+}
+
+export type pvmBlockType = {
+    block_num: number
+    block_timestamp: number
+    miner: string
+    transactions: number
+}
+
+export type pvmBlocksListType = {
+    list: pvmBlockType[]
+    count: number
+}
+
+export const usePVMBlocks = (data: getPVMBlockListParams) => {
+    return useSWR<APIWrapperProps<pvmBlocksListType>, Error>(['/api/plugin/evm/blocks', data], postFetcher);
+};
+
+export type pvmTxInfoType = {
+    author: string;
+    base_fee_per_gas: string;
+    block_hash: string;
+    block_num: number;
+    block_size: string;
+    difficulty: string;
+    extra_data: string;
+    gas_limit: string;
+    gas_used: string;
+    logs_bloom: string;
+    miner: string;
+    parent_hash: string;
+    receipts_root: string;
+    seal_fields: string;
+    sha3_uncles: string;
+    state_root: string;
+    timestamp: number;
+    total_difficulty: string;
+    transaction_count: number;
+    transactions_root: string;
+    uncles: string;
+}
+
+type getPVMTxParams = {
+    hash?: string
+    block_num?: number
+}
+
+export const usePVMTx = (data: getPVMTxParams) => {
+    return useSWR<APIWrapperProps<pvmTxInfoType>, Error>(['/api/plugin/evm/transaction', data], postFetcher);
+};
+
+export type getPVMTxListParams = {
+    page?: number
+    row?: number
+}
+
+export type pvmTxType = {
+    block_num: number
+    block_timestamp: number
+    from_address: string
+    hash: string
+    to_address: string
+    value: string
+}
+
+export type pvmTxListType = {
+    list: pvmTxType[]
+    count: number
+}
+
+export const usePVMTxs = (data: getPVMTxListParams) => {
+    return useSWR<APIWrapperProps<pvmTxListType>, Error>(['/api/plugin/evm/transactions', data], postFetcher);
 };

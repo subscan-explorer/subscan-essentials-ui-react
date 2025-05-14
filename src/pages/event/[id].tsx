@@ -1,99 +1,52 @@
 import React from 'react'
-import { CardBody, Card, Divider, Snippet, Tabs, Tab, Link } from '@heroui/react'
+import { CardBody, Card, Divider, Link } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { checkIsExtrinsicIndex, getUTCTime, timeAgo } from '@/utils/text'
+import { getUTCTime, timeAgo } from '@/utils/text'
 import JsonView from '@uiw/react-json-view'
-import { unwrap, useExtrinsic } from '@/utils/api'
+import { unwrap, useEvent } from '@/utils/api'
 
 export default function Page() {
   const router = useRouter()
   const id = router.query.id as string
-  const isExtrinsicIndex = checkIsExtrinsicIndex(id)
-  const { data } = useExtrinsic(isExtrinsicIndex ? {
-    extrinsic_index: id as string,
-  }: {
-    hash: id as string,
+  const { data } = useEvent({
+    event_index: id as string,
   })
 
-  const extrinsicData = unwrap(data)
+  const eventData = unwrap(data)
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      {extrinsicData && (
+      {eventData && (
         <>
-          <div className="">Substrate Extrinsic #{extrinsicData.extrinsic_index}</div>
+          <div className="">Substrate Event #{eventData.extrinsic_index}</div>
           <Card>
             <CardBody>
               <div className="flex items-center">
                 <div className="w-48">Timestamp</div>
-                <div>{getUTCTime(extrinsicData.block_timestamp)}</div>
+                <div>{getUTCTime(eventData.block_timestamp)}</div>
               </div>
               <Divider className="my-2.5" />
               <div className="flex items-center">
                 <div className="w-48">Blocktime</div>
-                <div>{timeAgo(extrinsicData.block_timestamp)}</div>
+                <div>{timeAgo(eventData.block_timestamp)}</div>
               </div>
               <Divider className="my-2.5" />
               <div className="flex items-center">
                 <div className="w-48">Block</div>
-                <div><Link href={`/block/${extrinsicData.block_num}`}>{extrinsicData.block_num}</Link></div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Lifetime</div>
-                <div>{extrinsicData.lifetime ? `${extrinsicData.lifetime?.birth} - ${extrinsicData.lifetime?.death}` : '-'}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Extrinsic Hash</div>
-                <Snippet symbol="">{extrinsicData.extrinsic_hash}</Snippet>
+                <div><Link href={`/block/${eventData.block_num}`}>{eventData.block_num}</Link></div>
               </div>
               <Divider className="my-2.5" />
               <div className="flex items-center">
                 <div className="w-48">Action</div>
-                <div>{`${extrinsicData.call_module}(${extrinsicData.call_module_function})`}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Sender</div>
-                <div>{extrinsicData.account_id || '-'}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Nonce</div>
-                <div>{extrinsicData.nonce}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Fee</div>
-                <div>{extrinsicData.fee}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Result</div>
-                <div>{extrinsicData.success ? 'Success' : 'Failed'}</div>
+                <div>{`${eventData.module_id}(${eventData.event_id})`}</div>
               </div>
               <Divider className="my-2.5" />
               <div className="flex items-center">
                 <div className="w-48">Parameters</div>
                 <div>
-                  <JsonView value={extrinsicData.params}></JsonView>
+                  <JsonView value={eventData.params}></JsonView>
                 </div>
               </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Signature</div>
-                <div>{extrinsicData.signature || '-'}</div>
-              </div>
-            </CardBody>
-          </Card>
-          <Card>
-            <CardBody>
-              <Tabs aria-label="tabs" variant="underlined">
-                <Tab key="events" title="Events">
-                  {/* <BlockTable page={page} total={pages} setPage={setPage} items={items}></BlockTable> */}
-                </Tab>
-              </Tabs>
             </CardBody>
           </Card>
         </>

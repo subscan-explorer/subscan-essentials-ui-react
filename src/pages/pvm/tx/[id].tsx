@@ -23,7 +23,7 @@ export default function Page() {
     <div className="flex flex-col gap-4 p-4">
       {extrinsicData && (
         <>
-          <div className="">Substrate Extrinsic #{extrinsicData.extrinsic_index}</div>
+          <div className="">PVM Transaction #{extrinsicData.extrinsic_index}</div>
           <Card>
             <CardBody>
               <div className="flex items-center">

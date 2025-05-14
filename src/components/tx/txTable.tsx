@@ -2,21 +2,20 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { getBalanceAmount, timeAgo } from '@/utils/text'
-import { getTransferListParams, unwrap, useTransfers } from '@/utils/api'
+import { formatHash, timeAgo } from '@/utils/text'
+import { getExtrinsicListParams, unwrap, usePVMTxs } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
-import BigNumber from 'bignumber.js'
 
 interface Props extends BareProps {
-  args?: getTransferListParams
+  args?: getExtrinsicListParams
 }
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
   const { metadata, token, isLoading } = useData();
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = useTransfers({
+  const { data } = usePVMTxs({
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -41,27 +40,33 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         wrapper: 'min-h-[222px]',
       }}>
       <TableHeader>
-        <TableColumn key="event_idx">Event ID</TableColumn>
-        <TableColumn key="sender">From</TableColumn>
-        <TableColumn key="receiver">To</TableColumn>
-        <TableColumn key="amount">{`Value (${token?.symbol})`}</TableColumn>
+        <TableColumn key="hash">Transaction Hash</TableColumn>
+        <TableColumn key="block_num">Block</TableColumn>
+        <TableColumn key="from_address">From</TableColumn>
+        <TableColumn key="to_address">To</TableColumn>
+        <TableColumn key="value">{`Value (${token?.symbol})`}</TableColumn>
         <TableColumn key="block_timestamp">Time</TableColumn>
       </TableHeader>
       <TableBody items={items || []} emptyContent={"No data"}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.block_num}>
             {(columnKey) => {
-              const eventIndex = `${Math.floor(item.id / 100000)}-${item.id % 100000}`
-              if (columnKey === 'event_idx') {
+              if (columnKey === 'hash') {
                 return (
                   <TableCell>
-                    <Link href={`/event/${eventIndex}`}>{eventIndex}</Link>
+                    <Link href={`/pvm/tx/${item.hash}`}>{formatHash(item.hash)}</Link>
                   </TableCell>
                 )
+              } else if (columnKey === 'from_address' || columnKey === 'to_address') {
+                return (
+                  <TableCell>
+                    {formatHash(getKeyValue(item, columnKey))}
+                  </TableCell>
+                )
+              } else if (columnKey === 'block_num') {
+                return <TableCell><Link href={`/pvm/block/${item.block_num}`}>{item.block_num}</Link></TableCell>
               } else if (columnKey === 'block_timestamp') {
                 return <TableCell>{timeAgo(item.block_timestamp)}</TableCell>
-              } else if (columnKey === 'amount') {
-                return <TableCell>{getBalanceAmount(new BigNumber(item.amount), token?.decimals).toFormat()}</TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

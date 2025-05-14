@@ -1,0 +1,27 @@
+name: Deploy staging
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: darwinia-network/devops/actions/smart-vercel@main
+        name: Deploy pubfi
+        with:
+          node_version: 22
+          vercel_token: ${{ secrets.VERCEL_TOKEN }}
+          vercel_group: itering
+          preview_output: true
+          alias_domain: "essentials-stg"
+          project_name: "subscan-essentials-ui-react"
+          script_run: false
+          dist_path: .
+          enable_notify_slack: true
+          slack_channel: subscan-github-notification
+          slack_webhook: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}

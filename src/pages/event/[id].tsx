@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { getUTCTime, timeAgo } from '@/utils/text'
 import JsonView from '@uiw/react-json-view'
 import { unwrap, useEvent } from '@/utils/api'
+import { Container, PageContent } from '@/ui'
 
 export default function Page() {
   const router = useRouter()
@@ -15,42 +16,48 @@ export default function Page() {
   const eventData = unwrap(data)
 
   return (
-    <div className="flex flex-col gap-4 p-6">
-      {eventData && (
-        <>
-          <div className="">Substrate Event #{eventData.extrinsic_index}</div>
-          <Card>
-            <CardBody>
-              <div className="flex items-center">
-                <div className="w-48">Timestamp</div>
-                <div>{getUTCTime(eventData.block_timestamp)}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Blocktime</div>
-                <div>{timeAgo(eventData.block_timestamp)}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Block</div>
-                <div><Link href={`/block/${eventData.block_num}`}>{eventData.block_num}</Link></div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Action</div>
-                <div>{`${eventData.module_id}(${eventData.event_id})`}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Parameters</div>
-                <div>
-                  <JsonView value={eventData.params}></JsonView>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </>
-      )}
-    </div>
+    <PageContent>
+      <Container>
+        <div className="flex flex-col gap-4">
+          {eventData && (
+            <>
+              <div className="">Substrate Event #{eventData.extrinsic_index}</div>
+              <Card>
+                <CardBody>
+                  <div className="flex items-center">
+                    <div className="w-48">Timestamp</div>
+                    <div>{getUTCTime(eventData.block_timestamp)}</div>
+                  </div>
+                  <Divider className="my-2.5" />
+                  <div className="flex items-center">
+                    <div className="w-48">Blocktime</div>
+                    <div>{timeAgo(eventData.block_timestamp)}</div>
+                  </div>
+                  <Divider className="my-2.5" />
+                  <div className="flex items-center">
+                    <div className="w-48">Block</div>
+                    <div>
+                      <Link href={`/block/${eventData.block_num}`}>{eventData.block_num}</Link>
+                    </div>
+                  </div>
+                  <Divider className="my-2.5" />
+                  <div className="flex items-center">
+                    <div className="w-48">Action</div>
+                    <div>{`${eventData.module_id}(${eventData.event_id})`}</div>
+                  </div>
+                  <Divider className="my-2.5" />
+                  <div className="flex items-center">
+                    <div className="w-48">Parameters</div>
+                    <div>
+                      <JsonView value={eventData.params}></JsonView>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </>
+          )}
+        </div>
+      </Container>
+    </PageContent>
   )
 }

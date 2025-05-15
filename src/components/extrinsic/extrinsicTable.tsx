@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { timeAgo } from '@/utils/text'
+import { formatHash, timeAgo } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, useExtrinsics } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 
@@ -57,7 +57,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               } else if (columnKey === 'extrinsic_hash') {
                 return (
                   <TableCell>
-                    <Link href={`/extrinsic/${item.extrinsic_hash}`}>{item.extrinsic_hash}</Link>
+                    <Link href={`/extrinsic/${item.extrinsic_hash}`}>{formatHash(item.extrinsic_hash)}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'success') {

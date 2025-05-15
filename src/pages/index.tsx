@@ -26,7 +26,7 @@ export default function Page({}: InferGetServerSidePropsType<typeof getServerSid
           <Spinner size="lg" />
         </div>
       ) : (
-        <Container className="flex-1">
+        <Container className="">
           <div className="">
             {/* <NetworkInfo /> */}
             <HomePage />

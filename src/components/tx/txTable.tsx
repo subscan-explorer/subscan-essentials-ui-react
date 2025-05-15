@@ -2,10 +2,11 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { formatHash, timeAgo } from '@/utils/text'
+import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, usePVMTxs } from '@/utils/api'
-import { PAGE_SIZE } from '@/utils/const'
+import { PAGE_SIZE, PVM_DECIMAL } from '@/utils/const'
 import { useData } from '@/context'
+import BigNumber from 'bignumber.js'
 
 interface Props extends BareProps {
   args?: getExtrinsicListParams
@@ -58,11 +59,14 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
                   </TableCell>
                 )
               } else if (columnKey === 'from_address' || columnKey === 'to_address') {
+                const address = columnKey === 'from_address' ? item.from_address : item.to_address
                 return (
                   <TableCell>
-                    {formatHash(getKeyValue(item, columnKey))}
+                    <Link href={`/pvm/account/${address}`}>{formatHash(address)}</Link>
                   </TableCell>
                 )
+              } else if (columnKey === 'value') {
+                return <TableCell>{getBalanceAmount(new BigNumber(item.value), PVM_DECIMAL).toFormat()}</TableCell>
               } else if (columnKey === 'block_num') {
                 return <TableCell><Link href={`/pvm/block/${item.block_num}`}>{item.block_num}</Link></TableCell>
               } else if (columnKey === 'block_timestamp') {

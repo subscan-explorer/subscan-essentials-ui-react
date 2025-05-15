@@ -66,7 +66,11 @@ const Component: React.FC<Props> = ({ children, className }) => {
   }
 
   return (
-    <Navbar position="static" maxWidth="full">
+    <Navbar position="static" maxWidth="full" classNames={
+      {
+        wrapper: 'px-4',
+      }
+    }>
       <NavbarBrand>
         <Link href="/" className="text-inherit">
           <p className="font-bold text-inherit">Subscan Essential</p>

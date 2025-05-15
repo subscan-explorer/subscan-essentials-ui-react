@@ -42,7 +42,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
         <TableColumn key="transactions">Transactions</TableColumn>
         <TableColumn key="block_timestamp">Time</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={"No data"}>
+      <TableBody items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.block_num}>
             {(columnKey) => {
@@ -50,6 +50,12 @@ const Component: React.FC<Props> = ({ children, className }) => {
                 return (
                   <TableCell>
                     <Link href={`/pvm/block/${item.block_num}`}>{item.block_num}</Link>
+                  </TableCell>
+                )
+              } else if (columnKey === 'miner') {
+                return (
+                  <TableCell>
+                    <Link href={`/pvm/account/${item.miner}`}>{item.miner}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'block_timestamp') {

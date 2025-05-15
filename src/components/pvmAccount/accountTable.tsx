@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Link } from '@heroui/react'
 import { formatHash, getBalanceAmount } from '@/utils/text'
-import { getExtrinsicListParams, unwrap, useAccounts } from '@/utils/api'
+import { getExtrinsicListParams, unwrap, useAccounts, usePVMAccounts } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
 import BigNumber from 'bignumber.js'
@@ -16,7 +16,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
   const { metadata, token, isLoading } = useData();
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = useAccounts({
+  const { data } = usePVMAccounts({
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -46,12 +46,12 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
       </TableHeader>
       <TableBody items={items || []} emptyContent={"No data"}>
         {(item) => (
-          <TableRow key={item.address}>
+          <TableRow key={item.evm_account}>
             {(columnKey) => {
               if (columnKey === 'balance') {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.balance), token?.decimals).toFormat()}</TableCell>
               } else if (columnKey === 'address') {
-                return <TableCell><Link href={`/account/${item.address}`}>{item.address}</Link></TableCell>
+                return <TableCell><Link href={`/pvm/account/${item.evm_account}`}>{item.evm_account}</Link></TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

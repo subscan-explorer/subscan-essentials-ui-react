@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { getBalanceAmount, timeAgo } from '@/utils/text'
+import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
 import { getTransferListParams, unwrap, useTransfers } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
@@ -62,6 +62,9 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
                 return <TableCell>{timeAgo(item.block_timestamp)}</TableCell>
               } else if (columnKey === 'amount') {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.amount), token?.decimals).toFormat()}</TableCell>
+              } if (columnKey === 'sender' || columnKey === 'receiver') {
+                const address = columnKey === 'sender' ? item.sender : item.receiver
+                return <TableCell><Link href={`/account/${address}`}>{formatHash(address)}</Link></TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

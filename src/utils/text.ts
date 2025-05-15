@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js"
 import dayjs from "dayjs"
-import { BIG_TEN } from "./const"
+import { BIG_TEN, BIGNUMBER_FMT } from "./const"
 
 export const getUTCTime = (timestamp: number, format = 'YYYY-MM-DD HH:mm:ss') => {
     const time = dayjs.unix(timestamp).format(format)
@@ -19,6 +19,10 @@ export function formatHash(hash?: string, units = 12) {
   } else {
     return hash
   }
+}
+
+export function formatNumber(number: string | number | BigNumber) {
+  return new BigNumber(number).toFormat(BIGNUMBER_FMT)
 }
 
 export function getBalanceAmount(amount: BigNumber, decimals?: number): BigNumber {

@@ -245,8 +245,6 @@ export type accountListType = {
 export type getAccountListParams = {
     page?: number
     row?: number
-    block_num?: number
-    address?: string
 }
 
 export const useAccounts = (data: getAccountListParams) => {
@@ -329,32 +327,35 @@ export const usePVMBlocks = (data: getPVMBlockListParams) => {
 };
 
 export type pvmTxInfoType = {
-    author: string;
-    base_fee_per_gas: string;
-    block_hash: string;
     block_num: number;
-    block_size: string;
-    difficulty: string;
-    extra_data: string;
+    block_timestamp: number;
+    contract: string;
+    cumulative_gas_used: string;
+    effective_gas_price: string;
+    extrinsic_index: string;
+    from_address: string;
     gas_limit: string;
+    gas_price: string;
     gas_used: string;
-    logs_bloom: string;
-    miner: string;
-    parent_hash: string;
-    receipts_root: string;
-    seal_fields: string;
-    sha3_uncles: string;
-    state_root: string;
-    timestamp: number;
-    total_difficulty: string;
-    transaction_count: number;
-    transactions_root: string;
-    uncles: string;
+    hash: string;
+    input_data: string;
+    max_fee_per_gas: string;
+    max_priority_fee_per_gas: string;
+    nonce: number;
+    precompile: number;
+    r: string;
+    s: string;
+    success: boolean;
+    to_address: string;
+    transaction_id: number;
+    transaction_index: number;
+    txn_type: number;
+    v: number;
+    value: string;
 }
 
 type getPVMTxParams = {
-    hash?: string
-    block_num?: number
+    hash: string
 }
 
 export const usePVMTx = (data: getPVMTxParams) => {
@@ -382,4 +383,31 @@ export type pvmTxListType = {
 
 export const usePVMTxs = (data: getPVMTxListParams) => {
     return useSWR<APIWrapperProps<pvmTxListType>, Error>(['/api/plugin/evm/transactions', data], postFetcher);
+};
+
+export type pvmAccountType = {
+    evm_account: string
+    balance: string
+}
+
+type getPVMAccountParams = {
+    address: string
+}
+
+export const usePVMAccount = (data: getPVMAccountParams) => {
+    return useSWR<APIWrapperProps<pvmAccountType>, Error>(['/api/plugin/evm/accounts', data], postFetcher);
+};
+
+export type pvmAccountListType = {
+    list: pvmAccountType[]
+    count: number
+}
+
+export type getPVMAccountListParams = {
+    page?: number
+    row?: number
+}
+
+export const usePVMAccounts = (data: getPVMAccountListParams) => {
+    return useSWR<APIWrapperProps<pvmAccountListType>, Error>(['/api/plugin/evm/accounts', data], postFetcher);
 };

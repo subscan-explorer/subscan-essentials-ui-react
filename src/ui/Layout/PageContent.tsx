@@ -6,7 +6,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const PageContent: React.FC<Props> = ({ children, className, disablePadding, ...props }) => (
-  <div className={clsx('flex justify-center', { 'py-4 px-2': !disablePadding }, className)} {...props}>
+  <div className={clsx('flex justify-center', { 'py-2 px-2': !disablePadding }, className)} {...props}>
     {children}
   </div>
 )

@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { getPVMTokenHolderListParams, pvmTokenType, unwrap, usePVMTokenHolders } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import BigNumber from 'bignumber.js'
 import { getBalanceAmount } from '@/utils/text'
+import { Link } from '../link'
 
 interface Props extends BareProps {
   args?: getPVMTokenHolderListParams

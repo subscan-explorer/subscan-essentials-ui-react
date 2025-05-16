@@ -1,15 +1,14 @@
 import React, { useMemo } from 'react'
-import { CardBody, Card, Divider, Snippet, Tabs, Tab, Link } from '@heroui/react'
+import { CardBody, Card, Divider } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { checkIsExtrinsicIndex, getBalanceAmount, getUTCTime, timeAgo } from '@/utils/text'
-import JsonView from '@uiw/react-json-view'
-import { unwrap, useExtrinsic, usePVMTx } from '@/utils/api'
-import { EventTable } from '@/components/event'
+import { getBalanceAmount, getUTCTime, timeAgo } from '@/utils/text'
+import { unwrap, usePVMTx } from '@/utils/api'
 import { Container, PageContent } from '@/ui'
 import { PVM_DECIMAL } from '@/utils/const'
 import BigNumber from 'bignumber.js'
 import { toHex } from 'web3-utils'
 import { OverflowText } from '@/components/overflowText'
+import { Link } from '@/components/link'
 
 export default function Page() {
   const router = useRouter()

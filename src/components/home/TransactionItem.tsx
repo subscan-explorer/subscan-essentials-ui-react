@@ -1,7 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
 import { pvmTxType } from '@/utils/api'
 import { formatHash, timeAgo } from '@/utils/text'
+import { Link } from '../link'
 
 interface TransactionItemProps {
   item: pvmTxType

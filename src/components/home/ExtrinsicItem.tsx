@@ -1,7 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
 import { extrinsicType } from '@/utils/api'
 import { timeAgo } from '@/utils/text'
+import { Link } from '../link'
 
 interface ExtrinsicItemProps {
   item: extrinsicType

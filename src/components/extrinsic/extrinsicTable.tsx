@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { formatHash, timeAgo } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, useExtrinsics } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
+import { Link } from '../link'
 
 interface Props extends BareProps {
   args?: getExtrinsicListParams
@@ -34,8 +35,9 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
           )}
         </div>
       }
+      rowHeight={50}
       classNames={{
-        wrapper: 'min-h-[222px]',
+        // wrapper: 'min-h-[222px]',
       }}>
       <TableHeader>
         <TableColumn key="extrinsic_index">Extrinsic ID</TableColumn>

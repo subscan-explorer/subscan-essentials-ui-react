@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Link } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { formatHash, getBalanceAmount } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, useAccounts, usePVMAccounts } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
 import BigNumber from 'bignumber.js'
+import { Link } from '../link'
 
 interface Props extends BareProps {
   args?: getExtrinsicListParams

@@ -1,11 +1,11 @@
 import React from 'react'
-import { CardBody, Card, Divider, Tabs, Tab, Link } from '@heroui/react'
+import { CardBody, Card, Divider, Tabs, Tab } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { getUTCTime, timeAgo } from '@/utils/text'
+import { getUTCTime } from '@/utils/text'
 import { unwrap, usePVMBlock } from '@/utils/api'
-import { ExtrinsicTable } from '@/components/extrinsic'
 import { Container, PageContent } from '@/ui'
 import { TxTable } from '@/components/tx'
+import { Link } from '@/components/link'
 
 export default function Page() {
   const router = useRouter()

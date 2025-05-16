@@ -20,7 +20,7 @@ const OverflowText: React.FC<{ text: string }> = ({ text }) => {
   return (
     <div className='text-wrap break-all'>
       {text.slice(0, overflowLength)}...
-      <Link className="cursor-pointer" onPress={() => setFullContent(true)}>
+      <Link size='sm' className="cursor-pointer" onPress={() => setFullContent(true)}>
         [{'View All'}]
       </Link>
     </div>

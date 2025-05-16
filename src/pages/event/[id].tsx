@@ -1,10 +1,11 @@
 import React from 'react'
-import { CardBody, Card, Divider, Link } from '@heroui/react'
+import { CardBody, Card, Divider } from '@heroui/react'
 import { useRouter } from 'next/router'
 import { getUTCTime, timeAgo } from '@/utils/text'
 import JsonView from '@uiw/react-json-view'
 import { unwrap, useEvent } from '@/utils/api'
 import { Container, PageContent } from '@/ui'
+import { Link } from '@/components/link'
 
 export default function Page() {
   const router = useRouter()

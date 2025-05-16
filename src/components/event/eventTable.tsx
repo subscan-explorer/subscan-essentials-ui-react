@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { timeAgo } from '@/utils/text'
 import { getEventListParams, unwrap, useEvents } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
+import { Link } from '../link'
 
 interface Props extends BareProps {
   args?: getEventListParams

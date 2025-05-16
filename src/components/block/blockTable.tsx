@@ -14,7 +14,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
   const { data } = useBlocks({
-    page: page,
+    page: page - 1,
     row: rowsPerPage,
   })
 

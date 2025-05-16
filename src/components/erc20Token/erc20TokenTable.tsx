@@ -2,18 +2,19 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { unwrap, usePVMBlocks } from '@/utils/api'
+import { getPVMTokenListParams, unwrap, usePVMTokens } from '@/utils/api'
 import { timeAgo } from '@/utils/text'
 import { PAGE_SIZE } from '@/utils/const'
 
 interface Props extends BareProps {
-  args?: string
+  args?: getPVMTokenListParams
 }
 
-const Component: React.FC<Props> = ({ children, className }) => {
+const Component: React.FC<Props> = ({ args, children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMBlocks({
+  const { data } = usePVMTokens({
+    ...args,
     page: page - 1,
     row: rowsPerPage,
   })
@@ -37,29 +38,27 @@ const Component: React.FC<Props> = ({ children, className }) => {
         wrapper: 'min-h-[222px]',
       }}>
       <TableHeader>
-        <TableColumn key="block_num">Block</TableColumn>
-        <TableColumn key="miner">Miner</TableColumn>
-        <TableColumn key="transactions">Transactions</TableColumn>
-        <TableColumn key="block_timestamp">Time</TableColumn>
+        <TableColumn key="symbol">Symbol</TableColumn>
+        <TableColumn key="name">Name</TableColumn>
+        <TableColumn key="contract">Contract</TableColumn>
+        <TableColumn key="holders">Holder</TableColumn>
       </TableHeader>
       <TableBody items={items || []} emptyContent={'No data'}>
         {(item) => (
-          <TableRow key={item.block_num}>
+          <TableRow key={item.contract}>
             {(columnKey) => {
-              if (columnKey === 'block_num') {
+              if (columnKey === 'contract') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/block/${item.block_num}`}>{item.block_num}</Link>
+                    <Link href={`/pvm/token/${item.contract}`}>{item.contract}</Link>
                   </TableCell>
                 )
-              } else if (columnKey === 'miner') {
+              } else if (columnKey === 'symbol') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/account/${item.miner}`}>{item.miner}</Link>
+                    <Link href={`/pvm/token/${item.contract}`}>{item.symbol}</Link>
                   </TableCell>
                 )
-              } else if (columnKey === 'block_timestamp') {
-                return <TableCell>{timeAgo(item.block_timestamp)}</TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

@@ -3,13 +3,13 @@ import React, { useMemo } from 'react'
 import { BareProps } from '@/types/page'
 import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
-import { getExtrinsicListParams, unwrap, usePVMTxs } from '@/utils/api'
+import { getPVMTxListParams, unwrap, usePVMTxs } from '@/utils/api'
 import { PAGE_SIZE, PVM_DECIMAL } from '@/utils/const'
 import { useData } from '@/context'
 import BigNumber from 'bignumber.js'
 
 interface Props extends BareProps {
-  args?: getExtrinsicListParams
+  args?: getPVMTxListParams
 }
 
 const Component: React.FC<Props> = ({ children, className, args }) => {

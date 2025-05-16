@@ -2,25 +2,28 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Link, Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { unwrap, usePVMBlocks } from '@/utils/api'
-import { timeAgo } from '@/utils/text'
+import { getPVMTokenHolderListParams, pvmTokenType, unwrap, usePVMTokenHolders } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
+import BigNumber from 'bignumber.js'
+import { getBalanceAmount } from '@/utils/text'
 
 interface Props extends BareProps {
-  args?: string
+  args?: getPVMTokenHolderListParams
+  token: pvmTokenType
 }
 
-const Component: React.FC<Props> = ({ children, className }) => {
+const Component: React.FC<Props> = ({ args, token, children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMBlocks({
+  const { data } = usePVMTokenHolders({
+    ...args,
     page: page - 1,
     row: rowsPerPage,
   })
 
   const blockData = unwrap(data)
   const total = blockData?.count || 0
-  const items = blockData?.list
+  const items = blockData?.holders
   const pages = useMemo(() => {
     return blockData?.count ? Math.ceil(blockData?.count / rowsPerPage) : 0
   }, [blockData?.count, rowsPerPage])
@@ -37,29 +40,21 @@ const Component: React.FC<Props> = ({ children, className }) => {
         wrapper: 'min-h-[222px]',
       }}>
       <TableHeader>
-        <TableColumn key="block_num">Block</TableColumn>
-        <TableColumn key="miner">Miner</TableColumn>
-        <TableColumn key="transactions">Transactions</TableColumn>
-        <TableColumn key="block_timestamp">Time</TableColumn>
+        <TableColumn key="holder">Account</TableColumn>
+        <TableColumn key="balance">Balance</TableColumn>
       </TableHeader>
       <TableBody items={items || []} emptyContent={'No data'}>
         {(item) => (
-          <TableRow key={item.block_num}>
+          <TableRow key={item.contract}>
             {(columnKey) => {
-              if (columnKey === 'block_num') {
+              if (columnKey === 'holder') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/block/${item.block_num}`}>{item.block_num}</Link>
+                    <Link href={`/pvm/account/${item.holder}`}>{item.holder}</Link>
                   </TableCell>
                 )
-              } else if (columnKey === 'miner') {
-                return (
-                  <TableCell>
-                    <Link href={`/pvm/account/${item.miner}`}>{item.miner}</Link>
-                  </TableCell>
-                )
-              } else if (columnKey === 'block_timestamp') {
-                return <TableCell>{timeAgo(item.block_timestamp)}</TableCell>
+              } else if (columnKey === 'balance') {
+                return <TableCell>{getBalanceAmount(new BigNumber(item.balance), token.decimals).toFormat()}</TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

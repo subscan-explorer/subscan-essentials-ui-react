@@ -163,12 +163,12 @@ const Component: React.FC<Props> = ({ children, className }) => {
               </Link>
             </DropdownItem>
             <DropdownItem key="erc20">
-              <Link href="/pvm/token" className="block text-inherit">
+              <Link href="/pvm/erc20_token" className="block text-inherit">
                 ERC-20
               </Link>
             </DropdownItem>
             <DropdownItem key="erc721">
-              <Link href="/pvm/token" className="block text-inherit">
+              <Link href="/pvm/erc721_token" className="block text-inherit">
                 ERC-721
               </Link>
             </DropdownItem>

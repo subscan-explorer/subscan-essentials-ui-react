@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js'
 import { ExtrinsicTable } from '@/components/extrinsic'
 import { TransferTable } from '@/components/transfer'
 import { BIG_ZERO } from '@/utils/const'
+import { Container, PageContent } from '@/ui'
 
 export default function Page() {
   const router = useRouter()
@@ -36,53 +37,57 @@ export default function Page() {
   }, [accountData?.reserved, accountData?.locked, accountData?.balance, metadata?.enabledNewTransferableFormulas])
 
   return (
-    <div className="flex flex-col gap-4 p-6">
-      {accountData && (
-        <>
-          <div className="">Account #{accountData.address}</div>
-          <Card>
-            <CardBody>
-              <div className="flex items-center">
-                <div className="w-48">Total Balance</div>
-                <div>{getBalanceAmount(new BigNumber(accountData.balance), token?.decimals).toFormat()}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Transferrable</div>
-                <div>{getBalanceAmount(transferable, token?.decimals).toFormat()}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Locked</div>
-                <div>{getBalanceAmount(new BigNumber(accountData.locked), token?.decimals).toFormat()}</div>
-              </div>
-              <Divider className="my-2.5" />
-              <div className="flex items-center">
-                <div className="w-48">Reserved</div>
-                <div>{getBalanceAmount(new BigNumber(accountData.reserved), token?.decimals).toFormat()}</div>
-              </div>
-            </CardBody>
-          </Card>
-          <Card>
-            <CardBody>
-              <Tabs aria-label="tabs" variant="underlined">
-                <Tab key="extrinsics" title="Extrinsics">
-                  <ExtrinsicTable
-                    args={{
-                      address: id,
-                    }}></ExtrinsicTable>
-                </Tab>
-                <Tab key="transfers" title="Transfers">
-                  <TransferTable
-                    args={{
-                      address: id,
-                    }}></TransferTable>
-                </Tab>
-              </Tabs>
-            </CardBody>
-          </Card>
-        </>
-      )}
-    </div>
+    <PageContent>
+      <Container>
+        <div className="flex flex-col gap-4">
+          {accountData && (
+            <>
+              <div className="">Account #{accountData.address}</div>
+              <Card>
+                <CardBody>
+                  <div className="flex items-center">
+                    <div className="w-48">Total Balance</div>
+                    <div>{getBalanceAmount(new BigNumber(accountData.balance), token?.decimals).toFormat()}</div>
+                  </div>
+                  <Divider className="my-2.5" />
+                  <div className="flex items-center">
+                    <div className="w-48">Transferrable</div>
+                    <div>{getBalanceAmount(transferable, token?.decimals).toFormat()}</div>
+                  </div>
+                  <Divider className="my-2.5" />
+                  <div className="flex items-center">
+                    <div className="w-48">Locked</div>
+                    <div>{getBalanceAmount(new BigNumber(accountData.locked), token?.decimals).toFormat()}</div>
+                  </div>
+                  <Divider className="my-2.5" />
+                  <div className="flex items-center">
+                    <div className="w-48">Reserved</div>
+                    <div>{getBalanceAmount(new BigNumber(accountData.reserved), token?.decimals).toFormat()}</div>
+                  </div>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardBody>
+                  <Tabs aria-label="tabs" variant="underlined">
+                    <Tab key="extrinsics" title="Extrinsics">
+                      <ExtrinsicTable
+                        args={{
+                          address: id,
+                        }}></ExtrinsicTable>
+                    </Tab>
+                    <Tab key="transfers" title="Transfers">
+                      <TransferTable
+                        args={{
+                          address: id,
+                        }}></TransferTable>
+                    </Tab>
+                  </Tabs>
+                </CardBody>
+              </Card>
+            </>
+          )}
+        </div>
+      </Container>
+    </PageContent>
   )
 }

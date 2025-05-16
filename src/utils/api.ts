@@ -365,6 +365,8 @@ export const usePVMTx = (data: getPVMTxParams) => {
 export type getPVMTxListParams = {
     page?: number
     row?: number
+    address?: string
+    block_num?: number
 }
 
 export type pvmTxType = {
@@ -390,14 +392,6 @@ export type pvmAccountType = {
     balance: string
 }
 
-type getPVMAccountParams = {
-    address: string
-}
-
-export const usePVMAccount = (data: getPVMAccountParams) => {
-    return useSWR<APIWrapperProps<pvmAccountType>, Error>(['/api/plugin/evm/accounts', data], postFetcher);
-};
-
 export type pvmAccountListType = {
     list: pvmAccountType[]
     count: number
@@ -406,8 +400,111 @@ export type pvmAccountListType = {
 export type getPVMAccountListParams = {
     page?: number
     row?: number
+    address?: string
 }
 
 export const usePVMAccounts = (data: getPVMAccountListParams) => {
     return useSWR<APIWrapperProps<pvmAccountListType>, Error>(['/api/plugin/evm/accounts', data], postFetcher);
+};
+
+export type pvmTokenType = {
+    base_token_uri: string
+    category: string
+    contract: string
+    decimals: number
+    holders: number
+    name: string
+    symbol: string
+    totalSupply: number
+    transfer_count: number
+}
+export type pvmTokenListType = {
+    list: pvmTokenType[]
+    count: number
+}
+
+export type getPVMTokenListParams = {
+    page?: number
+    row?: number
+    contract?: string
+    category?: string
+}
+
+export const usePVMTokens = (data: getPVMTokenListParams) => {
+    return useSWR<APIWrapperProps<pvmTokenListType>, Error>(['/api/plugin/evm/tokens', data], postFetcher);
+};
+
+export type pvmTokenHolderType = {
+    balance: string
+    contract: string
+    holder: string
+}
+
+export type pvmTokenHolderListType = {
+    holders: pvmTokenHolderType[]
+    count: number
+}
+
+export type getPVMTokenHolderListParams = {
+    page?: number
+    row?: number
+    token_address?: string
+}
+
+export const usePVMTokenHolders = (data: getPVMTokenHolderListParams) => {
+    return useSWR<APIWrapperProps<pvmTokenHolderListType>, Error>(['/api/plugin/evm/token/holder', data], postFetcher);
+};
+
+export type pvmTokenTransferType = {
+    category: string
+    contract: string
+    create_at: number
+    decimals: number
+    from: string
+    hash: string
+    id: number
+    name: string
+    symbol: string
+    to: string
+    value: string
+    
+}
+
+export type pvmTokenTransferListType = {
+    transfers: pvmTokenTransferType[]
+    count: number
+}
+
+export type getPVMTokenTransferListParams = {
+    page?: number
+    row?: number
+    token_address?: string
+    address?: string
+}
+
+export const usePVMTokenTransfers = (data: getPVMTokenTransferListParams) => {
+    return useSWR<APIWrapperProps<pvmTokenTransferListType>, Error>(['/api/plugin/evm/token/transfer', data], postFetcher);
+};
+
+export type pvmAccountTokenType = {
+    balance: number
+    category: string
+    contract: string
+    decimals: number
+    name: string
+    symbol: string
+    
+}
+
+export type pvmAccountTokenListType = pvmAccountTokenType[]
+
+export type getPVMAccountTokenListParams = {
+    page?: number
+    row?: number
+    category?: string
+    address?: string
+}
+
+export const usePVMAccountTokens = (data: getPVMAccountTokenListParams) => {
+    return useSWR<APIWrapperProps<pvmAccountTokenListType>, Error>(['/api/plugin/evm/account/tokens', data], postFetcher);
 };

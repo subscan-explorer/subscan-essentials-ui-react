@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardBody, Card, Divider, Tabs, Tab } from '@heroui/react'
+import { CardBody, Card, Divider, Tabs, Tab, Link } from '@heroui/react'
 import { useRouter } from 'next/router'
 import { getUTCTime, timeAgo } from '@/utils/text'
 import { unwrap, usePVMBlock } from '@/utils/api'
@@ -42,7 +42,7 @@ export default function Page() {
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
                     <div className="w-48">Mined by</div>
-                    <div>{blockData.miner}</div>
+                    <div><Link href={`/pvm/account/${blockData.miner}`}>{blockData.miner}</Link></div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">

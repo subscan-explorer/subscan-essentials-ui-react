@@ -20,7 +20,7 @@ const ExtrinsicItem: React.FC<ExtrinsicItemProps> = ({ item }) => {
         <div>
           <div className="flex items-center">
             <span className="font-medium">Extrinsic# </span>
-            <Link href={linkHref} className="text-blue-600 ml-1">
+            <Link size='md' href={linkHref} className="text-blue-600 ml-1">
               {item.extrinsic_index}
             </Link>
           </div>

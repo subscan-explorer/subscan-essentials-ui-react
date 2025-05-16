@@ -10,7 +10,7 @@ interface InfoCardProps {
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, value, href, bgColor = 'bg-pink-100' }) => {
   return (
-    <Link href={href}>
+    <Link href={href} className='block'>
       <div className={`${bgColor} p-4 rounded-lg hover:shadow-md transition-shadow`}>
         <div className="font-medium text-gray-800">{title}</div>
         <div className="mt-1 font-mono text-gray-700">{value || '-'}</div>

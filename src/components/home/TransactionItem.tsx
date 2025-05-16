@@ -22,7 +22,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ item }) => {
         <div>
           <div className="flex items-center">
             <span className="font-medium">Hash# </span>
-            <Link href={linkHref} className="text-blue-600 ml-1">
+            <Link size='md' href={linkHref} className="text-blue-600 ml-1">
               {formatHash(item.hash)}
             </Link>
           </div>

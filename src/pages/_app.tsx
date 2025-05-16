@@ -8,10 +8,10 @@ import { SWRConfig } from 'swr'
 
 import { HydrationProvider } from '@/components/HydrationProvider'
 
-import RootLayout from './layout'
 import { HeroUIProvider } from '@heroui/react'
 import {type NextRouter} from "next/router";
 import { Navbar } from '@/components/navbar'
+import RootLayout from '@/pages/layout'
 
 
 // This config is required for number formatting

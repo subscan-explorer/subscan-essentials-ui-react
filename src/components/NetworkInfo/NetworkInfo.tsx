@@ -15,12 +15,8 @@ export const NetworkInfo: React.FC = () => {
           <>
             <div>Network:</div>
             <div>{metadata.networkNode}</div>
-            <div>Latest Block:</div>
-            <div>{metadata.blockNum}</div>
             <div>Finalized Block:</div>
             <div>{metadata.finalized_blockNum}</div>
-            <div>Spec Version:</div>
-            <div>{metadata.specVersion}</div>
           </>
         )}
         {token && (

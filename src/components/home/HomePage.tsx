@@ -31,13 +31,13 @@ const HomePage: React.FC = () => {
           <div className="grid grid-cols-2 gap-4 mb-8">
             <InfoCard 
               title="Account" 
-              value={formatNumber(metadata.count_account)}
+              value={formatNumber(metadata.total_account)}
               href="/account"
               bgColor="bg-pink-100"
             />
             <InfoCard 
               title="Transfer" 
-              value={formatNumber(metadata.count_transfer)}
+              value={formatNumber(metadata.total_transfer)}
               href="/transfer"
               bgColor="bg-pink-100"
             />

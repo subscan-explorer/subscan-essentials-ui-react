@@ -34,26 +34,15 @@ const postFetcher = ([url, data]: [string, any]) => {
 export type metadataType = {
     addressType: string;
     balanceAccuracy: string;
-    blockNum: string;
-    count_account: string;
-    count_account_all: string;
-    count_event: string;
     count_extrinsic: string;
     count_signed_extrinsic: string;
-    count_transfer: string;
-    exist_roles: string;
     finalized_blockNum: string;
-    implName: string;
-    min_nominator_bond: string;
     networkNode: string;
-    nftsRefreshAt: string;
-    specVersion: string;
     total_account: string;
     total_evm_account: string;
     total_evm_contract: string;
     total_transaction: string;
     total_transfer: string;
-    uniquesRefreshAt: string;
     enabledNewTransferableFormulas?: boolean
 }
 

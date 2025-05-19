@@ -8,11 +8,11 @@ const Footer: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center">
-            <span className="text-sm mr-2">Funded by Polkadot Treasury</span>
+            <span className="text-sm">Funded by Polkadot Treasury</span>
           </div>
           
           <div className="flex items-center">
-            <span className="text-sm mr-2">Developed by Subscan Team</span>
+            <span className="text-sm">Developed by Subscan Team</span>
           </div>
           
           <div className="flex items-center space-x-4">

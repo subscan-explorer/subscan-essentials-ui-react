@@ -12,6 +12,7 @@ import { HeroUIProvider } from '@heroui/react'
 import {type NextRouter} from "next/router";
 import { Navbar } from '@/components/navbar'
 import RootLayout from '@/pages/layout'
+import { Footer } from '@/components/Footer'
 
 
 // This config is required for number formatting
@@ -44,6 +45,7 @@ const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
           <RootLayout pageProps={pageProps}>
             <Navbar value={''}></Navbar>
             <Component {...pageProps} />
+            {/* <Footer /> */}
           </RootLayout>
         </SWRConfig>
       </HydrationProvider>

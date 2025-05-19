@@ -10,10 +10,9 @@ interface TransactionListProps {
 
 const TransactionList: React.FC<TransactionListProps> = ({}) => {
   const [page, setPage] = React.useState(1)
-  const rowsPerPage = PAGE_SIZE
   const { data, isLoading } = usePVMTxs({
     page: 0,
-    row: rowsPerPage,
+    row: 10,
   })
   const extrinsicsData = unwrap(data)
   const transactions = extrinsicsData?.list

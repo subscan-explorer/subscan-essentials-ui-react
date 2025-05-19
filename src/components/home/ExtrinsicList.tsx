@@ -8,10 +8,9 @@ import { Skeleton } from '@heroui/react'
 interface ExtrinsicListProps {}
 
 const ExtrinsicList: React.FC<ExtrinsicListProps> = ({ }) => {
-  const rowsPerPage = PAGE_SIZE
   const { data, isLoading} = useExtrinsics({
     page: 0,
-    row: rowsPerPage,
+    row: 10,
   })
   const extrinsicsData = unwrap(data)
   const transactions = extrinsicsData?.extrinsics

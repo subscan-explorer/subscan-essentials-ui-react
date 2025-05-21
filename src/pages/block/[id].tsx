@@ -1,17 +1,16 @@
 import React from 'react'
-import { CardBody, Card, Divider, Snippet, Tabs, Tab } from '@heroui/react'
+import { CardBody, Card, Divider, Tabs, Tab } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { getUTCTime, timeAgo } from '@/utils/text'
-import { unwrap, useBlock } from '@/utils/api'
-import { ExtrinsicTable } from '@/components/extrinsic'
-import { EventTable } from '@/components/event'
-import { LogTable } from '@/components/log'
+import { getUTCTime } from '@/utils/text'
+import { unwrap, usePVMBlock } from '@/utils/api'
 import { Container, PageContent } from '@/ui'
+import { TxTable } from '@/components/tx'
+import { Link } from '@/components/link'
 
 export default function Page() {
   const router = useRouter()
   const id = router.query.id
-  const { data } = useBlock({
+  const { data } = usePVMBlock({
     block_num: Number(id),
   })
 
@@ -21,74 +20,57 @@ export default function Page() {
     <PageContent>
       <Container>
         <div className="flex flex-col gap-4">
-          <div className="">Substrate Block #{id}</div>
+          <div className="">PVM Block #{id}</div>
           {blockData && (
             <>
               <Card>
                 <CardBody>
                   <div className="flex items-center">
-                    <div className="w-48">Timestamp</div>
-                    <div>{getUTCTime(blockData.block_timestamp)}</div>
+                    <div className="w-48">Block Hash</div>
+                    <div>{blockData.block_hash}</div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
-                    <div className="w-48">Blocktime</div>
-                    <div>{timeAgo(blockData.block_timestamp)}</div>
+                    <div className="w-48">Timestamp</div>
+                    <div>{getUTCTime(blockData.timestamp)}</div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
                     <div className="w-48">Status</div>
-                    <div>{blockData.finalized ? 'Finalized' : 'Unfinalized'}</div>
+                    <div>{'Finalized'}</div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
-                    <div className="w-48">Hash</div>
-                    <Snippet symbol="">{blockData.hash}</Snippet>
+                    <div className="w-48">Mined by</div>
+                    <div><Link href={`/account/${blockData.miner}`}>{blockData.miner}</Link></div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
-                    <div className="w-48">Parent Hash</div>
-                    <Snippet symbol="">{blockData.parent_hash}</Snippet>
+                    <div className="w-48">Transaction</div>
+                    <div>{blockData.transaction_count}</div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
-                    <div className="w-48">State Root</div>
-                    <div>{blockData.state_root}</div>
+                    <div className="w-48">Size</div>
+                    <div>{blockData.block_size} {'bytes'}</div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
-                    <div className="w-48">Extrinsics Root</div>
-                    <div>{blockData.extrinsics_root}</div>
+                    <div className="w-48">Gas Used</div>
+                    <div>{blockData.gas_used}</div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
-                    <div className="w-48">Collator</div>
-                    <div>{blockData.validator}</div>
-                  </div>
-                  <Divider className="my-2.5" />
-                  <div className="flex items-center">
-                    <div className="w-48">Spec Version</div>
-                    <div>{blockData.spec_version}</div>
+                    <div className="w-48">Gas Limit</div>
+                    <div>{blockData.gas_limit}</div>
                   </div>
                 </CardBody>
               </Card>
               <Card>
                 <CardBody>
                   <Tabs aria-label="tabs" variant="underlined">
-                    <Tab key="extrinsics" title="Extrinsics">
-                      <ExtrinsicTable args={{ block_num: blockData.block_num }}></ExtrinsicTable>
-                    </Tab>
-                    <Tab key="events" title="Events">
-                      <EventTable
-                        args={{
-                          block_num: blockData.block_num,
-                        }}></EventTable>
-                    </Tab>
-                    <Tab key="log" title="Log">
-                      <LogTable
-                        args={{
-                          block_num: blockData.block_num,
-                        }}></LogTable>
+                    <Tab key="transaction" title="Transaction">
+                      <TxTable args={{ block_num: blockData.block_num }}></TxTable>
                     </Tab>
                   </Tabs>
                 </CardBody>

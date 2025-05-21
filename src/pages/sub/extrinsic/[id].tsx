@@ -1,7 +1,7 @@
 import React from 'react'
 import { CardBody, Card, Divider, Snippet, Tabs, Tab } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { checkIsExtrinsicIndex, getUTCTime, timeAgo } from '@/utils/text'
+import { checkIsExtrinsicIndex, getThemeColor, getUTCTime, timeAgo } from '@/utils/text'
 import JsonView from '@uiw/react-json-view'
 import { unwrap, useExtrinsic } from '@/utils/api'
 import { EventTable } from '@/components/event'
@@ -47,7 +47,7 @@ export default function Page() {
                   <div className="flex items-center">
                     <div className="w-48">Block</div>
                     <div>
-                      <Link href={`/block/${extrinsicData.block_num}`}>{extrinsicData.block_num}</Link>
+                      <Link color={getThemeColor(true)} href={`/sub/block/${extrinsicData.block_num}`}>{extrinsicData.block_num}</Link>
                     </div>
                   </div>
                   <Divider className="my-2.5" />

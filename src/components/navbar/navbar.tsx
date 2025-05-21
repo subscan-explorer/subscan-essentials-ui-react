@@ -97,27 +97,27 @@ const Component: React.FC<Props> = ({ children, className }) => {
               base: 'gap-4',
             }}>
             <DropdownItem key="block">
-              <Link href="/block" className="block text-inherit">
+              <Link href="/sub/block" className="block text-inherit">
                 Block
               </Link>
             </DropdownItem>
             <DropdownItem key="extrinsic">
-              <Link href="/extrinsic" className="block text-inherit">
+              <Link href="/sub/extrinsic" className="block text-inherit">
                 Extrinsic
               </Link>
             </DropdownItem>
             <DropdownItem key="account">
-              <Link href="/account" className="block text-inherit">
+              <Link href="/sub/account" className="block text-inherit">
                 Account
               </Link>
             </DropdownItem>
             <DropdownItem key="event">
-              <Link href="/event" className="block text-inherit">
+              <Link href="/sub/event" className="block text-inherit">
                 Event
               </Link>
             </DropdownItem>
             <DropdownItem key="transfer">
-              <Link href="/transfer" className="block text-inherit">
+              <Link href="/sub/transfer" className="block text-inherit">
                 Transfer
               </Link>
             </DropdownItem>
@@ -143,32 +143,32 @@ const Component: React.FC<Props> = ({ children, className }) => {
               base: 'gap-4',
             }}>
             <DropdownItem key="block">
-              <Link href="/pvm/block" className="block text-inherit">
+              <Link href="/block" className="block text-inherit">
                 Block
               </Link>
             </DropdownItem>
             <DropdownItem key="extrinsic">
-              <Link href="/pvm/tx" className="block text-inherit">
+              <Link href="/tx" className="block text-inherit">
                 Transaction
               </Link>
             </DropdownItem>
             <DropdownItem key="account">
-              <Link href="/pvm/account" className="block text-inherit">
+              <Link href="/account" className="block text-inherit">
                 Account
               </Link>
             </DropdownItem>
             <DropdownItem key="contract">
-              <Link href="/pvm/contract" className="block text-inherit">
+              <Link href="/contract" className="block text-inherit">
                 Contract
               </Link>
             </DropdownItem>
             <DropdownItem key="erc20">
-              <Link href="/pvm/erc20_token" className="block text-inherit">
+              <Link href="/erc20_token" className="block text-inherit">
                 ERC-20
               </Link>
             </DropdownItem>
             <DropdownItem key="erc721">
-              <Link href="/pvm/erc721_token" className="block text-inherit">
+              <Link href="/erc721_token" className="block text-inherit">
                 ERC-721
               </Link>
             </DropdownItem>

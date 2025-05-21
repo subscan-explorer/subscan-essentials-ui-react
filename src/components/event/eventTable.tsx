@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { timeAgo } from '@/utils/text'
+import { getThemeColor, timeAgo } from '@/utils/text'
 import { getEventListParams, unwrap, useEvents } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
@@ -31,7 +31,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && (
-            <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
+            <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
           )}
         </div>
       }
@@ -50,7 +50,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               if (columnKey === 'event_idx') {
                 return (
                   <TableCell>
-                    <Link href={`/event/${item.event_index}`}>{item.event_index}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/event/${item.event_index}`}>{item.event_index}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'module_id') {

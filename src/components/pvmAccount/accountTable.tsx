@@ -52,7 +52,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               if (columnKey === 'balance') {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.balance), token?.decimals).toFormat()}</TableCell>
               } else if (columnKey === 'address') {
-                return <TableCell><Link href={`/pvm/account/${item.evm_account}`}>{item.evm_account}</Link></TableCell>
+                return <TableCell><Link href={`/account/${item.evm_account}`}>{item.evm_account}</Link></TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

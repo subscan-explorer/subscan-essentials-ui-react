@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { formatHash, getBalanceAmount } from '@/utils/text'
+import { formatHash, getBalanceAmount, getThemeColor } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, useAccounts } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
@@ -34,7 +34,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && (
-            <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
+            <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
           )}
         </div>
       }
@@ -52,7 +52,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               if (columnKey === 'balance') {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.balance), token?.decimals).toFormat()}</TableCell>
               } else if (columnKey === 'address') {
-                return <TableCell><Link href={`/account/${item.address}`}>{item.address}</Link></TableCell>
+                return <TableCell><Link color={getThemeColor(true)} href={`/sub/account/${item.address}`}>{item.address}</Link></TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

@@ -9,7 +9,7 @@ interface ExtrinsicItemProps {
 
 const ExtrinsicItem: React.FC<ExtrinsicItemProps> = ({ item }) => {
   const baseUrl = ''
-  const linkHref = `/extrinsic/${item.extrinsic_index}`
+  const linkHref = `/sub/extrinsic/${item.extrinsic_index}`
 
   const bgColor = 'bg-pink-50'
   const hoverBgColor = 'hover:bg-pink-100'

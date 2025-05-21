@@ -55,11 +55,11 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
                 const address = columnKey === 'from' ? item.from : item.to
                 return (
                   <TableCell>
-                    <Link href={`/pvm/account/${address}`}>{formatHash(address)}</Link>
+                    <Link href={`/account/${address}`}>{formatHash(address)}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'hash') {
-                return <TableCell><Link href={`/pvm/tx/${item.hash}`}>{formatHash(item.hash)}</Link></TableCell>
+                return <TableCell><Link href={`/tx/${item.hash}`}>{formatHash(item.hash)}</Link></TableCell>
               } else if (columnKey === 'value') {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.value), item.decimals).toFormat()} {item.symbol}</TableCell>
               } else if (columnKey === 'create_at') {

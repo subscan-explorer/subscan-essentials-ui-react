@@ -51,7 +51,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
               if (columnKey === 'holder') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/account/${item.holder}`}>{item.holder}</Link>
+                    <Link href={`/account/${item.holder}`}>{item.holder}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'balance') {

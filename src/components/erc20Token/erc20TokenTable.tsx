@@ -51,13 +51,13 @@ const Component: React.FC<Props> = ({ args, children, className }) => {
               if (columnKey === 'contract') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/token/${item.contract}`}>{item.contract}</Link>
+                    <Link href={`/token/${item.contract}`}>{item.contract}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'symbol') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/token/${item.contract}`}>{item.symbol}</Link>
+                    <Link href={`/token/${item.contract}`}>{item.symbol}</Link>
                   </TableCell>
                 )
               }

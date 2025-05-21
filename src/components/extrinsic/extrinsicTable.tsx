@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { formatHash, timeAgo } from '@/utils/text'
+import { formatHash, getThemeColor, timeAgo } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, useExtrinsics } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
@@ -31,7 +31,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && (
-            <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
+            <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
           )}
         </div>
       }
@@ -53,13 +53,13 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               if (columnKey === 'extrinsic_index') {
                 return (
                   <TableCell>
-                    <Link href={`/extrinsic/${item.extrinsic_index}`}>{item.extrinsic_index}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/extrinsic/${item.extrinsic_index}`}>{item.extrinsic_index}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'extrinsic_hash') {
                 return (
                   <TableCell>
-                    <Link href={`/extrinsic/${item.extrinsic_hash}`}>{formatHash(item.extrinsic_hash)}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/extrinsic/${item.extrinsic_hash}`}>{formatHash(item.extrinsic_hash)}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'success') {

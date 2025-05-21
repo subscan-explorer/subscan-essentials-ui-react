@@ -1,5 +1,5 @@
 import React from 'react'
-import { PVMBlockTable } from '@/components/pvmBlock'
+import { AccountTable } from '@/components/account'
 import { Container, PageContent } from '@/ui'
 
 export default function Page() {
@@ -7,8 +7,8 @@ export default function Page() {
     <PageContent>
       <Container>
         <div className="flex flex-col gap-4">
-          <div className="">PVM Blocks</div>
-          <PVMBlockTable></PVMBlockTable>
+          <div className="">Substrate Accounts</div>
+          <AccountTable></AccountTable>
         </div>
       </Container>
     </PageContent>

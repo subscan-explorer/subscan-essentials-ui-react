@@ -18,13 +18,13 @@ const HomePage: React.FC = () => {
             <InfoCard 
               title="Substrate Block" 
               value={formatNumber(metadata.finalized_blockNum)}
-              href="/block"
+              href="/sub/block"
               bgColor="bg-pink-100"
             />
             <InfoCard 
               title="Extrinsic" 
               value={formatNumber(metadata.count_extrinsic)}
-              href="/extrinsic"
+              href="/sub/extrinsic"
               bgColor="bg-pink-100"
             />
           </div>
@@ -32,13 +32,13 @@ const HomePage: React.FC = () => {
             <InfoCard 
               title="Account" 
               value={formatNumber(metadata.total_account)}
-              href="/account"
+              href="/sub/account"
               bgColor="bg-pink-100"
             />
             <InfoCard 
               title="Transfer" 
               value={formatNumber(metadata.total_transfer)}
-              href="/transfer"
+              href="/sub/transfer"
               bgColor="bg-pink-100"
             />
           </div>
@@ -51,13 +51,13 @@ const HomePage: React.FC = () => {
             <InfoCard 
               title="PVM Block" 
               value={metadata.finalized_blockNum}
-              href="/pvm/block"
+              href="/block"
               bgColor="bg-blue-100"
             />
             <InfoCard 
               title="Transaction" 
               value={metadata.total_transaction}
-              href="/pvm/tx"
+              href="/tx"
               bgColor="bg-blue-100"
             />
           </div>
@@ -65,13 +65,13 @@ const HomePage: React.FC = () => {
             <InfoCard 
               title="PVM Account" 
               value={metadata.total_evm_account}
-              href="/pvm/account"
+              href="/account"
               bgColor="bg-blue-100"
             />
             <InfoCard 
               title="PVM Contract" 
               value={metadata.total_evm_contract}
-              href="/pvm/contract"
+              href="/contract"
               bgColor="bg-blue-100"
             />
           </div>

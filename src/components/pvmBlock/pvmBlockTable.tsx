@@ -50,13 +50,13 @@ const Component: React.FC<Props> = ({ children, className }) => {
               if (columnKey === 'block_num') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/block/${item.block_num}`}>{item.block_num}</Link>
+                    <Link href={`/block/${item.block_num}`}>{item.block_num}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'miner') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/account/${item.miner}`}>{item.miner}</Link>
+                    <Link href={`/account/${item.miner}`}>{item.miner}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'block_timestamp') {

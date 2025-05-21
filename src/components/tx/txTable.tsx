@@ -56,20 +56,20 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               if (columnKey === 'hash') {
                 return (
                   <TableCell>
-                    <Link href={`/pvm/tx/${item.hash}`}>{formatHash(item.hash)}</Link>
+                    <Link href={`/tx/${item.hash}`}>{formatHash(item.hash)}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'from_address' || columnKey === 'to_address') {
                 const address = columnKey === 'from_address' ? item.from_address : item.to_address
                 return (
                   <TableCell>
-                    <Link href={`/pvm/account/${address}`}>{formatHash(address)}</Link>
+                    <Link href={`/account/${address}`}>{formatHash(address)}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'value') {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.value), PVM_DECIMAL).toFormat()}</TableCell>
               } else if (columnKey === 'block_num') {
-                return <TableCell><Link href={`/pvm/block/${item.block_num}`}>{item.block_num}</Link></TableCell>
+                return <TableCell><Link href={`/block/${item.block_num}`}>{item.block_num}</Link></TableCell>
               } else if (columnKey === 'block_timestamp') {
                 return <TableCell>{timeAgo(item.block_timestamp)}</TableCell>
               }

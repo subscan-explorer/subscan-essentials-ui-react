@@ -7,6 +7,10 @@ export const getUTCTime = (timestamp: number, format = 'YYYY-MM-DD HH:mm:ss') =>
     return `${time} (UTC)`
 }
 
+export type themeType = "danger" | "primary" | undefined
+export function getThemeColor(isSubstrate?: boolean): themeType {
+  return isSubstrate ? 'danger': 'primary'
+}
 export function checkIsExtrinsicIndex(extrinsicKey: string): boolean {
   const reg = /^[0-9]+-[0-9]+$/
   return reg.test(extrinsicKey)

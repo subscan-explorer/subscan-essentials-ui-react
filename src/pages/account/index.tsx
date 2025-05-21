@@ -1,5 +1,5 @@
 import React from 'react'
-import { AccountTable } from '@/components/account'
+import { AccountTable } from '@/components/pvmAccount'
 import { Container, PageContent } from '@/ui'
 
 export default function Page() {
@@ -7,7 +7,7 @@ export default function Page() {
     <PageContent>
       <Container>
         <div className="flex flex-col gap-4">
-          <div className="">Substrate Accounts</div>
+          <div className="">PVM Accounts</div>
           <AccountTable></AccountTable>
         </div>
       </Container>

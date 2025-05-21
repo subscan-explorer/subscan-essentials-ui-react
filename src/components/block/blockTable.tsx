@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { unwrap, useBlocks } from '@/utils/api'
-import { timeAgo } from '@/utils/text'
+import { getThemeColor, timeAgo } from '@/utils/text'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
 
@@ -31,7 +31,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
       aria-label="Example table with client side pagination"
       bottomContent={
         <div className="flex w-full justify-center">
-          {pages > 0 && <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />}
+          {pages > 0 && <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />}
         </div>
       }
       classNames={{
@@ -51,13 +51,13 @@ const Component: React.FC<Props> = ({ children, className }) => {
               if (columnKey === 'block_num') {
                 return (
                   <TableCell>
-                    <Link href={`/block/${item.block_num}`}>{item.block_num}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/block/${item.block_num}`}>{item.block_num}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'hash') {
                 return (
                   <TableCell>
-                    <Link href={`/block/${item.block_num}`}>{item.hash}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/block/${item.block_num}`}>{item.hash}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'block_timestamp') {

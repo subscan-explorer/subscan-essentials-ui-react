@@ -58,7 +58,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
               } else if (columnKey === 'category') {
                 return <TableCell>{item.category === 'erc20' ? 'ERC-20' : 'ERC-721'}</TableCell>
               } else if (columnKey === 'contract') {
-                return <TableCell><Link href={`/pvm/token/${item.contract}`}>{formatHash(item.contract)}</Link></TableCell>
+                return <TableCell><Link href={`/token/${item.contract}`}>{formatHash(item.contract)}</Link></TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

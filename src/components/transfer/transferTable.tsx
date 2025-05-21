@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
+import { formatHash, getBalanceAmount, getThemeColor, timeAgo } from '@/utils/text'
 import { getTransferListParams, unwrap, useTransfers } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
@@ -34,7 +34,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && (
-            <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
+            <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
           )}
         </div>
       }
@@ -56,7 +56,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               if (columnKey === 'event_idx') {
                 return (
                   <TableCell>
-                    <Link href={`/event/${eventIndex}`}>{eventIndex}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/event/${eventIndex}`}>{eventIndex}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'block_timestamp') {
@@ -65,7 +65,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.amount), token?.decimals).toFormat()}</TableCell>
               } if (columnKey === 'sender' || columnKey === 'receiver') {
                 const address = columnKey === 'sender' ? item.sender : item.receiver
-                return <TableCell><Link href={`/account/${address}`}>{formatHash(address)}</Link></TableCell>
+                return <TableCell><Link color={getThemeColor(true)} href={`/sub/account/${address}`}>{formatHash(address)}</Link></TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

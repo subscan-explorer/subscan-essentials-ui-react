@@ -31,7 +31,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
 
   return (
     <Table
-      aria-label="Example table with client side pagination"
+      aria-label="Table"
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />}
@@ -39,6 +39,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
       }
       classNames={{
         wrapper: 'min-h-[222px]',
+        td: 'h-[50px]'
       }}>
       <TableHeader>
         <TableColumn key="holder">Account</TableColumn>

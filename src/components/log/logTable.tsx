@@ -27,7 +27,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
   }, [extrinsicsData, rowsPerPage])
   return (
     <Table
-      aria-label="Example table with client side pagination"
+      aria-label="Table"
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />}
@@ -35,6 +35,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
       }
       classNames={{
         wrapper: 'min-h-[222px]',
+        td: 'h-[50px]'
       }}>
       <TableHeader>
         <TableColumn key="log_index">Log Index</TableColumn>

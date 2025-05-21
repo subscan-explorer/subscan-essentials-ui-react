@@ -27,7 +27,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
     }, [extrinsicsData?.count, rowsPerPage]);
   return (
     <Table
-      aria-label="Example table with client side pagination"
+      aria-label="Table"
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && (
@@ -35,9 +35,9 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
           )}
         </div>
       }
-      rowHeight={50}
       classNames={{
-        // wrapper: 'min-h-[222px]',
+        wrapper: 'min-h-[222px]',
+        td: 'h-[50px]'
       }}>
       <TableHeader>
         <TableColumn key="extrinsic_index">Extrinsic ID</TableColumn>

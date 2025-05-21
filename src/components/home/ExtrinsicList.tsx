@@ -15,8 +15,8 @@ const ExtrinsicList: React.FC<ExtrinsicListProps> = ({ }) => {
   const extrinsicsData = unwrap(data)
   const transactions = extrinsicsData?.extrinsics
   return (
-    <div>
-      <h2 className="text-lg font-medium mb-4">Substrate Extrinsic</h2>
+    <div className='bg-pink-50 rounded-lg p-5'>
+      <h2 className="text-lg font-semibold mb-4">Substrate Extrinsic</h2>
       <Skeleton className="w-full rounded-lg" isLoaded={!isLoading}>
         <div>
           {_.map(transactions, (tx) => (

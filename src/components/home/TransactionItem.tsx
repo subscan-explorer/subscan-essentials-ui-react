@@ -13,16 +13,16 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ item }) => {
   const fromLink = `/account/${item.from_address}`
   const toLink = `/account/${item.to_address}`
 
-  const bgColor = 'bg-blue-50'
-  const hoverBgColor = 'hover:bg-blue-100'
+  const bgColor = 'bg-white'
+  const hoverBgColor = 'hover:shadow-md'
 
   return (
-    <div className={`${bgColor} ${hoverBgColor} p-4 rounded-lg mb-2 transition-colors`}>
+    <div className={`${bgColor} ${hoverBgColor} p-4 rounded-lg mb-4 transition-shadow`}>
       <div className="flex justify-between items-center">
         <div>
           <div className="flex items-center">
             <span className="font-medium">Hash# </span>
-            <Link size='md' href={linkHref} className="text-blue-600 ml-1">
+            <Link size='md' href={linkHref} className="text-blue-600 ml-1 font-semibold">
               {formatHash(item.hash)}
             </Link>
           </div>

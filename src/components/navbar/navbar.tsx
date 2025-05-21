@@ -14,6 +14,7 @@ import {
   DropdownTrigger,
   Link,
   Input,
+  Image,
 } from '@heroui/react'
 
 interface Props extends BareProps {
@@ -66,133 +67,154 @@ const Component: React.FC<Props> = ({ children, className }) => {
   }
 
   return (
-    <Navbar position="static" maxWidth="full" classNames={
-      {
-        wrapper: 'px-4',
-      }
-    }>
-      <NavbarBrand>
-        <Link href="/" className="text-inherit">
-          <p className="font-bold text-inherit">Subscan Essential</p>
-        </Link>
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <Dropdown>
+    <div
+      className="bg-no-repeat bg-cover bg-center"
+      style={{
+        backgroundImage: 'url(/images/navbar.png)',
+        backgroundSize: 'cover',
+      }}>
+      <Navbar
+        position="static"
+        maxWidth="full"
+        classNames={{
+          wrapper: 'px-0 w-full lg:max-w-screen-xl',
+          base: 'bg-transparent backdrop-filter-none',
+        }}>
+        <NavbarBrand>
+          <Link href="/" className="text-inherit">
+            <Image className="rounded-none" alt="subscan" src="/images/logo.png" width={202} height={25} />
+          </Link>
+        </NavbarBrand>
+        <NavbarContent className="hidden sm:flex gap-4" justify="end">
+          <Dropdown>
+            <NavbarItem>
+              <DropdownTrigger>
+                <Button
+                  disableRipple
+                  size="lg"
+                  className="p-0 bg-transparent data-[hover=true]:bg-transparent text-white"
+                  radius="sm"
+                  variant="light"
+                  endContent={icons.chevron}>
+                  Substrate
+                </Button>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu
+              aria-label="Substrate"
+              itemClasses={{
+                base: 'gap-4',
+              }}>
+              <DropdownItem key="block">
+                <Link href="/sub/block" className="block text-inherit">
+                  Block
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="extrinsic">
+                <Link href="/sub/extrinsic" className="block text-inherit">
+                  Extrinsic
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="account">
+                <Link href="/sub/account" className="block text-inherit">
+                  Account
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="event">
+                <Link href="/sub/event" className="block text-inherit">
+                  Event
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="transfer">
+                <Link href="/sub/transfer" className="block text-inherit">
+                  Transfer
+                </Link>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          <Dropdown>
+            <NavbarItem>
+              <DropdownTrigger>
+                <Button
+                  disableRipple
+                  size="lg"
+                  className="p-0 bg-transparent data-[hover=true]:bg-transparent text-white"
+                  radius="sm"
+                  variant="light"
+                  endContent={icons.chevron}>
+                  PVM
+                </Button>
+              </DropdownTrigger>
+            </NavbarItem>
+            <DropdownMenu
+              aria-label="Substrate"
+              itemClasses={{
+                base: 'gap-4',
+              }}>
+              <DropdownItem key="block">
+                <Link href="/block" className="block text-inherit">
+                  Block
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="extrinsic">
+                <Link href="/tx" className="block text-inherit">
+                  Transaction
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="account">
+                <Link href="/account" className="block text-inherit">
+                  Account
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="contract">
+                <Link href="/contract" className="block text-inherit">
+                  Contract
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="erc20">
+                <Link href="/erc20_token" className="block text-inherit">
+                  ERC-20
+                </Link>
+              </DropdownItem>
+              <DropdownItem key="erc721">
+                <Link href="/erc721_token" className="block text-inherit">
+                  ERC-721
+                </Link>
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
           <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                disableRipple
-                size="lg"
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                radius="sm"
-                variant="light"
-                endContent={icons.chevron}>
-                Substrate
-              </Button>
-            </DropdownTrigger>
+            <Link className="text-white font-semibold" href="/sub/extrinsic">
+              Extrinsic
+            </Link>
           </NavbarItem>
-          <DropdownMenu
-            aria-label="Substrate"
-            itemClasses={{
-              base: 'gap-4',
-            }}>
-            <DropdownItem key="block">
-              <Link href="/sub/block" className="block text-inherit">
-                Block
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="extrinsic">
-              <Link href="/sub/extrinsic" className="block text-inherit">
-                Extrinsic
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="account">
-              <Link href="/sub/account" className="block text-inherit">
-                Account
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="event">
-              <Link href="/sub/event" className="block text-inherit">
-                Event
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="transfer">
-              <Link href="/sub/transfer" className="block text-inherit">
-                Transfer
-              </Link>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-        <Dropdown>
           <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                disableRipple
-                size="lg"
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                radius="sm"
-                variant="light"
-                endContent={icons.chevron}>
-                PVM
-              </Button>
-            </DropdownTrigger>
+            <Link className="text-white font-semibold" href="/tx">
+              Transaction
+            </Link>
           </NavbarItem>
-          <DropdownMenu
-            aria-label="Substrate"
-            itemClasses={{
-              base: 'gap-4',
-            }}>
-            <DropdownItem key="block">
-              <Link href="/block" className="block text-inherit">
-                Block
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="extrinsic">
-              <Link href="/tx" className="block text-inherit">
-                Transaction
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="account">
-              <Link href="/account" className="block text-inherit">
-                Account
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="contract">
-              <Link href="/contract" className="block text-inherit">
-                Contract
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="erc20">
-              <Link href="/erc20_token" className="block text-inherit">
-                ERC-20
-              </Link>
-            </DropdownItem>
-            <DropdownItem key="erc721">
-              <Link href="/erc721_token" className="block text-inherit">
-                ERC-721
-              </Link>
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <Input
-          classNames={{
-            base: 'max-w-full sm:max-w-[10rem] h-10',
-            mainWrapper: 'h-full',
-            input: 'text-small',
-            inputWrapper: 'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
-          }}
-          value={value}
-          onValueChange={setValue}
-          onKeyDown={handleSearch}
-          placeholder="Search..."
-          size="sm"
-          startContent={icons.search}
-          type="search"
-        />
-      </NavbarContent>
-    </Navbar>
+        </NavbarContent>
+      </Navbar>
+      <div className="w-full px-4 pb-6 flex justify-center">
+        <div className="w-full lg:max-w-screen-xl">
+          <Input
+            classNames={{
+              base: 'lg:max-w-2xl max-w-[10rem] h-10 mx-auto',
+              mainWrapper: 'h-full',
+              input: 'text-small',
+              inputWrapper: 'h-full font-normal bg-white',
+            }}
+            value={value}
+            onValueChange={setValue}
+            onKeyDown={handleSearch}
+            placeholder="Search"
+            size="md"
+            startContent={icons.search}
+            type="search"
+          />
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { extrinsicType } from '@/utils/api'
-import { timeAgo } from '@/utils/text'
+import { getThemeColor, timeAgo } from '@/utils/text'
 import { Link } from '../link'
 
 interface ExtrinsicItemProps {
@@ -11,16 +11,16 @@ const ExtrinsicItem: React.FC<ExtrinsicItemProps> = ({ item }) => {
   const baseUrl = ''
   const linkHref = `/sub/extrinsic/${item.extrinsic_index}`
 
-  const bgColor = 'bg-pink-50'
-  const hoverBgColor = 'hover:bg-pink-100'
+  const bgColor = 'bg-white'
+  const hoverBgColor = 'hover:shadow-md'
 
   return (
-    <div className={`${bgColor} ${hoverBgColor} p-4 rounded-lg mb-2 transition-colors`}>
+    <div className={`${bgColor} ${hoverBgColor} p-4 rounded-lg mb-4 transition-shadow`}>
       <div className="flex justify-between items-center">
         <div>
           <div className="flex items-center">
             <span className="font-medium">Extrinsic# </span>
-            <Link size='md' href={linkHref} className="text-blue-600 ml-1">
+            <Link color={getThemeColor(true)} size='md' href={linkHref} className="ml-1 font-semibold">
               {item.extrinsic_index}
             </Link>
           </div>

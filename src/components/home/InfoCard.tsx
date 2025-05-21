@@ -5,15 +5,15 @@ interface InfoCardProps {
   title: string;
   value?: string;
   href: string;
-  bgColor?: string;
+  color?: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ title, value, href, bgColor = 'bg-pink-100' }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ title, value, href, color = 'pink-100' }) => {
   return (
     <Link href={href} className='block'>
-      <div className={`${bgColor} p-4 rounded-lg hover:shadow-md transition-shadow`}>
-        <div className="font-medium text-gray-800">{title}</div>
-        <div className="mt-1 font-mono text-gray-700">{value || '-'}</div>
+      <div className={`bg-white p-4 rounded-lg hover:shadow-md transition-shadow`}>
+        <div className="text-zinc-500">{title}</div>
+        <div className={`${color} mt-1 font-semibold text-xl`}>{value || '-'}</div>
       </div>
     </Link>
   );

@@ -17,8 +17,8 @@ const TransactionList: React.FC<TransactionListProps> = ({}) => {
   const extrinsicsData = unwrap(data)
   const transactions = extrinsicsData?.list
   return (
-    <div>
-      <h2 className="text-lg font-medium mb-4">PVM Transaction</h2>
+    <div className='bg-pink-50 rounded-lg p-5'>
+      <h2 className="text-lg font-semibold mb-4">PVM Transaction</h2>
       <Skeleton className="w-full rounded-lg" isLoaded={!isLoading}>
         <div>
             {_.map(transactions, (tx) => (

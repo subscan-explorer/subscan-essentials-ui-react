@@ -14,68 +14,68 @@ const HomePage: React.FC = () => {
     <div className="mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <InfoCard 
-              title="Substrate Block" 
-              value={formatNumber(metadata.finalized_blockNum)}
-              href="/sub/block"
-              bgColor="bg-pink-100"
-            />
-            <InfoCard 
-              title="Extrinsic" 
-              value={formatNumber(metadata.count_extrinsic)}
-              href="/sub/extrinsic"
-              bgColor="bg-pink-100"
-            />
+          <div className='bg-pink-50 rounded-lg p-5 mb-5'>
+            <div className='mb-4 text-lg font-semibold'>Substrate</div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <InfoCard 
+                title="Substrate Block" 
+                value={formatNumber(metadata.finalized_blockNum)}
+                href="/sub/block"
+                color="text-red-500"
+              />
+              <InfoCard 
+                title="Extrinsic" 
+                value={formatNumber(metadata.count_extrinsic)}
+                href="/sub/extrinsic"
+                color="text-red-500"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <InfoCard 
+                title="Account" 
+                value={formatNumber(metadata.total_account)}
+                href="/sub/account"
+                color="text-red-500"
+              />
+              <InfoCard 
+                title="Transfer" 
+                value={formatNumber(metadata.total_transfer)}
+                href="/sub/transfer"
+                color="text-red-500"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <InfoCard 
-              title="Account" 
-              value={formatNumber(metadata.total_account)}
-              href="/sub/account"
-              bgColor="bg-pink-100"
-            />
-            <InfoCard 
-              title="Transfer" 
-              value={formatNumber(metadata.total_transfer)}
-              href="/sub/transfer"
-              bgColor="bg-pink-100"
-            />
-          </div>
-          
           <ExtrinsicList/>
         </div>
         
         <div>
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <InfoCard 
-              title="PVM Block" 
-              value={metadata.finalized_blockNum}
-              href="/block"
-              bgColor="bg-blue-100"
-            />
-            <InfoCard 
-              title="Transaction" 
-              value={metadata.total_transaction}
-              href="/tx"
-              bgColor="bg-blue-100"
-            />
+          <div className='bg-blue-50 rounded-lg p-5 mb-5'>
+            <div className='mb-4 text-lg font-semibold'>PVM</div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <InfoCard 
+                title="PVM Block" 
+                value={metadata.finalized_blockNum}
+                href="/block"
+              />
+              <InfoCard 
+                title="Transaction" 
+                value={metadata.total_transaction}
+                href="/tx"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <InfoCard 
+                title="PVM Account" 
+                value={metadata.total_evm_account}
+                href="/account"
+              />
+              <InfoCard 
+                title="PVM Contract" 
+                value={metadata.total_evm_contract}
+                href="/contract"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <InfoCard 
-              title="PVM Account" 
-              value={metadata.total_evm_account}
-              href="/account"
-              bgColor="bg-blue-100"
-            />
-            <InfoCard 
-              title="PVM Contract" 
-              value={metadata.total_evm_contract}
-              href="/contract"
-              bgColor="bg-blue-100"
-            />
-          </div>
-          
           <TransactionList/>
         </div>
       </div>

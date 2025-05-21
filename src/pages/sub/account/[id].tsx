@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { CardBody, Card, Divider, Tabs, Tab } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { getBalanceAmount } from '@/utils/text'
+import { getBalanceAmount, getThemeColor } from '@/utils/text'
 import { unwrap, useAccount } from '@/utils/api'
 import { useData } from '@/context'
 import BigNumber from 'bignumber.js'
@@ -68,7 +68,7 @@ export default function Page() {
               </Card>
               <Card>
                 <CardBody>
-                  <Tabs aria-label="tabs" variant="underlined">
+                  <Tabs aria-label="tabs" variant="underlined" color={getThemeColor(true)}>
                     <Tab key="extrinsics" title="Extrinsics">
                       <ExtrinsicTable
                         args={{

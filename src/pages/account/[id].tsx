@@ -1,7 +1,7 @@
 import React from 'react'
 import { CardBody, Card, Tabs, Tab } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { getBalanceAmount } from '@/utils/text'
+import { getBalanceAmount, getThemeColor } from '@/utils/text'
 import { unwrap, usePVMAccounts } from '@/utils/api'
 import { useData } from '@/context'
 import BigNumber from 'bignumber.js'
@@ -42,7 +42,7 @@ export default function Page() {
               </Card>
               <Card>
                 <CardBody>
-                  <Tabs aria-label="tabs" variant="underlined">
+                  <Tabs aria-label="tabs" variant="underlined" color={getThemeColor()}>
                     <Tab key="erc20" title="ERC-20 Tokens">
                       <TokenTable
                         args={{

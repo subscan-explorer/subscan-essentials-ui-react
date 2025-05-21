@@ -101,7 +101,7 @@ export default function Page() {
               </Card>
               <Card>
                 <CardBody>
-                  <Tabs aria-label="tabs" variant="underlined">
+                  <Tabs aria-label="tabs" variant="underlined" color={getThemeColor(true)}>
                     <Tab key="events" title="Events">
                       <EventTable
                         args={{

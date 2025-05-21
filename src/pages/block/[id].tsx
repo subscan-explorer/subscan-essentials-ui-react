@@ -1,7 +1,7 @@
 import React from 'react'
 import { CardBody, Card, Divider, Tabs, Tab } from '@heroui/react'
 import { useRouter } from 'next/router'
-import { getUTCTime } from '@/utils/text'
+import { getThemeColor, getUTCTime } from '@/utils/text'
 import { unwrap, usePVMBlock } from '@/utils/api'
 import { Container, PageContent } from '@/ui'
 import { TxTable } from '@/components/tx'
@@ -68,7 +68,7 @@ export default function Page() {
               </Card>
               <Card>
                 <CardBody>
-                  <Tabs aria-label="tabs" variant="underlined">
+                  <Tabs aria-label="tabs" variant="underlined" color={getThemeColor()}>
                     <Tab key="transaction" title="Transaction">
                       <TxTable args={{ block_num: blockData.block_num }}></TxTable>
                     </Tab>

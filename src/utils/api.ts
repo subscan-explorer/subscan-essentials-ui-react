@@ -382,7 +382,7 @@ export type pvmAccountType = {
 }
 
 export type pvmAccountListType = {
-    list: pvmAccountType[]
+    list: pvmAccountType[] | null
     count: number
 }
 
@@ -469,6 +469,7 @@ export type getPVMTokenTransferListParams = {
     row?: number
     token_address?: string
     address?: string
+    category?: string
 }
 
 export const usePVMTokenTransfers = (data: getPVMTokenTransferListParams) => {
@@ -496,4 +497,64 @@ export type getPVMAccountTokenListParams = {
 
 export const usePVMAccountTokens = (data: getPVMAccountTokenListParams) => {
     return useSWR<APIWrapperProps<pvmAccountTokenListType>, Error>(['/api/plugin/evm/account/tokens', data], postFetcher);
+};
+
+export type pvmContractType = {
+    address: string
+    contract_name: string
+    transaction_count: number
+    verify_status: string
+}
+
+export type pvmContractInfoType = {
+    abi: any | null;
+    address: string;
+    block_num: number;
+    CompileSettings: any | null;
+    compiler_version: string;
+    constructor_arguments: string;
+    contract_name: string;
+    creation_bytecode: string;
+    creation_code: string;
+    deploy_at: number;
+    deploy_code_hash: string;
+    deployer: string;
+    eip_standard: string;
+    event_identifiers: any | null;
+    evm_version: string;
+    external_libraries: any | null;
+    extrinsic_index: string;
+    method_identifiers: any | null;
+    optimize: boolean;
+    optimization_runs: number;
+    precompile: number;
+    proxy_implementation: string;
+    source_code: string;
+    transaction_count: number;
+    tx_hash: string;
+    verify_status: string;
+    verify_time: number;
+    verify_type: string;
+}
+
+export type pvmContractListType = {
+    list: pvmContractType[]
+    count: number
+}
+
+export type getPVMContractListParams = {
+    page?: number
+    row?: number
+}
+
+type getPVMContractParams = {
+    address: string
+}
+
+export const usePVMContract = (data: getPVMContractParams) => {
+    return useSWR<APIWrapperProps<pvmContractInfoType>, Error>(['/api/plugin/evm/contract', data], postFetcher);
+};
+
+export const usePVMContracts = (data: getPVMContractListParams) => {
+    return useSWR<APIWrapperProps<pvmContractListType>, Error>(['/api/plugin/evm/contracts', data], postFetcher);
 };

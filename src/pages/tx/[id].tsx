@@ -66,12 +66,12 @@ export default function Page() {
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
                     <div className="w-48">From</div>
-                    <div><Link href={`/account/${extrinsicData.from_address}`}>{extrinsicData.from_address}</Link></div>
+                    <div><Link href={`/address/${extrinsicData.from_address}`}>{extrinsicData.from_address}</Link></div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
                     <div className="w-48">To</div>
-                    <div><Link href={`/account/${extrinsicData.to_address}`}>{extrinsicData.to_address}</Link></div>
+                    <div><Link href={`/address/${extrinsicData.to_address}`}>{extrinsicData.to_address}</Link></div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">

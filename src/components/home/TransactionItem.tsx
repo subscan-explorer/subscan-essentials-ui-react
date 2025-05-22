@@ -10,8 +10,8 @@ interface TransactionItemProps {
 const TransactionItem: React.FC<TransactionItemProps> = ({ item }) => {
   const baseUrl = 'pvm/'
   const linkHref = `/tx/${item.hash}`
-  const fromLink = `/account/${item.from_address}`
-  const toLink = `/account/${item.to_address}`
+  const fromLink = `/address/${item.from_address}`
+  const toLink = `/address/${item.to_address}`
 
   const bgColor = 'bg-white'
   const hoverBgColor = 'hover:shadow-md'

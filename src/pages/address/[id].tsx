@@ -21,7 +21,7 @@ export default function Page() {
   })
 
   const accountListData = unwrap(data)
-  const accountData = accountListData?.list[0]
+  const accountData = accountListData?.list?.[0]
 
   return (
     <PageContent>

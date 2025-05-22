@@ -42,7 +42,7 @@ export default function Page() {
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
                     <div className="w-48">Mined by</div>
-                    <div><Link href={`/account/${blockData.miner}`}>{blockData.miner}</Link></div>
+                    <div><Link href={`/address/${blockData.miner}`}>{blockData.miner}</Link></div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">

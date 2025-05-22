@@ -57,7 +57,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
               } else if (columnKey === 'miner') {
                 return (
                   <TableCell>
-                    <Link href={`/account/${item.miner}`}>{item.miner}</Link>
+                    <Link href={`/address/${item.miner}`}>{item.miner}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'block_timestamp') {

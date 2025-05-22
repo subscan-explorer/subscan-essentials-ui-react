@@ -3,31 +3,31 @@ import React, { useMemo } from 'react'
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { getBalanceAmount } from '@/utils/text'
-import { getExtrinsicListParams, unwrap, usePVMAccounts } from '@/utils/api'
+import { getPVMContractListParams, unwrap, usePVMContracts } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
 import BigNumber from 'bignumber.js'
 import { Link } from '../link'
 
 interface Props extends BareProps {
-  args?: getExtrinsicListParams
+  args?: getPVMContractListParams
 }
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
   const { metadata, token, isLoading } = useData();
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMAccounts({
+  const { data } = usePVMContracts({
     ...args,
     page: page - 1,
     row: rowsPerPage,
   })
-  const extrinsicsData = unwrap(data)
-  const total = extrinsicsData?.count || 0
-  const items = extrinsicsData?.list
+  const contractsData = unwrap(data)
+  const total = contractsData?.count || 0
+  const items = contractsData?.list
    const pages = useMemo(() => {
-      return extrinsicsData?.count ? Math.ceil(extrinsicsData?.count / rowsPerPage) : 0;
-    }, [extrinsicsData?.count, rowsPerPage]);
+      return contractsData?.count ? Math.ceil(contractsData?.count / rowsPerPage) : 0;
+    }, [contractsData?.count, rowsPerPage]);
   return (
     <Table
       aria-label="Table"
@@ -43,17 +43,19 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         td: 'h-[50px]'
       }}>
       <TableHeader>
-        <TableColumn key="address">Account</TableColumn>
-        <TableColumn key="balance">{`Balance (${token?.symbol})`}</TableColumn>
+        <TableColumn key="address">Contract</TableColumn>
+        <TableColumn key="contract_name">Name</TableColumn>
+        <TableColumn key="transaction_count">Transaction</TableColumn>
+        <TableColumn key="verify_status">Status</TableColumn>
       </TableHeader>
       <TableBody items={items || []} emptyContent={"No data"}>
         {(item) => (
-          <TableRow key={item.evm_account}>
+          <TableRow key={item.address}>
             {(columnKey) => {
-              if (columnKey === 'balance') {
-                return <TableCell>{getBalanceAmount(new BigNumber(item.balance), token?.decimals).toFormat()}</TableCell>
-              } else if (columnKey === 'address') {
-                return <TableCell><Link href={`/address/${item.evm_account}`}>{item.evm_account}</Link></TableCell>
+              if (columnKey === 'address') {
+                return <TableCell><Link href={`/contract/${item.address}`}>{item.address}</Link></TableCell>
+              } else if (columnKey === 'verify_status') {
+                return <TableCell>{item.verify_status === 'verified' ? 'Verified' : 'Unverified'}</TableCell>
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

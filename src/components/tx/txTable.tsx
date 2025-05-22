@@ -64,7 +64,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
                 const address = columnKey === 'from_address' ? item.from_address : item.to_address
                 return (
                   <TableCell>
-                    <Link href={`/account/${address}`}>{formatHash(address)}</Link>
+                    <Link href={`/address/${address}`}>{formatHash(address)}</Link>
                   </TableCell>
                 )
               } else if (columnKey === 'value') {

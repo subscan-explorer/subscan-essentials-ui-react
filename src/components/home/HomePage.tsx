@@ -21,13 +21,13 @@ const HomePage: React.FC = () => {
                 title="Substrate Block" 
                 value={formatNumber(metadata.finalized_blockNum)}
                 href="/sub/block"
-                color="text-red-500"
+                color="text-danger"
               />
               <InfoCard 
                 title="Extrinsic" 
                 value={formatNumber(metadata.count_extrinsic)}
                 href="/sub/extrinsic"
-                color="text-red-500"
+                color="text-danger"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -35,13 +35,13 @@ const HomePage: React.FC = () => {
                 title="Account" 
                 value={formatNumber(metadata.total_account)}
                 href="/sub/account"
-                color="text-red-500"
+                color="text-danger"
               />
               <InfoCard 
                 title="Transfer" 
                 value={formatNumber(metadata.total_transfer)}
                 href="/sub/transfer"
-                color="text-red-500"
+                color="text-danger"
               />
             </div>
           </div>
@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
               <InfoCard 
                 title="PVM Account" 
                 value={metadata.total_evm_account}
-                href="/account"
+                href="/address"
               />
               <InfoCard 
                 title="PVM Contract" 

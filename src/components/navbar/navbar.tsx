@@ -162,7 +162,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
                 </Link>
               </DropdownItem>
               <DropdownItem key="account">
-                <Link href="/account" className="block text-inherit">
+                <Link href="/address" className="block text-inherit">
                   Account
                 </Link>
               </DropdownItem>

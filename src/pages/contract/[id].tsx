@@ -9,6 +9,7 @@ import { Container, PageContent } from '@/ui'
 import TokenTransferTable from '@/components/erc20Token/tokenTransferTable'
 import BigNumber from 'bignumber.js'
 import { Link } from '@/components/link'
+import { ContractVerify } from '@/components/contract'
 
 export default function Page() {
   const router = useRouter()
@@ -19,11 +20,11 @@ export default function Page() {
   })
 
   const { data: accountsData } = usePVMAccounts({
-      address: id,
-      row: 10,
-      page: 0,
-    })
-  
+    address: id,
+    row: 10,
+    page: 0,
+  })
+
   const accountListData = unwrap(accountsData)
   const accountData = accountListData?.list?.[0]
   const contractData = unwrap(data)
@@ -39,9 +40,7 @@ export default function Page() {
                 <CardBody>
                   <div className="flex items-center">
                     <div className="w-48">Contract Name</div>
-                    <div>
-                      {contractData.contract_name}
-                    </div>
+                    <div>{contractData.contract_name}</div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
@@ -70,6 +69,16 @@ export default function Page() {
               <Card>
                 <CardBody>
                   <Tabs aria-label="tabs" variant="underlined" color={getThemeColor()}>
+                    <Tab key="contract" title="Contract">
+                      {contractData.verify_status === 'verified' ? (
+                        <TokenTransferTable
+                          args={{
+                            address: id,
+                          }}></TokenTransferTable>
+                      ) : (
+                        <ContractVerify address={id}/>
+                      )}
+                    </Tab>
                     <Tab key="transactions" title="Transactions">
                       <TxTable
                         args={{
@@ -88,12 +97,6 @@ export default function Page() {
                         args={{
                           address: id,
                           category: 'erc721',
-                        }}></TokenTransferTable>
-                    </Tab>
-                    <Tab key="contract" title="Contract">
-                      <TokenTransferTable
-                        args={{
-                          address: id,
                         }}></TokenTransferTable>
                     </Tab>
                   </Tabs>

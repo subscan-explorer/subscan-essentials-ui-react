@@ -558,3 +558,19 @@ export const usePVMContract = (data: getPVMContractParams) => {
 export const usePVMContracts = (data: getPVMContractListParams) => {
     return useSWR<APIWrapperProps<pvmContractListType>, Error>(['/api/plugin/evm/contracts', data], postFetcher);
 };
+
+export type pvmSolcListType = string[]
+
+export type getPVMSolcListParams = {
+    releases?: boolean
+}
+
+export const usePVMSolcs = (data: getPVMSolcListParams) => {
+    return useSWR<APIWrapperProps<pvmSolcListType>, Error>(['/api/plugin/evm/contract/solcs', data], postFetcher);
+};
+
+export type pvmResolcListType = string[]
+
+export const usePVMResolcs = (data: {}) => {
+    return useSWR<APIWrapperProps<pvmResolcListType>, Error>(['/api/plugin/evm/contract/resolcs', data], postFetcher);
+};

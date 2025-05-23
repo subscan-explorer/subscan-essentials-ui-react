@@ -9,7 +9,7 @@ import { Container, PageContent } from '@/ui'
 import TokenTransferTable from '@/components/erc20Token/tokenTransferTable'
 import BigNumber from 'bignumber.js'
 import { Link } from '@/components/link'
-import { ContractVerify } from '@/components/contract'
+import { ContractInfo, ContractVerify } from '@/components/contract'
 
 export default function Page() {
   const router = useRouter()
@@ -71,10 +71,8 @@ export default function Page() {
                   <Tabs aria-label="tabs" variant="underlined" color={getThemeColor()}>
                     <Tab key="contract" title="Contract">
                       {contractData.verify_status === 'verified' ? (
-                        <TokenTransferTable
-                          args={{
-                            address: id,
-                          }}></TokenTransferTable>
+                        <ContractInfo
+                          contract={contractData}></ContractInfo>
                       ) : (
                         <ContractVerify address={id}/>
                       )}

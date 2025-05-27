@@ -1,15 +1,12 @@
 import { Providers } from '@/components/providers/providers'
 import { Footer } from '@/components/Footer'
-import { GetServerSidePropsContext } from 'next'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
 export default function RootLayout({
-  context,
   children,
   pageProps,
 }: {
-  context?: GetServerSidePropsContext
   children: React.ReactNode
   pageProps: AppProps
 }) {

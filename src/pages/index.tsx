@@ -1,4 +1,3 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import React from 'react'
 
 import { BareServerSideProps } from '@/types/page'
@@ -8,15 +7,7 @@ import { useData } from '@/context'
 import HomePage from '@/components/home/HomePage'
 import { Spinner } from '@heroui/react'
 
-export const getServerSideProps: GetServerSideProps<BareServerSideProps> = async (
-  context
-) => {
-  return {
-    props: {},
-  }
-}
-
-export default function Page({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Page() {
   const { metadata, token, isLoading } = useData();
 
   return (

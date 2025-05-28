@@ -25,7 +25,7 @@ const postFetcher = ([url, data]: [string, any]) => {
 }
 
 const runtimeFetcher = ([host, url, data]: [string, string, any]) => {
-    return axiosInstance.post(host + url, data).then((res) => res.data)
+    return axiosInstance.post((host || API_HOST) + url, data).then((res) => res.data)
 }
 
 // const postFetcher = ([url, data]: [string, any]) => {
@@ -40,6 +40,8 @@ export type metadataType = {
     balanceAccuracy: string;
     count_extrinsic: string;
     count_signed_extrinsic: string;
+    enable_substrate: boolean;
+    enable_evm: boolean;
     finalized_blockNum: string;
     networkNode: string;
     total_account: string;
@@ -50,8 +52,8 @@ export type metadataType = {
     enabledNewTransferableFormulas?: boolean
 }
 
-export const useMetadata = (data: {}) => {
-    return useSWR<APIWrapperProps<metadataType>, Error>(['/api/scan/metadata', data], postFetcher);
+export const useMetadata = (host: string, data: {}) => {
+    return useSWR<APIWrapperProps<metadataType>, Error>([host, '/api/scan/metadata', data], runtimeFetcher);
 };
 
 export type tokenType = {
@@ -60,8 +62,8 @@ export type tokenType = {
     symbol: string
 }
 
-export const useToken = (data: {}) => {
-    return useSWR<APIWrapperProps<tokenType>, Error>(['/api/scan/token', data], postFetcher);
+export const useToken = (host: string, data: {}) => {
+    return useSWR<APIWrapperProps<tokenType>, Error>([host, '/api/scan/token', data], runtimeFetcher);
 };
 
 export type blockType = {

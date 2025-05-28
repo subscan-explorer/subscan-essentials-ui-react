@@ -16,6 +16,7 @@ import {
   Input,
   Image,
 } from '@heroui/react'
+import { useData } from '@/context'
 
 interface Props extends BareProps {
   value: string
@@ -51,6 +52,7 @@ const SearchIcon = ({ size = 24, strokeWidth = 1.5, ...props }) => {
 }
 
 const Component: React.FC<Props> = ({ children, className }) => {
+  const { metadata, token } = useData()
   const [value, setValue] = useState('')
   const router = useRouter()
 
@@ -65,6 +67,9 @@ const Component: React.FC<Props> = ({ children, className }) => {
       setValue('')
     }
   }
+
+  const showSubstrate = metadata?.enable_substrate
+  const showPVM = metadata?.enable_evm
 
   return (
     <div
@@ -86,113 +91,180 @@ const Component: React.FC<Props> = ({ children, className }) => {
           </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="end">
-          <Dropdown>
-            <NavbarItem>
-              <DropdownTrigger>
-                <Button
-                  disableRipple
-                  size="lg"
-                  className="p-0 bg-transparent data-[hover=true]:bg-transparent text-white"
-                  radius="sm"
-                  variant="light"
-                  endContent={icons.chevron}>
-                  Substrate
-                </Button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label="Substrate"
-              itemClasses={{
-                base: 'gap-4',
-              }}>
-              <DropdownItem key="block">
-                <Link href="/sub/block" className="block text-inherit">
-                  Block
-                </Link>
-              </DropdownItem>
-              <DropdownItem key="extrinsic">
-                <Link href="/sub/extrinsic" className="block text-inherit">
+          {showSubstrate && showPVM && (
+            <>
+              <Dropdown>
+                <NavbarItem>
+                  <DropdownTrigger>
+                    <Button
+                      disableRipple
+                      size="lg"
+                      className="p-0 bg-transparent data-[hover=true]:bg-transparent text-white"
+                      radius="sm"
+                      variant="light"
+                      endContent={icons.chevron}>
+                      Substrate
+                    </Button>
+                  </DropdownTrigger>
+                </NavbarItem>
+                <DropdownMenu
+                  aria-label="Substrate"
+                  itemClasses={{
+                    base: 'gap-4',
+                  }}>
+                  <DropdownItem key="block">
+                    <Link href="/sub/block" className="block text-inherit">
+                      Block
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="extrinsic">
+                    <Link href="/sub/extrinsic" className="block text-inherit">
+                      Extrinsic
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="account">
+                    <Link href="/sub/account" className="block text-inherit">
+                      Account
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="event">
+                    <Link href="/sub/event" className="block text-inherit">
+                      Event
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="transfer">
+                    <Link href="/sub/transfer" className="block text-inherit">
+                      Transfer
+                    </Link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              <Dropdown>
+                <NavbarItem>
+                  <DropdownTrigger>
+                    <Button
+                      disableRipple
+                      size="lg"
+                      className="p-0 bg-transparent data-[hover=true]:bg-transparent text-white"
+                      radius="sm"
+                      variant="light"
+                      endContent={icons.chevron}>
+                      PVM
+                    </Button>
+                  </DropdownTrigger>
+                </NavbarItem>
+                <DropdownMenu
+                  aria-label="Substrate"
+                  itemClasses={{
+                    base: 'gap-4',
+                  }}>
+                  <DropdownItem key="block">
+                    <Link href="/block" className="block text-inherit">
+                      Block
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="extrinsic">
+                    <Link href="/tx" className="block text-inherit">
+                      Transaction
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="account">
+                    <Link href="/address" className="block text-inherit">
+                      Account
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="contract">
+                    <Link href="/contract" className="block text-inherit">
+                      Contract
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="erc20">
+                    <Link href="/erc20_token" className="block text-inherit">
+                      ERC-20
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem key="erc721">
+                    <Link href="/erc721_token" className="block text-inherit">
+                      ERC-721
+                    </Link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/sub/extrinsic">
                   Extrinsic
                 </Link>
-              </DropdownItem>
-              <DropdownItem key="account">
-                <Link href="/sub/account" className="block text-inherit">
-                  Account
-                </Link>
-              </DropdownItem>
-              <DropdownItem key="event">
-                <Link href="/sub/event" className="block text-inherit">
-                  Event
-                </Link>
-              </DropdownItem>
-              <DropdownItem key="transfer">
-                <Link href="/sub/transfer" className="block text-inherit">
-                  Transfer
-                </Link>
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <Dropdown>
-            <NavbarItem>
-              <DropdownTrigger>
-                <Button
-                  disableRipple
-                  size="lg"
-                  className="p-0 bg-transparent data-[hover=true]:bg-transparent text-white"
-                  radius="sm"
-                  variant="light"
-                  endContent={icons.chevron}>
-                  PVM
-                </Button>
-              </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-              aria-label="Substrate"
-              itemClasses={{
-                base: 'gap-4',
-              }}>
-              <DropdownItem key="block">
-                <Link href="/block" className="block text-inherit">
-                  Block
-                </Link>
-              </DropdownItem>
-              <DropdownItem key="extrinsic">
-                <Link href="/tx" className="block text-inherit">
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/tx">
                   Transaction
                 </Link>
-              </DropdownItem>
-              <DropdownItem key="account">
-                <Link href="/address" className="block text-inherit">
+              </NavbarItem>
+            </>
+          )}
+          {showSubstrate && !showPVM && (
+            <>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/sub/block">
+                  Block
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/sub/extrinsic">
+                  Extrinsic
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/sub/account">
                   Account
                 </Link>
-              </DropdownItem>
-              <DropdownItem key="contract">
-                <Link href="/contract" className="block text-inherit">
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/sub/event">
+                  Event
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/sub/transfer">
+                  Transfer
+                </Link>
+              </NavbarItem>
+            </>
+          )}
+          {!showSubstrate && showPVM && (
+            <>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/block">
+                  Block
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/tx">
+                  Transaction
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/address">
+                  Account
+                </Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/contract">
                   Contract
                 </Link>
-              </DropdownItem>
-              <DropdownItem key="erc20">
-                <Link href="/erc20_token" className="block text-inherit">
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/erc20_token">
                   ERC-20
                 </Link>
-              </DropdownItem>
-              <DropdownItem key="erc721">
-                <Link href="/erc721_token" className="block text-inherit">
+              </NavbarItem>
+              <NavbarItem>
+                <Link className="text-white font-semibold" href="/erc721_token">
                   ERC-721
                 </Link>
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <NavbarItem>
-            <Link className="text-white font-semibold" href="/sub/extrinsic">
-              Extrinsic
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link className="text-white font-semibold" href="/tx">
-              Transaction
-            </Link>
-          </NavbarItem>
+              </NavbarItem>
+            </>
+          )}
         </NavbarContent>
       </Navbar>
       <div className="w-full px-4 pb-6 flex justify-center">

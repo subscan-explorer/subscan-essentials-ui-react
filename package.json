@@ -2,7 +2,7 @@
   "name": "subscan-essential-ui-next",
   "version": "0.1.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_PUBLIC_API_HOST='https://assethub-westend-lite.webapi.subscan.io' next dev",
     "build": "next build",
     "analyze-build": "ANALYZE=true npm run build",
     "start": "next start",
@@ -42,7 +42,7 @@
     "dayjs": "1.11.9",
     "framer-motion": "^12.7.3",
     "next": "^14.2.3",
-    "next-runtime-env": "^3.3.0",
+    "next-runtime-env": "1.7.3",
     "nprogress": "^0.2.0",
     "postcss": "8.4.21",
     "react": "18.3.1",

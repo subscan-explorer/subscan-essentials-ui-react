@@ -30,4 +30,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          push: true
           tags: quay.io/subscan-explorer/subscan-essentials-ui:sha-${{ steps.short-sha.outputs.sha }}-${{ github.run_number }}

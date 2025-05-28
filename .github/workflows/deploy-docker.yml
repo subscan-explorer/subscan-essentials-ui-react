@@ -24,12 +24,10 @@ jobs:
         with:
           node-version: 18.20.2
           cache: 'npm'
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
+      - name: Install dependencies && build
+        run: npm install && npm run build
       - name: Push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           context: .
           tags: quay.io/subscan-explorer/subscan-essentials-ui:sha-${{ steps.short-sha.outputs.sha }}-${{ github.run_number }}

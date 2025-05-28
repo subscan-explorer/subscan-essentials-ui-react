@@ -6,6 +6,7 @@ import { formatHash, getThemeColor, timeAgo } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, useExtrinsics } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
+import { env } from 'next-runtime-env';
 
 interface Props extends BareProps {
   args?: getExtrinsicListParams
@@ -13,8 +14,9 @@ interface Props extends BareProps {
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
   const [page, setPage] = React.useState(1)
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || '';
   const rowsPerPage = PAGE_SIZE
-  const { data } = useExtrinsics({
+  const { data } = useExtrinsics(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,

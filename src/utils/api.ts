@@ -24,6 +24,10 @@ const postFetcher = ([url, data]: [string, any]) => {
     return axiosInstance.post(API_HOST + url, data).then((res) => res.data)
 }
 
+const runtimeFetcher = ([host, url, data]: [string, string, any]) => {
+    return axiosInstance.post(host + url, data).then((res) => res.data)
+}
+
 // const postFetcher = ([url, data]: [string, any]) => {
 //     return axiosInstance.post('/api/proxy', {
 //         path: url,
@@ -142,8 +146,8 @@ export type getExtrinsicListParams = {
     address?: string
 }
 
-export const useExtrinsics = (data: getExtrinsicListParams) => {
-    return useSWR<APIWrapperProps<extrinsicsListType>, Error>(['/api/scan/extrinsics', data], postFetcher);
+export const useExtrinsics = (host: string, data: getExtrinsicListParams) => {
+    return useSWR<APIWrapperProps<extrinsicsListType>, Error>([host, '/api/scan/extrinsics', data], runtimeFetcher);
 };
 
 export type eventType = {

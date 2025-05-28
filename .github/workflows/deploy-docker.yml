@@ -16,11 +16,10 @@ jobs:
           username: ${{ secrets.QUAY_IO_BOT_USERNAME }}
           password: ${{ secrets.QUAY_IO_BOT_PASSWORD }}
           registry: quay.io
-      - uses: bhowell2/github-substring-action@1.0.2
-        id: sha
+      - uses: benjlevesque/short-sha@v3.0
+        id: short-sha
         with:
-          value: ${{ github.event.pull_request.head.sha }}
-          length_from_start: 7
+          length: 7
       - uses: actions/setup-node@v3
         with:
           node-version: 18.20.2

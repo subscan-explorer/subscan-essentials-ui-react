@@ -40,6 +40,8 @@ export type metadataType = {
     balanceAccuracy: string;
     count_extrinsic: string;
     count_signed_extrinsic: string;
+    enable_substrate: boolean;
+    enable_evm: boolean;
     finalized_blockNum: string;
     networkNode: string;
     total_account: string;

@@ -4,11 +4,13 @@ import { unwrap, useExtrinsics } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import _ from 'lodash'
 import { Skeleton } from '@heroui/react'
+import { env } from 'next-runtime-env';
 
 interface ExtrinsicListProps {}
 
 const ExtrinsicList: React.FC<ExtrinsicListProps> = ({ }) => {
-  const { data, isLoading} = useExtrinsics({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || '';
+  const { data, isLoading} = useExtrinsics(NEXT_PUBLIC_API_HOST, {
     page: 0,
     row: 10,
   })

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 
-const API_HOST = 'https://assethub-westend-stg.subscan.io';
+const API_HOST = 'https://assethub-westend-lite.webapi.subscan.io';
 
 export default async function handler(
   req: NextApiRequest,

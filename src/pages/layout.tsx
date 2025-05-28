@@ -17,6 +17,7 @@ export default function RootLayout({
     <div id="app" className={`font-sans flex min-h-screen flex-col`}>
       <Head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"></meta>
+        <script src="/__ENV.js" />
       </Head>
       <Providers>
         <div className="flex flex-col min-h-screen">

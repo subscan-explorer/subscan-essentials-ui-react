@@ -24,6 +24,10 @@ const postFetcher = ([url, data]: [string, any]) => {
     return axiosInstance.post(API_HOST + url, data).then((res) => res.data)
 }
 
+const runtimeFetcher = ([host, url, data]: [string, string, any]) => {
+    return axiosInstance.post((host || API_HOST) + url, data).then((res) => res.data)
+}
+
 // const postFetcher = ([url, data]: [string, any]) => {
 //     return axiosInstance.post('/api/proxy', {
 //         path: url,
@@ -36,6 +40,8 @@ export type metadataType = {
     balanceAccuracy: string;
     count_extrinsic: string;
     count_signed_extrinsic: string;
+    enable_substrate: boolean;
+    enable_evm: boolean;
     finalized_blockNum: string;
     networkNode: string;
     total_account: string;
@@ -46,8 +52,8 @@ export type metadataType = {
     enabledNewTransferableFormulas?: boolean
 }
 
-export const useMetadata = (data: {}) => {
-    return useSWR<APIWrapperProps<metadataType>, Error>(['/api/scan/metadata', data], postFetcher);
+export const useMetadata = (host: string, data: {}) => {
+    return useSWR<APIWrapperProps<metadataType>, Error>([host, '/api/scan/metadata', data], runtimeFetcher);
 };
 
 export type tokenType = {
@@ -56,8 +62,8 @@ export type tokenType = {
     symbol: string
 }
 
-export const useToken = (data: {}) => {
-    return useSWR<APIWrapperProps<tokenType>, Error>(['/api/scan/token', data], postFetcher);
+export const useToken = (host: string, data: {}) => {
+    return useSWR<APIWrapperProps<tokenType>, Error>([host, '/api/scan/token', data], runtimeFetcher);
 };
 
 export type blockType = {
@@ -142,8 +148,8 @@ export type getExtrinsicListParams = {
     address?: string
 }
 
-export const useExtrinsics = (data: getExtrinsicListParams) => {
-    return useSWR<APIWrapperProps<extrinsicsListType>, Error>(['/api/scan/extrinsics', data], postFetcher);
+export const useExtrinsics = (host: string, data: getExtrinsicListParams) => {
+    return useSWR<APIWrapperProps<extrinsicsListType>, Error>([host, '/api/scan/extrinsics', data], runtimeFetcher);
 };
 
 export type eventType = {

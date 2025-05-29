@@ -8,16 +8,18 @@ import { PAGE_SIZE, PVM_DECIMAL } from '@/utils/const'
 import { useData } from '@/context'
 import BigNumber from 'bignumber.js'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: getPVMTxListParams
 }
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
-  const { metadata, token, isLoading } = useData();
+  const { metadata, token, isLoading } = useData()
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMTxs({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMTxs(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -25,22 +27,20 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
   const extrinsicsData = unwrap(data)
   const total = extrinsicsData?.count || 0
   const items = extrinsicsData?.list
-   const pages = useMemo(() => {
-      return extrinsicsData?.count ? Math.ceil(extrinsicsData?.count / rowsPerPage) : 0;
-    }, [extrinsicsData?.count, rowsPerPage]);
+  const pages = useMemo(() => {
+    return extrinsicsData?.count ? Math.ceil(extrinsicsData?.count / rowsPerPage) : 0
+  }, [extrinsicsData?.count, rowsPerPage])
   return (
     <Table
       aria-label="Table"
       bottomContent={
         <div className="flex w-full justify-center">
-          {pages > 0 && (
-            <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
-          )}
+          {pages > 0 && <Pagination isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />}
         </div>
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="hash">Transaction Hash</TableColumn>
@@ -50,7 +50,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         <TableColumn key="value">{`Value (${token?.symbol})`}</TableColumn>
         <TableColumn key="block_timestamp">Time</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={"No data"}>
+      <TableBody items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.block_num}>
             {(columnKey) => {
@@ -70,7 +70,11 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               } else if (columnKey === 'value') {
                 return <TableCell>{getBalanceAmount(new BigNumber(item.value), PVM_DECIMAL).toFormat()}</TableCell>
               } else if (columnKey === 'block_num') {
-                return <TableCell><Link href={`/block/${item.block_num}`}>{item.block_num}</Link></TableCell>
+                return (
+                  <TableCell>
+                    <Link href={`/block/${item.block_num}`}>{item.block_num}</Link>
+                  </TableCell>
+                )
               } else if (columnKey === 'block_timestamp') {
                 return <TableCell>{timeAgo(item.block_timestamp)}</TableCell>
               }

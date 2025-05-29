@@ -9,12 +9,14 @@ import { ExtrinsicTable } from '@/components/extrinsic'
 import { TransferTable } from '@/components/transfer'
 import { BIG_ZERO } from '@/utils/const'
 import { Container, PageContent } from '@/ui'
+import { env } from 'next-runtime-env'
 
 export default function Page() {
   const router = useRouter()
   const { metadata, token, isLoading } = useData()
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
   const id = router.query.id as string
-  const { data } = useAccount({
+  const { data } = useAccount(NEXT_PUBLIC_API_HOST, {
     address: id,
   })
 

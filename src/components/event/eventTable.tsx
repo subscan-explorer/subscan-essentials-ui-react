@@ -6,6 +6,7 @@ import { getThemeColor, timeAgo } from '@/utils/text'
 import { getEventListParams, unwrap, useEvents } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: getEventListParams
@@ -14,7 +15,8 @@ interface Props extends BareProps {
 const Component: React.FC<Props> = ({ children, className, args }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = useEvents({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = useEvents(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -22,36 +24,47 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
   const extrinsicsData = unwrap(data)
   const total = extrinsicsData?.count || 0
   const items = extrinsicsData?.events
-   const pages = useMemo(() => {
-      return extrinsicsData?.count ? Math.ceil(extrinsicsData?.count / rowsPerPage) : 0;
-    }, [extrinsicsData?.count, rowsPerPage]);
+  const pages = useMemo(() => {
+    return extrinsicsData?.count ? Math.ceil(extrinsicsData?.count / rowsPerPage) : 0
+  }, [extrinsicsData?.count, rowsPerPage])
   return (
     <Table
       aria-label="Table"
       bottomContent={
         <div className="flex w-full justify-center">
           {pages > 0 && (
-            <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />
+            <Pagination
+              color={getThemeColor(true)}
+              isCompact
+              showControls
+              showShadow
+              initialPage={1}
+              page={page}
+              total={pages}
+              onChange={(page) => setPage(page)}
+            />
           )}
         </div>
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="event_idx">Event ID</TableColumn>
         <TableColumn key="module_id">Action</TableColumn>
         <TableColumn key="block_timestamp">Time</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={"No data"}>
+      <TableBody items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.event_idx}>
             {(columnKey) => {
               if (columnKey === 'event_idx') {
                 return (
                   <TableCell>
-                    <Link color={getThemeColor(true)} href={`/sub/event/${item.event_index}`}>{item.event_index}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/event/${item.event_index}`}>
+                      {item.event_index}
+                    </Link>
                   </TableCell>
                 )
               } else if (columnKey === 'module_id') {

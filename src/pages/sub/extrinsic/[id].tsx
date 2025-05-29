@@ -7,13 +7,16 @@ import { unwrap, useExtrinsic } from '@/utils/api'
 import { EventTable } from '@/components/event'
 import { Container, PageContent } from '@/ui'
 import { Link } from '@/components/link'
+import { env } from 'next-runtime-env'
 
 export default function Page() {
   const router = useRouter()
   const id = router.query.id as string
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
 
   const isExtrinsicIndex = checkIsExtrinsicIndex(id)
   const { data } = useExtrinsic(
+    NEXT_PUBLIC_API_HOST,
     isExtrinsicIndex
       ? {
           extrinsic_index: id as string,
@@ -47,7 +50,9 @@ export default function Page() {
                   <div className="flex items-center">
                     <div className="w-48">Block</div>
                     <div>
-                      <Link color={getThemeColor(true)} href={`/sub/block/${extrinsicData.block_num}`}>{extrinsicData.block_num}</Link>
+                      <Link color={getThemeColor(true)} href={`/sub/block/${extrinsicData.block_num}`}>
+                        {extrinsicData.block_num}
+                      </Link>
                     </div>
                   </div>
                   <Divider className="my-2.5" />

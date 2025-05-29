@@ -87,8 +87,8 @@ export async function getBlock(data: getBlockParams): Promise<APIWrapperProps<bl
     return postFetcher(['/api/scan/block', data]);
 };
 
-export const useBlock = (data: getBlockParams) => {
-    return useSWR<APIWrapperProps<blockType>, Error>(['/api/scan/block', data], postFetcher);
+export const useBlock = (host: string, data: getBlockParams) => {
+    return useSWR<APIWrapperProps<blockType>, Error>([host, '/api/scan/block', data], runtimeFetcher);
 };
 
 export type getBlockListParams = {
@@ -101,8 +101,8 @@ export type blocksListType = {
     count: number
 }
 
-export const useBlocks = (data: getBlockListParams) => {
-    return useSWR<APIWrapperProps<blocksListType>, Error>(['/api/scan/blocks', data], postFetcher);
+export const useBlocks = (host: string, data: getBlockListParams) => {
+    return useSWR<APIWrapperProps<blocksListType>, Error>([host, '/api/scan/blocks', data], runtimeFetcher);
 };
 
 
@@ -132,8 +132,8 @@ type getExtrinsicParams = {
     extrinsic_index?: string
 }
 
-export const useExtrinsic = (data: getExtrinsicParams) => {
-    return useSWR<APIWrapperProps<extrinsicType>, Error>(['/api/scan/extrinsic', data], postFetcher);
+export const useExtrinsic = (host: string, data: getExtrinsicParams) => {
+    return useSWR<APIWrapperProps<extrinsicType>, Error>([host, '/api/scan/extrinsic', data], runtimeFetcher);
 };
 
 export type extrinsicsListType = {
@@ -169,8 +169,8 @@ type getEventParams = {
     event_index?: string
 }
 
-export const useEvent = (data: getEventParams) => {
-    return useSWR<APIWrapperProps<eventType>, Error>(['/api/scan/event', data], postFetcher);
+export const useEvent = (host: string, data: getEventParams) => {
+    return useSWR<APIWrapperProps<eventType>, Error>([host, '/api/scan/event', data], runtimeFetcher);
 };
 
 export type eventListType = {
@@ -185,8 +185,8 @@ export type getEventListParams = {
     extrinsic_index?: string
 }
 
-export const useEvents = (data: getEventListParams) => {
-    return useSWR<APIWrapperProps<eventListType>, Error>(['/api/scan/events', data], postFetcher);
+export const useEvents = (host: string, data: getEventListParams) => {
+    return useSWR<APIWrapperProps<eventListType>, Error>([host, '/api/scan/events', data], runtimeFetcher);
 };
 
 export type transferType = {
@@ -212,8 +212,8 @@ export type getTransferListParams = {
     address?: string
 }
 
-export const useTransfers = (data: getTransferListParams) => {
-    return useSWR<APIWrapperProps<transferListType>, Error>(['/api/plugin/balance/transfer', data], postFetcher);
+export const useTransfers = (host: string, data: getTransferListParams) => {
+    return useSWR<APIWrapperProps<transferListType>, Error>([host, '/api/plugin/balance/transfer', data], runtimeFetcher);
 };
 
 export type accountType = {
@@ -228,8 +228,8 @@ type getAccountParams = {
     address: string
 }
 
-export const useAccount = (data: getAccountParams) => {
-    return useSWR<APIWrapperProps<accountType>, Error>(['/api/plugin/balance/account', data], postFetcher);
+export const useAccount = (host: string, data: getAccountParams) => {
+    return useSWR<APIWrapperProps<accountType>, Error>([host, '/api/plugin/balance/account', data], runtimeFetcher);
 };
 
 export type accountListType = {
@@ -242,8 +242,8 @@ export type getAccountListParams = {
     row?: number
 }
 
-export const useAccounts = (data: getAccountListParams) => {
-    return useSWR<APIWrapperProps<accountListType>, Error>(['/api/plugin/balance/accounts', data], postFetcher);
+export const useAccounts = (host: string, data: getAccountListParams) => {
+    return useSWR<APIWrapperProps<accountListType>, Error>([host, '/api/plugin/balance/accounts', data], runtimeFetcher);
 };
 
 export type logType = {
@@ -261,8 +261,8 @@ export type getLogListParams = {
     block_num?: number
 }
 
-export const useLogs = (data: getLogListParams) => {
-    return useSWR<APIWrapperProps<logListType>, Error>(['/api/scan/logs', data], postFetcher);
+export const useLogs = (host: string, data: getLogListParams) => {
+    return useSWR<APIWrapperProps<logListType>, Error>([host, '/api/scan/logs', data], runtimeFetcher);
 };
 
 
@@ -296,8 +296,8 @@ type getPVMBlockParams = {
     block_num?: number
 }
 
-export const usePVMBlock = (data: getPVMBlockParams) => {
-    return useSWR<APIWrapperProps<pvmBlockInfoType>, Error>(['/api/plugin/evm/block', data], postFetcher);
+export const usePVMBlock = (host: string, data: getPVMBlockParams) => {
+    return useSWR<APIWrapperProps<pvmBlockInfoType>, Error>([host, '/api/plugin/evm/block', data], runtimeFetcher);
 };
 
 export type getPVMBlockListParams = {
@@ -317,8 +317,8 @@ export type pvmBlocksListType = {
     count: number
 }
 
-export const usePVMBlocks = (data: getPVMBlockListParams) => {
-    return useSWR<APIWrapperProps<pvmBlocksListType>, Error>(['/api/plugin/evm/blocks', data], postFetcher);
+export const usePVMBlocks = (host: string, data: getPVMBlockListParams) => {
+    return useSWR<APIWrapperProps<pvmBlocksListType>, Error>([host, '/api/plugin/evm/blocks', data], runtimeFetcher);
 };
 
 export type pvmTxInfoType = {
@@ -353,8 +353,8 @@ type getPVMTxParams = {
     hash: string
 }
 
-export const usePVMTx = (data: getPVMTxParams) => {
-    return useSWR<APIWrapperProps<pvmTxInfoType>, Error>(['/api/plugin/evm/transaction', data], postFetcher);
+export const usePVMTx = (host: string, data: getPVMTxParams) => {
+    return useSWR<APIWrapperProps<pvmTxInfoType>, Error>([host, '/api/plugin/evm/transaction', data], runtimeFetcher);
 };
 
 export type getPVMTxListParams = {
@@ -378,8 +378,8 @@ export type pvmTxListType = {
     count: number
 }
 
-export const usePVMTxs = (data: getPVMTxListParams) => {
-    return useSWR<APIWrapperProps<pvmTxListType>, Error>(['/api/plugin/evm/transactions', data], postFetcher);
+export const usePVMTxs = (host: string, data: getPVMTxListParams) => {
+    return useSWR<APIWrapperProps<pvmTxListType>, Error>([host, '/api/plugin/evm/transactions', data], runtimeFetcher);
 };
 
 export type pvmAccountType = {
@@ -398,8 +398,8 @@ export type getPVMAccountListParams = {
     address?: string
 }
 
-export const usePVMAccounts = (data: getPVMAccountListParams) => {
-    return useSWR<APIWrapperProps<pvmAccountListType>, Error>(['/api/plugin/evm/accounts', data], postFetcher);
+export const usePVMAccounts = (host: string, data: getPVMAccountListParams) => {
+    return useSWR<APIWrapperProps<pvmAccountListType>, Error>([host, '/api/plugin/evm/accounts', data], runtimeFetcher);
 };
 
 export type pvmTokenType = {
@@ -425,8 +425,8 @@ export type getPVMTokenListParams = {
     category?: string
 }
 
-export const usePVMTokens = (data: getPVMTokenListParams) => {
-    return useSWR<APIWrapperProps<pvmTokenListType>, Error>(['/api/plugin/evm/tokens', data], postFetcher);
+export const usePVMTokens = (host: string, data: getPVMTokenListParams) => {
+    return useSWR<APIWrapperProps<pvmTokenListType>, Error>([host, '/api/plugin/evm/tokens', data], runtimeFetcher);
 };
 
 export type pvmTokenHolderType = {
@@ -446,8 +446,8 @@ export type getPVMTokenHolderListParams = {
     token_address?: string
 }
 
-export const usePVMTokenHolders = (data: getPVMTokenHolderListParams) => {
-    return useSWR<APIWrapperProps<pvmTokenHolderListType>, Error>(['/api/plugin/evm/token/holder', data], postFetcher);
+export const usePVMTokenHolders = (host: string, data: getPVMTokenHolderListParams) => {
+    return useSWR<APIWrapperProps<pvmTokenHolderListType>, Error>([host, '/api/plugin/evm/token/holder', data], runtimeFetcher);
 };
 
 export type pvmTokenTransferType = {
@@ -478,8 +478,8 @@ export type getPVMTokenTransferListParams = {
     category?: string
 }
 
-export const usePVMTokenTransfers = (data: getPVMTokenTransferListParams) => {
-    return useSWR<APIWrapperProps<pvmTokenTransferListType>, Error>(['/api/plugin/evm/token/transfer', data], postFetcher);
+export const usePVMTokenTransfers = (host: string, data: getPVMTokenTransferListParams) => {
+    return useSWR<APIWrapperProps<pvmTokenTransferListType>, Error>([host, '/api/plugin/evm/token/transfer', data], runtimeFetcher);
 };
 
 export type pvmAccountTokenType = {
@@ -501,8 +501,8 @@ export type getPVMAccountTokenListParams = {
     address?: string
 }
 
-export const usePVMAccountTokens = (data: getPVMAccountTokenListParams) => {
-    return useSWR<APIWrapperProps<pvmAccountTokenListType>, Error>(['/api/plugin/evm/account/tokens', data], postFetcher);
+export const usePVMAccountTokens = (host: string, data: getPVMAccountTokenListParams) => {
+    return useSWR<APIWrapperProps<pvmAccountTokenListType>, Error>([host, '/api/plugin/evm/account/tokens', data], runtimeFetcher);
 };
 
 export type pvmContractType = {
@@ -557,12 +557,12 @@ type getPVMContractParams = {
     address: string
 }
 
-export const usePVMContract = (data: getPVMContractParams) => {
-    return useSWR<APIWrapperProps<pvmContractInfoType>, Error>(['/api/plugin/evm/contract', data], postFetcher);
+export const usePVMContract = (host: string, data: getPVMContractParams) => {
+    return useSWR<APIWrapperProps<pvmContractInfoType>, Error>([host, '/api/plugin/evm/contract', data], runtimeFetcher);
 };
 
-export const usePVMContracts = (data: getPVMContractListParams) => {
-    return useSWR<APIWrapperProps<pvmContractListType>, Error>(['/api/plugin/evm/contracts', data], postFetcher);
+export const usePVMContracts = (host: string, data: getPVMContractListParams) => {
+    return useSWR<APIWrapperProps<pvmContractListType>, Error>([host, '/api/plugin/evm/contracts', data], runtimeFetcher);
 };
 
 export type pvmSolcListType = string[]
@@ -571,12 +571,12 @@ export type getPVMSolcListParams = {
     releases?: boolean
 }
 
-export const usePVMSolcs = (data: getPVMSolcListParams) => {
-    return useSWR<APIWrapperProps<pvmSolcListType>, Error>(['/api/plugin/evm/contract/solcs', data], postFetcher);
+export const usePVMSolcs = (host: string, data: getPVMSolcListParams) => {
+    return useSWR<APIWrapperProps<pvmSolcListType>, Error>([host, '/api/plugin/evm/contract/solcs', data], runtimeFetcher);
 };
 
 export type pvmResolcListType = string[]
 
-export const usePVMResolcs = (data: {}) => {
-    return useSWR<APIWrapperProps<pvmResolcListType>, Error>(['/api/plugin/evm/contract/resolcs', data], postFetcher);
+export const usePVMResolcs = (host: string, data: {}) => {
+    return useSWR<APIWrapperProps<pvmResolcListType>, Error>([host, '/api/plugin/evm/contract/resolcs', data], runtimeFetcher);
 };

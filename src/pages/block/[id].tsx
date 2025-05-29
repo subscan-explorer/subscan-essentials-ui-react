@@ -6,11 +6,13 @@ import { unwrap, usePVMBlock } from '@/utils/api'
 import { Container, PageContent } from '@/ui'
 import { TxTable } from '@/components/tx'
 import { Link } from '@/components/link'
+import { env } from 'next-runtime-env'
 
 export default function Page() {
   const router = useRouter()
   const id = router.query.id
-  const { data } = usePVMBlock({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMBlock(NEXT_PUBLIC_API_HOST, {
     block_num: Number(id),
   })
 
@@ -42,7 +44,9 @@ export default function Page() {
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
                     <div className="w-48">Mined by</div>
-                    <div><Link href={`/address/${blockData.miner}`}>{blockData.miner}</Link></div>
+                    <div>
+                      <Link href={`/address/${blockData.miner}`}>{blockData.miner}</Link>
+                    </div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
@@ -52,7 +56,9 @@ export default function Page() {
                   <Divider className="my-2.5" />
                   <div className="flex items-center">
                     <div className="w-48">Size</div>
-                    <div>{blockData.block_size} {'bytes'}</div>
+                    <div>
+                      {blockData.block_size} {'bytes'}
+                    </div>
                   </div>
                   <Divider className="my-2.5" />
                   <div className="flex items-center">

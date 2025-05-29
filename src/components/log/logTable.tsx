@@ -6,6 +6,7 @@ import { getLogListParams, unwrap, useLogs } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
 import { getThemeColor } from '@/utils/text'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: getLogListParams
@@ -14,7 +15,8 @@ interface Props extends BareProps {
 const Component: React.FC<Props> = ({ children, className, args }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = useLogs({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = useLogs(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -30,12 +32,23 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
       aria-label="Table"
       bottomContent={
         <div className="flex w-full justify-center">
-          {pages > 0 && <Pagination color={getThemeColor(true)} isCompact showControls showShadow initialPage={1} page={page} total={pages} onChange={(page) => setPage(page)} />}
+          {pages > 0 && (
+            <Pagination
+              color={getThemeColor(true)}
+              isCompact
+              showControls
+              showShadow
+              initialPage={1}
+              page={page}
+              total={pages}
+              onChange={(page) => setPage(page)}
+            />
+          )}
         </div>
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="log_index">Log Index</TableColumn>
@@ -49,7 +62,9 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
               if (columnKey === 'block_num') {
                 return (
                   <TableCell>
-                    <Link color={getThemeColor(true)} href={`/sub/block/${item.block_num}`}>{item.block_num}</Link>
+                    <Link color={getThemeColor(true)} href={`/sub/block/${item.block_num}`}>
+                      {item.block_num}
+                    </Link>
                   </TableCell>
                 )
               }

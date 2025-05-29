@@ -2,11 +2,17 @@ import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { getPVMTokenHolderListParams, getPVMTokenTransferListParams, pvmTokenType, unwrap, usePVMTokenHolders, usePVMTokenTransfers } from '@/utils/api'
+import {
+  getPVMTokenTransferListParams,
+  pvmTokenType,
+  unwrap,
+  usePVMTokenTransfers,
+} from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import BigNumber from 'bignumber.js'
 import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: getPVMTokenTransferListParams
@@ -16,7 +22,8 @@ interface Props extends BareProps {
 const Component: React.FC<Props> = ({ args, token, children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMTokenTransfers({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMTokenTransfers(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -39,7 +46,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="hash">Transaction Hash</TableColumn>
@@ -60,9 +67,17 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
                   </TableCell>
                 )
               } else if (columnKey === 'hash') {
-                return <TableCell><Link href={`/tx/${item.hash}`}>{formatHash(item.hash)}</Link></TableCell>
+                return (
+                  <TableCell>
+                    <Link href={`/tx/${item.hash}`}>{formatHash(item.hash)}</Link>
+                  </TableCell>
+                )
               } else if (columnKey === 'value') {
-                return <TableCell>{getBalanceAmount(new BigNumber(item.value), item.decimals).toFormat()} {item.symbol}</TableCell>
+                return (
+                  <TableCell>
+                    {getBalanceAmount(new BigNumber(item.value), item.decimals).toFormat()} {item.symbol}
+                  </TableCell>
+                )
               } else if (columnKey === 'create_at') {
                 return <TableCell>{timeAgo(item.create_at)}</TableCell>
               }

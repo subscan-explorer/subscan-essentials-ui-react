@@ -7,11 +7,13 @@ import { ExtrinsicTable } from '@/components/extrinsic'
 import { EventTable } from '@/components/event'
 import { LogTable } from '@/components/log'
 import { Container, PageContent } from '@/ui'
+import { env } from 'next-runtime-env'
 
 export default function Page() {
   const router = useRouter()
   const id = router.query.id
-  const { data } = useBlock({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = useBlock(NEXT_PUBLIC_API_HOST, {
     block_num: Number(id),
   })
 

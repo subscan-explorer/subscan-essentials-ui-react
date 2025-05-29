@@ -6,11 +6,13 @@ import JsonView from '@uiw/react-json-view'
 import { unwrap, useEvent } from '@/utils/api'
 import { Container, PageContent } from '@/ui'
 import { Link } from '@/components/link'
+import { env } from 'next-runtime-env'
 
 export default function Page() {
   const router = useRouter()
   const id = router.query.id as string
-  const { data } = useEvent({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = useEvent(NEXT_PUBLIC_API_HOST, {
     event_index: id as string,
   })
 
@@ -38,7 +40,9 @@ export default function Page() {
                   <div className="flex items-center">
                     <div className="w-48">Block</div>
                     <div>
-                      <Link color={getThemeColor(true)} href={`/sub/block/${eventData.block_num}`}>{eventData.block_num}</Link>
+                      <Link color={getThemeColor(true)} href={`/sub/block/${eventData.block_num}`}>
+                        {eventData.block_num}
+                      </Link>
                     </div>
                   </div>
                   <Divider className="my-2.5" />

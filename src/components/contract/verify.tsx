@@ -16,15 +16,16 @@ import { getThemeColor, parseFileText } from '@/utils/text'
 import { FileUpload } from '../file'
 import _ from 'lodash'
 import axios from 'axios'
-import { API_HOST } from '@/utils/const'
 import qs from 'qs'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   address: string
 }
 
 const Component: React.FC<Props> = ({ children, className, address }) => {
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [nightly, setNightly] = useState<string>('false')
   const [compilerType, setCompilerType] = useState<string>('json')
@@ -59,7 +60,7 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
     })
     return options
   }, [])
-  const { data, error } = usePVMSolcs({
+  const { data, error } = usePVMSolcs(NEXT_PUBLIC_API_HOST, {
     releases: nightly !== 'true',
   })
   const compilerData = unwrap(data)
@@ -75,7 +76,7 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
     })
     return options
   }, [compilerData])
-  const { data: pvmData } = usePVMResolcs({})
+  const { data: pvmData } = usePVMResolcs(NEXT_PUBLIC_API_HOST, {})
   const resolcData = unwrap(pvmData)
   const resolcOptions = useMemo(() => {
     let options: any[] = []
@@ -158,7 +159,7 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
     axios({
       url: verifyApi.path,
       method: 'POST',
-      baseURL: `${API_HOST}`,
+      baseURL: `${NEXT_PUBLIC_API_HOST}`,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },

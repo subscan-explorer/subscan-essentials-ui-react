@@ -9,12 +9,14 @@ import { TxTable } from '@/components/tx'
 import { Container, PageContent } from '@/ui'
 import TokenTransferTable from '@/components/erc20Token/tokenTransferTable'
 import TokenTable from '@/components/pvmAccount/tokenTable'
+import { env } from 'next-runtime-env'
 
 export default function Page() {
   const router = useRouter()
   const { metadata, token, isLoading } = useData()
   const id = router.query.id as string
-  const { data } = usePVMAccounts({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMAccounts(NEXT_PUBLIC_API_HOST, {
     address: id,
     row: 10,
     page: 0,

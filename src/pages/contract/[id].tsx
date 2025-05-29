@@ -10,16 +10,18 @@ import TokenTransferTable from '@/components/erc20Token/tokenTransferTable'
 import BigNumber from 'bignumber.js'
 import { Link } from '@/components/link'
 import { ContractInfo, ContractVerify } from '@/components/contract'
+import { env } from 'next-runtime-env'
 
 export default function Page() {
   const router = useRouter()
   const { metadata, token, isLoading } = useData()
   const id = router.query.id as string
-  const { data } = usePVMContract({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMContract(NEXT_PUBLIC_API_HOST, {
     address: id,
   })
 
-  const { data: accountsData } = usePVMAccounts({
+  const { data: accountsData } = usePVMAccounts(NEXT_PUBLIC_API_HOST, {
     address: id,
     row: 10,
     page: 0,

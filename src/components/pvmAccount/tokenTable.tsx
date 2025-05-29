@@ -7,6 +7,7 @@ import { PAGE_SIZE } from '@/utils/const'
 import BigNumber from 'bignumber.js'
 import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: getPVMAccountTokenListParams
@@ -16,7 +17,8 @@ interface Props extends BareProps {
 const Component: React.FC<Props> = ({ args, token, children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMAccountTokens({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMAccountTokens(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -40,7 +42,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="name">Token</TableColumn>
@@ -59,7 +61,11 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
               } else if (columnKey === 'category') {
                 return <TableCell>{item.category === 'erc20' ? 'ERC-20' : 'ERC-721'}</TableCell>
               } else if (columnKey === 'contract') {
-                return <TableCell><Link href={`/token/${item.contract}`}>{formatHash(item.contract)}</Link></TableCell>
+                return (
+                  <TableCell>
+                    <Link href={`/token/${item.contract}`}>{formatHash(item.contract)}</Link>
+                  </TableCell>
+                )
               }
               return <TableCell>{getKeyValue(item, columnKey)}</TableCell>
             }}

@@ -7,6 +7,7 @@ import { PAGE_SIZE } from '@/utils/const'
 import BigNumber from 'bignumber.js'
 import { getBalanceAmount } from '@/utils/text'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: getPVMTokenHolderListParams
@@ -16,7 +17,8 @@ interface Props extends BareProps {
 const Component: React.FC<Props> = ({ args, token, children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMTokenHolders({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMTokenHolders(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -39,7 +41,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="holder">Account</TableColumn>

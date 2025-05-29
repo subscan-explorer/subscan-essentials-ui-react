@@ -6,6 +6,7 @@ import { unwrap, usePVMBlocks } from '@/utils/api'
 import { timeAgo } from '@/utils/text'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: string
@@ -14,7 +15,8 @@ interface Props extends BareProps {
 const Component: React.FC<Props> = ({ children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMBlocks({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMBlocks(NEXT_PUBLIC_API_HOST, {
     page: page - 1,
     row: rowsPerPage,
   })
@@ -36,7 +38,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="block_num">Block</TableColumn>

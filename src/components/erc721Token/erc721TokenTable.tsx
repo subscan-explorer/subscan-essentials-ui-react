@@ -3,9 +3,9 @@ import React, { useMemo } from 'react'
 import { BareProps } from '@/types/page'
 import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
 import { getPVMTokenListParams, unwrap, usePVMTokens } from '@/utils/api'
-import { timeAgo } from '@/utils/text'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
+import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
   args?: getPVMTokenListParams
@@ -14,7 +14,8 @@ interface Props extends BareProps {
 const Component: React.FC<Props> = ({ args, children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
-  const { data } = usePVMTokens({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data } = usePVMTokens(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -37,7 +38,7 @@ const Component: React.FC<Props> = ({ args, children, className }) => {
       }
       classNames={{
         wrapper: 'min-h-[222px]',
-        td: 'h-[50px]'
+        td: 'h-[50px]',
       }}>
       <TableHeader>
         <TableColumn key="symbol">Symbol</TableColumn>

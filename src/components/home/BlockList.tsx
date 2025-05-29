@@ -3,12 +3,14 @@ import { unwrap, useBlocks } from '@/utils/api'
 import _ from 'lodash'
 import { Skeleton } from '@heroui/react'
 import BlockItem from './BlockItem'
+import { env } from 'next-runtime-env'
 
 interface BlockListProps {
 }
 
 const BlockList: React.FC<BlockListProps> = ({}) => {
-  const { data, isLoading } = useBlocks({
+  const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
+  const { data, isLoading } = useBlocks(NEXT_PUBLIC_API_HOST, {
     page: 0,
     row: 10,
   })

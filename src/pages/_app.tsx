@@ -8,8 +8,6 @@ import { SWRConfig } from 'swr'
 
 import { HydrationProvider } from '@/components/HydrationProvider'
 
-import { HeroUIProvider } from '@heroui/react'
-import {type NextRouter} from "next/router";
 import { Navbar } from '@/components/navbar'
 import RootLayout from '@/pages/layout'
 import { Footer } from '@/components/Footer'
@@ -39,7 +37,6 @@ type AppPropsWithLayout = AppProps & {
 
 const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
   return (
-    <HeroUIProvider>
       <HydrationProvider>
         <SWRConfig value={SWRDefaultConfig}>
           <RootLayout pageProps={pageProps}>
@@ -49,7 +46,6 @@ const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
           </RootLayout>
         </SWRConfig>
       </HydrationProvider>
-    </HeroUIProvider>
   )
 }
 

@@ -7,6 +7,20 @@ export const getUTCTime = (timestamp: number, format = 'YYYY-MM-DD HH:mm:ss') =>
     return `${time} (UTC)`
 }
 
+export function parseFileText(file: File) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e: any) => {
+      const string = reader.result
+      resolve(string)
+    }
+    reader.onerror = function (e: any) {
+      reject(e)
+    }
+    reader.readAsText(file)
+  })
+}
+
 export type themeType = "danger" | "primary" | undefined
 export function getThemeColor(isSubstrate?: boolean): themeType {
   return isSubstrate ? 'danger': 'primary'

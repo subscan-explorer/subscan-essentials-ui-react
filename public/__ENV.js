@@ -1,1 +1,1 @@
-window.__ENV = {};
+window.__ENV = {"NEXT_PUBLIC_API_HOST":"https://assethub-westend-lite.webapi.subscan.io"};

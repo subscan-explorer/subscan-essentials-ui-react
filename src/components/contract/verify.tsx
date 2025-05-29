@@ -9,17 +9,23 @@ import {
   Select,
   SelectItem,
   Textarea,
+  addToast,
 } from '@heroui/react'
 import { unwrap, usePVMResolcs, usePVMSolcs } from '@/utils/api'
-import { getThemeColor } from '@/utils/text'
+import { getThemeColor, parseFileText } from '@/utils/text'
 import { FileUpload } from '../file'
 import _ from 'lodash'
+import axios from 'axios'
+import { API_HOST } from '@/utils/const'
+import qs from 'qs'
+import { Link } from '../link'
 
 interface Props extends BareProps {
   address: string
 }
 
 const Component: React.FC<Props> = ({ children, className, address }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [nightly, setNightly] = useState<string>('false')
   const [compilerType, setCompilerType] = useState<string>('json')
   const [files, setFiles] = useState<any>()
@@ -85,9 +91,109 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
   const reset = () => {
     window.location.reload()
   }
+  const submitForm = async () => {
+    let verifyApi = {
+      path: '/api/plugin/evm/etherscan?module=contract&action=verifysourcecode',
+    }
+    if (compilerType === 'json') {
+      if (!files) {
+        addToast({
+            title: 'Warning',
+            description: 'Please upload the Standard-Input-JSON file.',
+            color: 'warning',
+          });
+        return
+      }
+    } else if (compilerType === 'single') {
+      if (!code) {
+        addToast({
+            title: 'Warning',
+            description: 'Please enter the Solidity contract code.',
+            color: 'warning',
+          });
+        return
+      }
+    }
+    let formData
+    if (compilerType === 'json') {
+      const file = files?.[0]?.file
+      try {
+        const jsonString = await parseFileText(file)
+        formData = new FormData()
+        formData.append('codeformat', 'solidity-standard-json-input')
+        formData.append('module', 'contract')
+        formData.append('action', 'verifysourcecode')
+        formData.append('sourceCode', jsonString as string)
+        if (name) {
+          formData.append('contractname', name)
+        }
+        formData.append('contractaddress', address)
+        formData.append('compilerversion', compiler[0])
+        formData.append('resolcVersion', resolc[0])
+      } catch (e) {}
+    } else {
+      let data: any = {
+        contractaddress: address,
+        codeformat: 'solidity-single-file',
+        compilerversion: compiler[0],
+        optimizationUsed: optimization === 'true' ? 1 : 0,
+        sourceCode: code,
+        resolcVersion: resolc[0],
+      }
+      if (optimization === 'true') {
+        data['runs'] = optimizationRuns
+      }
+      if (target) {
+        data['compilation_target'] = target
+      }
+      if (name) {
+        data['contractname'] = name
+      }
+      if (evmVersion[0] !== 'default') {
+        data['evmversion'] = evmVersion[0]
+      }
+      formData = qs.stringify(data)
+    }
+    setIsLoading(true)
+    axios({
+      url: verifyApi.path,
+      method: 'POST',
+      baseURL: `${API_HOST}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      timeout: 60000,
+      data: formData,
+    })
+      .then((res) => {
+        if (res.data.status === 0) {
+          addToast({
+            title: 'Error',
+            description: res.data.result || res.data.message,
+            color: 'danger',
+          });
+        } else {
+          window.location.reload()
+        }
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        addToast({
+            title: 'Error',
+            description: err.response?.data?.result || err.message,
+            color: 'danger',
+          });
+        setIsLoading(false)
+      })
+  }
   
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 relative">
+      <div className='absolute right-2 z-10'>
+        <Link target="_blank" href="https://github.com/subscan-explorer/subscan-essentials/blob/master/docs/pvm_contract_verify.md">
+          <Button>Verify Guide</Button>
+        </Link>
+      </div>
       <div>
         <RadioGroup
           value={compilerType}
@@ -222,7 +328,7 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
         </div>
       )}
       <div className="flex gap-4">
-        <Button color={getThemeColor()}>Verify & Publish</Button>
+        <Button isLoading={isLoading} color={getThemeColor()} onPress={submitForm}>Verify & Publish</Button>
         <Button onPress={reset}>Reset</Button>
       </div>
     </div>

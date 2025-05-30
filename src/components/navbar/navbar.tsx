@@ -375,7 +375,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
             size="md"
             startContent={
               <Select
-                className="max-w-48"
+                className="max-w-44"
                 label=""
                 selectedKeys={type}
                 onSelectionChange={(key) => {

@@ -15,21 +15,21 @@ const PVMBlockItem: React.FC<PVMBlockItemProps> = ({ item }) => {
   const hoverBgColor = 'hover:shadow-md'
 
   return (
-    <div className={`${bgColor} ${hoverBgColor} p-4 rounded-lg mb-4 transition-shadow`}>
-      <div className="flex justify-between items-center">
+    <div className={`${bgColor} ${hoverBgColor} p-3 sm:p-4 rounded-lg mb-2 sm:mb-4 transition-shadow`}>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <div>
           <div className="flex items-center">
-            <span className="font-medium">Block# </span>
-            <Link size='md' href={linkHref} className="text-blue-600 ml-1 font-semibold">
+            <span className="font-medium text-sm sm:text-base">Block# </span>
+            <Link size='md' href={linkHref} className="text-blue-600 ml-1 font-semibold text-sm sm:text-base">
               {item.block_num}
             </Link>
           </div>
-          <div className="text-sm mt-1">
-            <span className="mr-2">Include</span>
-            <span className="mx-2">{`${item.transactions} Transactions`}</span>
+          <div className="text-xs sm:text-sm mt-1">
+            <span className="mr-1 sm:mr-2">Include</span>
+            <span className="mx-1 sm:mx-2">{`${item.transactions} Transactions`}</span>
           </div>
         </div>
-        <div className="text-sm text-gray-500">{timeAgo(item.block_timestamp)}</div>
+        <div className="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-0">{timeAgo(item.block_timestamp)}</div>
       </div>
     </div>
   )

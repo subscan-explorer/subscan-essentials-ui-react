@@ -14,12 +14,12 @@ const HomePage: React.FC = () => {
   }
   const columns = metadata.enable_evm && metadata.enable_substrate ? 2 : 1
   return (
-    <div className="mx-auto">
-      <div className={`grid grid-cols-1 gap-6 ${columns === 2 ? 'md:grid-cols-2' : ''}`}>
+    <div className="mx-auto px-2 sm:px-0">
+      <div className={`grid grid-cols-1 gap-4 sm:gap-6 ${columns === 2 ? 'lg:grid-cols-2' : ''}`}>
         {metadata.enable_substrate && (
           <div>
-            <div className="bg-pink-50 rounded-lg p-5 mb-5">
-              <div className="mb-4 text-lg font-semibold">Substrate</div>
+            <div className="bg-pink-50 rounded-lg p-3 sm:p-5 mb-4 sm:mb-5">
+              <div className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold">Substrate</div>
               <div className={`grid gap-4 mb-4 ${columns === 2 ? 'grid-cols-2' : 'grid-cols-4'}`}>
                 <InfoCard title="Substrate Block" value={formatNumber(metadata.finalized_blockNum)} href="/sub/block" color="text-danger" />
                 <InfoCard title="Extrinsic" value={formatNumber(metadata.count_extrinsic)} href="/sub/extrinsic" color="text-danger" />
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
                 <InfoCard title="Transfer" value={formatNumber(metadata.total_transfer)} href="/sub/transfer" color="text-danger" />
               </div>
             </div>
-            <div className={`grid gap-4 grid-cols-1 ${columns === 1 ? 'md:grid-cols-2' : ''}`}>
+            <div className={`grid gap-4 grid-cols-1 ${columns === 1 ? 'lg:grid-cols-2' : ''}`}>
               {columns === 1 && (
                 <BlockList />
               )}
@@ -38,8 +38,8 @@ const HomePage: React.FC = () => {
 
         {metadata.enable_evm && (
           <div>
-            <div className="bg-blue-50 rounded-lg p-5 mb-5">
-              <div className="mb-4 text-lg font-semibold">PVM</div>
+            <div className="bg-blue-50 rounded-lg p-3 sm:p-5 mb-4 sm:mb-5">
+              <div className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold">PVM</div>
               <div className={`grid gap-4 mb-4 ${columns === 2 ? 'grid-cols-2' : 'grid-cols-4'}`}>
                 <InfoCard title="PVM Block" value={metadata.finalized_blockNum} href="/block" />
                 <InfoCard title="Transaction" value={metadata.total_transaction} href="/tx" />
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
                 <InfoCard title="PVM Contract" value={metadata.total_evm_contract} href="/contract" />
               </div>
             </div>
-            <div className={`grid gap-4 grid-cols-1 ${columns === 1 ? 'md:grid-cols-2' : ''}`}>
+            <div className={`grid gap-4 grid-cols-1 ${columns === 1 ? 'lg:grid-cols-2' : ''}`}>
               {columns === 1 && (
                 <PVMBlockList />
               )}

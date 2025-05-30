@@ -363,7 +363,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
         <div className="w-full lg:max-w-screen-xl">
           <Input
             classNames={{
-              base: 'lg:max-w-2xl max-w-[10rem] h-10 mx-auto',
+              base: 'lg:max-w-2xl max-w-full h-10 mx-auto',
               mainWrapper: 'h-full',
               input: 'text-small',
               inputWrapper: 'h-full font-normal bg-white p-0',
@@ -375,7 +375,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
             size="md"
             startContent={
               <Select
-                className="max-w-44"
+                className="lg:max-w-44"
                 label=""
                 selectedKeys={type}
                 onSelectionChange={(key) => {

@@ -47,7 +47,7 @@ const Component: React.FC<Props> = ({ children, className, contract }) => {
       <div>
         <div className="mb-2">Contract ABI</div>
         <div>
-          <JsonView value={contract.abi || {}}></JsonView>
+          <JsonView collapsed={2} value={contract.abi || {}}></JsonView>
         </div>
       </div>
       <div>

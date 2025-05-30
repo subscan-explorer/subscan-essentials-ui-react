@@ -17,27 +17,31 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ item }) => {
   const hoverBgColor = 'hover:shadow-md'
 
   return (
-    <div className={`${bgColor} ${hoverBgColor} p-4 rounded-lg mb-4 transition-shadow`}>
-      <div className="flex justify-between items-center">
-        <div>
+    <div className={`${bgColor} ${hoverBgColor} p-3 sm:p-4 rounded-lg mb-2 sm:mb-4 transition-shadow`}>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+        <div className="mb-1 sm:mb-0">
           <div className="flex items-center">
-            <span className="font-medium">Hash# </span>
-            <Link size='md' href={linkHref} className="text-blue-600 ml-1 font-semibold">
+            <span className="font-medium text-sm sm:text-base">Hash# </span>
+            <Link size='md' href={linkHref} className="text-blue-600 ml-1 font-semibold text-sm sm:text-base truncate max-w-[160px] sm:max-w-none">
               {formatHash(item.hash)}
             </Link>
           </div>
-          <div className="text-sm mt-1">
-            <span className="mr-2">From</span>
-            <Link href={fromLink} className="text-blue-600">
-              {formatHash(item.from_address)}
-            </Link>
-            <span className="mx-2">To</span>
-            <Link href={toLink} className="text-blue-600">
-              {formatHash(item.to_address)}
-            </Link>
+          <div className="text-xs sm:text-sm mt-1 lg:flex grid grid-cols-1 gap-1">
+            <div className="flex items-center flex-wrap">
+              <span className="mr-1 sm:mr-2">From</span>
+              <Link href={fromLink} className="text-blue-600 truncate max-w-[160px] sm:max-w-none">
+                {formatHash(item.from_address)}
+              </Link>
+            </div>
+            <div className="flex items-center flex-wrap">
+              <span className="mr-2 sm:mr-2">To</span>
+              <Link href={toLink} className="text-blue-600 truncate max-w-[160px] sm:max-w-none">
+                {formatHash(item.to_address)}
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="text-sm text-gray-500">{timeAgo(item.block_timestamp)}</div>
+        <div className="text-xs sm:text-sm text-gray-500">{timeAgo(item.block_timestamp)}</div>
       </div>
     </div>
   )

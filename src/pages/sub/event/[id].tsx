@@ -54,7 +54,7 @@ export default function Page() {
                   <div className="flex items-center">
                     <div className="w-48">Parameters</div>
                     <div>
-                      <JsonView value={eventData.params}></JsonView>
+                      <JsonView collapsed={2} value={eventData.params}></JsonView>
                     </div>
                   </div>
                 </CardBody>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardBody, Card, Divider, Snippet, Tabs, Tab } from '@heroui/react'
+import { CardBody, Card, Divider, Snippet, Tabs, Tab, Spinner } from '@heroui/react'
 import { useRouter } from 'next/router'
 import { checkIsExtrinsicIndex, getThemeColor, getUTCTime, timeAgo } from '@/utils/text'
 import JsonView from '@uiw/react-json-view'
@@ -15,7 +15,7 @@ export default function Page() {
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
 
   const isExtrinsicIndex = checkIsExtrinsicIndex(id)
-  const { data } = useExtrinsic(
+  const { data, isLoading } = useExtrinsic(
     NEXT_PUBLIC_API_HOST,
     isExtrinsicIndex
       ? {
@@ -32,7 +32,11 @@ export default function Page() {
     <PageContent>
       <Container>
         <div className="flex flex-col gap-4">
-          {extrinsicData && (
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <Spinner size="lg" color="danger" />
+            </div>
+          ) : extrinsicData && (
             <>
               <div className="">Substrate Extrinsic #{extrinsicData.extrinsic_index}</div>
               <Card>
@@ -94,7 +98,7 @@ export default function Page() {
                   <div className="flex items-center">
                     <div className="w-48">Parameters</div>
                     <div>
-                      <JsonView value={extrinsicData.params}></JsonView>
+                      <JsonView collapsed={2} value={extrinsicData.params || {}}></JsonView>
                     </div>
                   </div>
                   <Divider className="my-2.5" />
@@ -117,6 +121,11 @@ export default function Page() {
                 </CardBody>
               </Card>
             </>
+          )}
+          {!isLoading && !extrinsicData && (
+            <div className="text-center py-10">
+              <div className="text-xl font-medium">We didn’t find any results. Try refining your search.</div>
+            </div>
           )}
         </div>
       </Container>

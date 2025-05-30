@@ -146,6 +146,7 @@ export type getExtrinsicListParams = {
     row?: number
     block_num?: number
     address?: string
+    hidden_params?: boolean
 }
 
 export const useExtrinsics = (host: string, data: getExtrinsicListParams) => {
@@ -183,6 +184,7 @@ export type getEventListParams = {
     row?: number
     block_num?: number
     extrinsic_index?: string
+    hidden_params?: boolean
 }
 
 export const useEvents = (host: string, data: getEventListParams) => {

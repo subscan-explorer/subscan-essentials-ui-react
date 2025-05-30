@@ -13,6 +13,7 @@ const ExtrinsicList: React.FC<ExtrinsicListProps> = ({ }) => {
   const { data, isLoading} = useExtrinsics(NEXT_PUBLIC_API_HOST, {
     page: 0,
     row: 10,
+    hidden_params: true,
   })
   const extrinsicsData = unwrap(data)
   const transactions = extrinsicsData?.extrinsics

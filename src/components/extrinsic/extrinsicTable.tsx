@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
 import { formatHash, getThemeColor, timeAgo } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, useExtrinsics } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
@@ -16,10 +16,11 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
   const [page, setPage] = React.useState(1)
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || '';
   const rowsPerPage = PAGE_SIZE
-  const { data } = useExtrinsics(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = useExtrinsics(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
+    hidden_params: true,
   })
   const extrinsicsData = unwrap(data)
   const total = extrinsicsData?.count || 0
@@ -48,7 +49,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         <TableColumn key="success">Result</TableColumn>
         <TableColumn key="block_timestamp">Time</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={"No data"}>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner color={getThemeColor(true)} />} items={items || []} emptyContent={"No data"}>
         {(item) => (
           <TableRow key={item.extrinsic_index}>
             {(columnKey) => {

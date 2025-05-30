@@ -1,4 +1,4 @@
-import React, { useState, KeyboardEvent } from 'react'
+import React, { useState, KeyboardEvent, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { BareProps } from '@/types/page'
@@ -15,8 +15,11 @@ import {
   Link,
   Input,
   Image,
+  Select,
+  SelectItem,
 } from '@heroui/react'
 import { useData } from '@/context'
+import _ from 'lodash'
 
 interface Props extends BareProps {
   value: string
@@ -54,22 +57,111 @@ const SearchIcon = ({ size = 24, strokeWidth = 1.5, ...props }) => {
 const Component: React.FC<Props> = ({ children, className }) => {
   const { metadata, token } = useData()
   const [value, setValue] = useState('')
+  const [type, setType] = useState<string[]>(['sub_block'])
   const router = useRouter()
+
+  const showSubstrate = metadata?.enable_substrate
+  const showPVM = metadata?.enable_evm
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
     search: <SearchIcon fill="none" size={16} />,
   }
+  const typeOptions = useMemo(() => {
+    const subOptions = [
+      {
+        name: 'Substrate Block',
+        value: 'sub_block',
+      },
+      {
+        name: 'Substrate Extrinsic',
+        value: 'sub_extrinsic',
+      },
+      {
+        name: 'Substrate Event',
+        value: 'sub_event',
+      },
+      {
+        name: 'Substrate Account',
+        value: 'sub_account',
+      },
+    ]
+    const pvmOptions = [
+      {
+        name: 'PVM Block',
+        value: 'pvm_block',
+      },
+      {
+        name: 'PVM Transaction',
+        value: 'pvm_tx',
+      },
+      {
+        name: 'PVM Contract',
+        value: 'pvm_contract',
+      },
+      {
+        name: 'PVM Account',
+        value: 'pvm_account',
+      },
+    ]
+    let options: any[] = []
+    if (metadata?.enable_substrate) {
+      _.forEach(subOptions, (item) => {
+        options.push({
+          name: item.name,
+          value: item.value,
+        })
+      })
+    }
+    if (metadata?.enable_evm) {
+      _.forEach(pvmOptions, (item) => {
+        options.push({
+          name: item.name,
+          value: item.value,
+        })
+      })
+    }
+    return options
+  }, [metadata?.enable_substrate, metadata?.enable_evm])
 
   const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && value.trim()) {
-      router.push(`/block/${value.trim()}`)
+      switch (type[0]) {
+        case 'sub_block':
+          router.push(`/sub/block/${value.trim()}`)
+          break
+        case 'sub_extrinsic':
+          router.push(`/sub/extrinsic/${value.trim()}`)
+          break
+        case 'sub_event':
+          router.push(`/sub/event/${value.trim()}`)
+          break
+        case 'sub_account':
+          router.push(`/sub/account/${value.trim()}`)
+          break
+        case 'pvm_block':
+          router.push(`/block/${value.trim()}`)
+          break
+        case 'pvm_tx':
+          router.push(`/tx/${value.trim()}`)
+          break
+        case 'pvm_contract':
+          router.push(`/contract/${value.trim()}`)
+          break
+        case 'pvm_account':
+          router.push(`/address/${value.trim()}`)
+          break
+        default:
+          break
+      }
       setValue('')
     }
   }
-
-  const showSubstrate = metadata?.enable_substrate
-  const showPVM = metadata?.enable_evm
+  useEffect(() => {
+    if (metadata?.enable_evm && !metadata?.enable_substrate) {
+      setType(['pvm_block'])
+    }
+  }, [metadata?.enable_evm, metadata?.enable_substrate])
 
   return (
     <div
@@ -274,15 +366,29 @@ const Component: React.FC<Props> = ({ children, className }) => {
               base: 'lg:max-w-2xl max-w-[10rem] h-10 mx-auto',
               mainWrapper: 'h-full',
               input: 'text-small',
-              inputWrapper: 'h-full font-normal bg-white',
+              inputWrapper: 'h-full font-normal bg-white p-0',
             }}
             value={value}
             onValueChange={setValue}
             onKeyDown={handleSearch}
             placeholder="Search"
             size="md"
-            startContent={icons.search}
-            type="search"
+            startContent={
+              <Select
+                className="max-w-48"
+                label=""
+                selectedKeys={type}
+                onSelectionChange={(key) => {
+                  if (key.currentKey) {
+                    setType([key.currentKey])
+                  }
+                }}>
+                {typeOptions.map((item) => (
+                  <SelectItem key={item.value}>{item.name}</SelectItem>
+                ))}
+              </Select>
+            }
+            // type="text"
           />
         </div>
       </div>

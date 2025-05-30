@@ -1,23 +1,24 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
 import { getPVMContractListParams, unwrap, usePVMContracts } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
 import { Link } from '../link'
 import { env } from 'next-runtime-env'
+import { getThemeColor } from '@/utils/text'
 
 interface Props extends BareProps {
   args?: getPVMContractListParams
 }
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
-  const { metadata, token, isLoading } = useData()
+  const { metadata, token } = useData()
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
-  const { data } = usePVMContracts(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = usePVMContracts(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -46,7 +47,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         <TableColumn key="transaction_count">Transaction</TableColumn>
         <TableColumn key="verify_status">Status</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={'No data'}>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner color={getThemeColor()} />} items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.address}>
             {(columnKey) => {

@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
+import { formatHash, getBalanceAmount, getThemeColor, timeAgo } from '@/utils/text'
 import { getPVMTxListParams, unwrap, usePVMTxs } from '@/utils/api'
 import { PAGE_SIZE, PVM_DECIMAL } from '@/utils/const'
 import { useData } from '@/context'
@@ -15,11 +15,11 @@ interface Props extends BareProps {
 }
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
-  const { metadata, token, isLoading } = useData()
+  const { metadata, token } = useData()
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
-  const { data } = usePVMTxs(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = usePVMTxs(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -50,7 +50,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         <TableColumn key="value">{`Value (${token?.symbol})`}</TableColumn>
         <TableColumn key="block_timestamp">Time</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={'No data'}>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner color={getThemeColor()} />} items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.block_num}>
             {(columnKey) => {

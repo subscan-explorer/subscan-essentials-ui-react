@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
 import { getLogListParams, unwrap, useLogs } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
@@ -16,7 +16,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
-  const { data } = useLogs(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = useLogs(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -55,7 +55,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         <TableColumn key="block_num">Block</TableColumn>
         <TableColumn key="log_type">Type</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={'No data'}>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner color={getThemeColor(true)} />} items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.log_index}>
             {(columnKey) => {

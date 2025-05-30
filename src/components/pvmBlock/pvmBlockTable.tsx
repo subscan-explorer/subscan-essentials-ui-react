@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
 import { unwrap, usePVMBlocks } from '@/utils/api'
-import { timeAgo } from '@/utils/text'
+import { getThemeColor, timeAgo } from '@/utils/text'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
 import { env } from 'next-runtime-env'
@@ -16,7 +16,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
-  const { data } = usePVMBlocks(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = usePVMBlocks(NEXT_PUBLIC_API_HOST, {
     page: page - 1,
     row: rowsPerPage,
   })
@@ -46,7 +46,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
         <TableColumn key="transactions">Transactions</TableColumn>
         <TableColumn key="block_timestamp">Time</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={'No data'}>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner color={getThemeColor()} />} items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.block_num}>
             {(columnKey) => {

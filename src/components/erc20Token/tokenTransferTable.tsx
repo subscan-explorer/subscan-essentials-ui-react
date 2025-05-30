@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
 import {
   getPVMTokenTransferListParams,
   pvmTokenType,
@@ -10,7 +10,7 @@ import {
 } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import BigNumber from 'bignumber.js'
-import { formatHash, getBalanceAmount, timeAgo } from '@/utils/text'
+import { formatHash, getBalanceAmount, getThemeColor, timeAgo } from '@/utils/text'
 import { Link } from '../link'
 import { env } from 'next-runtime-env'
 
@@ -23,7 +23,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
-  const { data } = usePVMTokenTransfers(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = usePVMTokenTransfers(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -55,7 +55,7 @@ const Component: React.FC<Props> = ({ args, token, children, className }) => {
         <TableColumn key="value">Amount</TableColumn>
         <TableColumn key="create_at">Time</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={'No data'}>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner color={getThemeColor()} />} items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => {

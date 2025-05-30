@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from '@heroui/react'
-import { getBalanceAmount } from '@/utils/text'
+import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
+import { getBalanceAmount, getThemeColor } from '@/utils/text'
 import { getExtrinsicListParams, unwrap, usePVMAccounts } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { useData } from '@/context'
@@ -15,11 +15,11 @@ interface Props extends BareProps {
 }
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
-  const { metadata, token, isLoading } = useData()
+  const { metadata, token } = useData()
   const [page, setPage] = React.useState(1)
   const rowsPerPage = PAGE_SIZE
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
-  const { data } = usePVMAccounts(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = usePVMAccounts(NEXT_PUBLIC_API_HOST, {
     ...args,
     page: page - 1,
     row: rowsPerPage,
@@ -46,7 +46,7 @@ const Component: React.FC<Props> = ({ children, className, args }) => {
         <TableColumn key="address">Account</TableColumn>
         <TableColumn key="balance">{`Balance (${token?.symbol})`}</TableColumn>
       </TableHeader>
-      <TableBody items={items || []} emptyContent={'No data'}>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner color={getThemeColor()} />} items={items || []} emptyContent={'No data'}>
         {(item) => (
           <TableRow key={item.evm_account}>
             {(columnKey) => {

@@ -10,13 +10,14 @@ import { TransferTable } from '@/components/transfer'
 import { BIG_ZERO } from '@/utils/const'
 import { Container, PageContent } from '@/ui'
 import { env } from 'next-runtime-env'
+import { LoadingSpinner, LoadingText } from '@/components/loading'
 
 export default function Page() {
   const router = useRouter()
-  const { metadata, token, isLoading } = useData()
+  const { metadata, token } = useData()
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
   const id = router.query.id as string
-  const { data } = useAccount(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = useAccount(NEXT_PUBLIC_API_HOST, {
     address: id,
   })
 
@@ -42,52 +43,60 @@ export default function Page() {
     <PageContent>
       <Container>
         <div className="flex flex-col gap-4">
-          {accountData && (
-            <>
-              <div className="">Account #{accountData.address}</div>
-              <Card>
-                <CardBody>
-                  <div className="flex items-center">
-                    <div className="w-48">Total Balance</div>
-                    <div>{getBalanceAmount(new BigNumber(accountData.balance), token?.decimals).toFormat()}</div>
-                  </div>
-                  <Divider className="my-2.5" />
-                  <div className="flex items-center">
-                    <div className="w-48">Transferrable</div>
-                    <div>{getBalanceAmount(transferable, token?.decimals).toFormat()}</div>
-                  </div>
-                  <Divider className="my-2.5" />
-                  <div className="flex items-center">
-                    <div className="w-48">Locked</div>
-                    <div>{getBalanceAmount(new BigNumber(accountData.locked), token?.decimals).toFormat()}</div>
-                  </div>
-                  <Divider className="my-2.5" />
-                  <div className="flex items-center">
-                    <div className="w-48">Reserved</div>
-                    <div>{getBalanceAmount(new BigNumber(accountData.reserved), token?.decimals).toFormat()}</div>
-                  </div>
-                </CardBody>
-              </Card>
-              <Card>
-                <CardBody>
-                  <Tabs aria-label="tabs" variant="underlined" color={getThemeColor(true)}>
-                    <Tab key="extrinsics" title="Extrinsics">
-                      <ExtrinsicTable
-                        args={{
-                          address: id,
-                        }}></ExtrinsicTable>
-                    </Tab>
-                    <Tab key="transfers" title="Transfers">
-                      <TransferTable
-                        args={{
-                          address: id,
-                        }}></TransferTable>
-                    </Tab>
-                  </Tabs>
-                </CardBody>
-              </Card>
-            </>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            accountData && (
+              <>
+                <div className="flex flex-col lg:flex-row gap-1">
+                  <div className="text-base">Account</div>
+                  <div className="text-sm break-all sm:text-base">#{accountData.address}</div>
+                </div>
+                <Card>
+                  <CardBody>
+                    <div className="flex items-center">
+                      <div className="w-48">Total Balance</div>
+                      <div>{getBalanceAmount(new BigNumber(accountData.balance), token?.decimals).toFormat()}</div>
+                    </div>
+                    <Divider className="my-2.5" />
+                    <div className="flex items-center">
+                      <div className="w-48">Transferrable</div>
+                      <div>{getBalanceAmount(transferable, token?.decimals).toFormat()}</div>
+                    </div>
+                    <Divider className="my-2.5" />
+                    <div className="flex items-center">
+                      <div className="w-48">Locked</div>
+                      <div>{getBalanceAmount(new BigNumber(accountData.locked), token?.decimals).toFormat()}</div>
+                    </div>
+                    <Divider className="my-2.5" />
+                    <div className="flex items-center">
+                      <div className="w-48">Reserved</div>
+                      <div>{getBalanceAmount(new BigNumber(accountData.reserved), token?.decimals).toFormat()}</div>
+                    </div>
+                  </CardBody>
+                </Card>
+                <Card>
+                  <CardBody>
+                    <Tabs aria-label="tabs" variant="underlined" color={getThemeColor(true)}>
+                      <Tab key="extrinsics" title="Extrinsics">
+                        <ExtrinsicTable
+                          args={{
+                            address: id,
+                          }}></ExtrinsicTable>
+                      </Tab>
+                      <Tab key="transfers" title="Transfers">
+                        <TransferTable
+                          args={{
+                            address: id,
+                          }}></TransferTable>
+                      </Tab>
+                    </Tabs>
+                  </CardBody>
+                </Card>
+              </>
+            )
           )}
+          {!isLoading && !accountData && <LoadingText />}
         </div>
       </Container>
     </PageContent>

@@ -7,12 +7,13 @@ import { Container, PageContent } from '@/ui'
 import { TxTable } from '@/components/tx'
 import { Link } from '@/components/link'
 import { env } from 'next-runtime-env'
+import { LoadingSpinner, LoadingText } from '@/components/loading'
 
 export default function Page() {
   const router = useRouter()
   const id = router.query.id
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
-  const { data } = usePVMBlock(NEXT_PUBLIC_API_HOST, {
+  const { data, isLoading } = usePVMBlock(NEXT_PUBLIC_API_HOST, {
     block_num: Number(id),
   })
 
@@ -22,9 +23,14 @@ export default function Page() {
     <PageContent>
       <Container>
         <div className="flex flex-col gap-4">
-          <div className="">PVM Block #{id}</div>
-          {blockData && (
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (blockData && (
             <>
+              <div className="flex flex-col lg:flex-row gap-1">
+                <div className="text-base">PVM Block</div>
+                <div className="text-sm break-all sm:text-base">#{id}</div>
+              </div>
               <Card>
                 <CardBody>
                   <div className="flex items-center">
@@ -82,7 +88,8 @@ export default function Page() {
                 </CardBody>
               </Card>
             </>
-          )}
+          ))}
+          {!isLoading && !blockData && <LoadingText />}
         </div>
       </Container>
     </PageContent>

@@ -17,6 +17,7 @@ import {
   Image,
   Select,
   SelectItem,
+  Divider,
 } from '@heroui/react'
 import { useData } from '@/context'
 import _ from 'lodash'
@@ -374,21 +375,31 @@ const Component: React.FC<Props> = ({ children, className }) => {
             placeholder="Search"
             size="md"
             startContent={
-              <Select
-                className="lg:max-w-44"
-                label=""
-                selectedKeys={type}
-                onSelectionChange={(key) => {
-                  if (key.currentKey) {
-                    setType([key.currentKey])
-                  }
-                }}>
-                {typeOptions.map((item) => (
-                  <SelectItem key={item.value}>{item.name}</SelectItem>
-                ))}
-              </Select>
+              <div className='flex h-5 items-center'>
+                <Select
+                  className=""
+                  classNames={{
+                    base: 'w-auto',
+                    trigger: '!bg-transparent shadow-none !w-auto px-5',
+                    innerWrapper: '!w-auto',
+                    popoverContent: 'w-[190px]',
+                    selectorIcon: 'right-[0px]',
+                  }}
+                  label=""
+                  selectedKeys={type}
+                  onSelectionChange={(key) => {
+                    if (key.currentKey) {
+                      setType([key.currentKey])
+                    }
+                  }}>
+                  {typeOptions.map((item) => (
+                    <SelectItem key={item.value}>{item.name}</SelectItem>
+                  ))}
+                </Select>
+                <Divider orientation="vertical" className='mx-4'/>
+              </div>
             }
-            // type="text"
+            endContent={<SearchIcon fill="none" size={24} className="mr-3"/>}
           />
         </div>
       </div>

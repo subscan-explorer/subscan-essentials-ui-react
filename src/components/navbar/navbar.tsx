@@ -126,7 +126,12 @@ const Component: React.FC<Props> = ({ children, className }) => {
   }, [metadata?.enable_substrate, metadata?.enable_evm])
 
   const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && value.trim()) {
+    if (e.key === 'Enter') {
+      handleRedirect()
+    }
+  }
+  const handleRedirect = () => {
+    if (value.trim()) {
       switch (type[0]) {
         case 'sub_block':
           router.push(`/sub/block/${value.trim()}`)
@@ -399,7 +404,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
                 <Divider orientation="vertical" className='mx-4'/>
               </div>
             }
-            endContent={<SearchIcon fill="none" size={24} className="mr-3"/>}
+            endContent={<SearchIcon fill="none" size={24} onClick={handleRedirect} className="mr-3 cursor-pointer"/>}
           />
         </div>
       </div>

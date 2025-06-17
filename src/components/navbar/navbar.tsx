@@ -14,12 +14,12 @@ import {
   DropdownTrigger,
   Link,
   Input,
-  Image,
   Select,
   SelectItem,
   Divider,
 } from '@heroui/react'
 import { useData } from '@/context'
+import Image from 'next/image'
 import _ from 'lodash'
 
 interface Props extends BareProps {
@@ -173,7 +173,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
     <div
       className="bg-no-repeat bg-cover bg-center"
       style={{
-        backgroundImage: 'url(/images/navbar.png)',
+        backgroundImage: 'url(/images/banner/navbar.png)',
         backgroundSize: 'cover',
       }}>
       <Navbar
@@ -363,6 +363,18 @@ const Component: React.FC<Props> = ({ children, className }) => {
               </NavbarItem>
             </>
           )}
+          <NavbarItem>
+            <div className='bg-white rounded-lg px-2.5 py-0.5'>
+              <Image
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="hidden md:block h-[30px] w-auto"
+                src={`/images/network/${metadata?.networkNode}.png`} 
+                alt={metadata?.networkNode || 'Network Name'}
+              />
+            </div>
+          </NavbarItem>
         </NavbarContent>
       </Navbar>
       <div className="w-full px-4 pb-6 flex justify-center">
@@ -380,7 +392,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
             placeholder="Search"
             size="md"
             startContent={
-              <div className='flex h-5 items-center'>
+              <div className="flex h-5 items-center">
                 <Select
                   className=""
                   classNames={{
@@ -401,10 +413,10 @@ const Component: React.FC<Props> = ({ children, className }) => {
                     <SelectItem key={item.value}>{item.name}</SelectItem>
                   ))}
                 </Select>
-                <Divider orientation="vertical" className='mx-4'/>
+                <Divider orientation="vertical" className="mx-4" />
               </div>
             }
-            endContent={<SearchIcon fill="none" size={24} onClick={handleRedirect} className="mr-3 cursor-pointer"/>}
+            endContent={<SearchIcon fill="none" size={24} onClick={handleRedirect} className="mr-3 cursor-pointer" />}
           />
         </div>
       </div>

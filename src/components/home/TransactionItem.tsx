@@ -22,20 +22,20 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ item }) => {
         <div className="mb-1 sm:mb-0">
           <div className="flex items-center">
             <span className="font-medium text-sm sm:text-base">Hash# </span>
-            <Link size='md' href={linkHref} className="text-blue-600 ml-1 font-semibold text-sm sm:text-base truncate max-w-[160px] sm:max-w-none">
+            <Link size='md' href={linkHref} className="text-primary ml-1 font-semibold text-sm sm:text-base truncate max-w-[160px] sm:max-w-none">
               {formatHash(item.hash)}
             </Link>
           </div>
           <div className="text-xs sm:text-sm mt-1 lg:flex grid grid-cols-1 gap-1">
             <div className="flex items-center flex-wrap">
               <span className="mr-1 sm:mr-2">From</span>
-              <Link href={fromLink} className="text-blue-600 truncate max-w-[160px] sm:max-w-none">
+              <Link href={fromLink} className="text-primary truncate max-w-[160px] sm:max-w-none">
                 {formatHash(item.from_address)}
               </Link>
             </div>
             <div className="flex items-center flex-wrap">
               <span className="mr-2 sm:mr-2">To</span>
-              <Link href={toLink} className="text-blue-600 truncate max-w-[160px] sm:max-w-none">
+              <Link href={toLink} className="text-primary truncate max-w-[160px] sm:max-w-none">
                 {formatHash(item.to_address)}
               </Link>
             </div>

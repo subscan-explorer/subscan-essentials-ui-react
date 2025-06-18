@@ -20,7 +20,7 @@ const PVMBlockItem: React.FC<PVMBlockItemProps> = ({ item }) => {
         <div>
           <div className="flex items-center">
             <span className="font-medium text-sm sm:text-base">Block# </span>
-            <Link size='md' href={linkHref} className="text-blue-600 ml-1 font-semibold text-sm sm:text-base">
+            <Link size='md' href={linkHref} className="text-primary ml-1 font-semibold text-sm sm:text-base">
               {item.block_num}
             </Link>
           </div>

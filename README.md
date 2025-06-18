@@ -14,7 +14,68 @@ A demo of the application is available at [https://essentials-stg.vercel.app/](h
 
 ## Custom Theme Guide
 
-### Network Logo
+This project utilizes Hero UI's theming system for consistent styling across the application. The theming system is based on TailwindCSS and allows for extensive customization.
+
+### Customizing the Theme
+
+You can customize the theme by modifying the `tailwind.config.js` file. The Hero UI plugin is already configured, allowing you to:
+
+1. Define custom colors
+2. Create light and dark themes
+3. Customize component appearances
+
+```javascript
+// Example of customizing theme in tailwind.config.js
+const {heroui} = require("@heroui/react");
+
+module.exports = {
+  // ... other configs
+  plugins: [
+    heroui({
+      themes: {
+        'purple-dark': {
+          extend: 'dark',
+          colors: {
+            primary: {
+              50: '#3B096C',
+              100: '#520F83',
+              200: '#7318A2',
+              300: '#9823C2',
+              400: '#c031e2',
+              500: '#DD62ED',
+              600: '#F182F6',
+              700: '#FCADF9',
+              800: '#FDD5F9',
+              900: '#FEECFE',
+              DEFAULT: '#DD62ED',
+              foreground: '#ffffff',
+            },
+          },
+        },
+      },
+    }),
+    // Other plugins
+  ],
+}
+```
+
+```javascript
+// Example of customizing theme in layout.tsx, add corresponding theme name in className
+
+<Providers>
+    <div className="purple-dark flex flex-col min-h-screen">
+        <div className="flex-grow">
+        {children}
+        </div>
+        <Footer />
+    </div>
+</Providers>
+
+```
+
+### Network Branding Assets
+
+#### Network Logo
 
 Network logos should be placed in the `/public/images/network/` directory with the following specifications:
 
@@ -27,7 +88,7 @@ Currently available network logos:
 * `assethub-westend.png`
 * `paseo.png`
 
-### Network Banner Images
+#### Network Banner Images
 
 Network banner images should be placed in:
 
@@ -36,7 +97,7 @@ Network banner images should be placed in:
 * Banner images will be displayed at the top of network pages
 * Design Style: Should reflect the network's characteristics and may include the network name, logo, and related visual elements
 
-### Adding New Network Images
+#### Adding New Network Images
 
 1. Prepare image files according to the specifications above
 2. Add the network logo to `/public/images/network/[network-id].png`

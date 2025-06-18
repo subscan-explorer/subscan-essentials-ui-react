@@ -41,10 +41,10 @@ const HomePage: React.FC = () => {
             <div className="bg-blue-50 rounded-lg p-3 sm:p-5 mb-4 sm:mb-5">
               <div className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold">PVM</div>
               <div className={`grid gap-4 mb-4 ${columns === 2 ? 'grid-cols-2' : 'grid-cols-4'}`}>
-                <InfoCard title="PVM Block" value={metadata.finalized_blockNum} href="/block" />
-                <InfoCard title="Transaction" value={metadata.total_transaction} href="/tx" />
-                <InfoCard title="PVM Account" value={metadata.total_evm_account} href="/address" />
-                <InfoCard title="PVM Contract" value={metadata.total_evm_contract} href="/contract" />
+                <InfoCard title="PVM Block" value={formatNumber(metadata.finalized_blockNum)} href="/block" />
+                <InfoCard title="Transaction" value={formatNumber(metadata.total_transaction)} href="/tx" />
+                <InfoCard title="PVM Account" value={formatNumber(metadata.total_evm_account)} href="/address" />
+                <InfoCard title="PVM Contract" value={formatNumber(metadata.total_evm_contract)} href="/contract" />
               </div>
             </div>
             <div className={`grid gap-4 grid-cols-1 ${columns === 1 ? 'lg:grid-cols-2' : ''}`}>

@@ -175,6 +175,35 @@ npm run test:coverage
 yarn test:coverage
 ```
 
+## Helm Chart Deployment
+
+For Kubernetes production deployments, it is recommended to use the official [Subscan Essentials Helm Chart](https://github.com/subscan-explorer/subscan-essentials-chart).
+
+### Quick Start
+
+1. Add the Helm repository:
+
+   ```bash
+   helm repo add subscan https://subscan-explorer.github.io/subscan-essentials-chart/
+   helm repo update
+   ```
+
+2. Install (modify `values.yaml` as needed for your environment):
+
+   ```bash
+   helm install subscan-essentials subscan/subscan-essentials-chart -f example/subscan-essentials/values.yaml
+   ```
+
+3. Upgrade:
+
+   ```bash
+   helm upgrade subscan-essentials subscan/subscan-essentials-chart -f example/subscan-essentials/values.yaml
+   ```
+
+For advanced configuration and environment variable details, please refer to the [subscan-essentials-chart repository README](https://github.com/subscan-explorer/subscan-essentials-chart).
+
+> This Helm Chart supports multi-network (mainnet/testnet), custom images, resource limits, Ingress (traefik/ingress-nginx), database and cache services, and other production-grade deployment requirements.
+
 ## Linting and Formatting
 
 To check for linting and formatting errors:

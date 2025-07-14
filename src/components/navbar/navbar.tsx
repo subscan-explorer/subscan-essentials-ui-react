@@ -89,19 +89,19 @@ const Component: React.FC<Props> = ({ children, className }) => {
     ]
     const pvmOptions = [
       {
-        name: 'PVM Block',
+        name: 'Smart Contract Block',
         value: 'pvm_block',
       },
       {
-        name: 'PVM Transaction',
+        name: 'Smart Contract Transaction',
         value: 'pvm_tx',
       },
       {
-        name: 'PVM Contract',
+        name: 'Smart Contract',
         value: 'pvm_contract',
       },
       {
-        name: 'PVM Account',
+        name: 'Smart Contract Account',
         value: 'pvm_account',
       },
     ]
@@ -247,7 +247,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
                       radius="sm"
                       variant="light"
                       endContent={icons.chevron}>
-                      PVM
+                      Smart Contract
                     </Button>
                   </DropdownTrigger>
                 </NavbarItem>

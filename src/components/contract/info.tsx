@@ -25,7 +25,7 @@ const Component: React.FC<Props> = ({ children, className, contract }) => {
             <div>{contract.compiler_version || '-'}</div>
           </div>
           <div className="pl-5">
-            <div className="mt-5 mb-1">PVM Version</div>
+            <div className="mt-5 mb-1">Smart Contract Version</div>
             <div>{contract.evm_version || '-'}</div>
           </div>
           <div className="pl-5">

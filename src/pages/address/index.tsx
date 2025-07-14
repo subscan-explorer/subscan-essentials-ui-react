@@ -7,7 +7,7 @@ export default function Page() {
     <PageContent>
       <Container>
         <div className="flex flex-col gap-4">
-          <div className="">PVM Accounts</div>
+          <div className="">Smart Contract Accounts</div>
           <AccountTable></AccountTable>
         </div>
       </Container>

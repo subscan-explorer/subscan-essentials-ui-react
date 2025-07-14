@@ -8,7 +8,7 @@ A demo of the application is available at [https://essentials-stg.vercel.app/](h
 
 ## Features
 
-* View Substrate/PVM block and extrinsic data from Substrate-based chains.
+* View Substrate/Smart Contract block and extrinsic data from Substrate-based chains.
 * Responsive design for use on desktop and mobile devices.
 * Comprehensive testing suite using Jest and React Testing Library.
 

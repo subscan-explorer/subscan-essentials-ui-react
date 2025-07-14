@@ -39,7 +39,7 @@ export default function Page() {
             extrinsicData && (
               <>
                 <div className="flex flex-col lg:flex-row gap-1">
-                  <div className="text-base">PVM Transaction</div>
+                  <div className="text-base">Smart Contract Transaction</div>
                   <div className="text-sm break-all sm:text-base">#{extrinsicData.hash}</div>
                 </div>
                 <Card>

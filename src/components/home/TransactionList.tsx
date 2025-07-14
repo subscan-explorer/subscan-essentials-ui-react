@@ -18,7 +18,7 @@ const TransactionList: React.FC<TransactionListProps> = ({}) => {
   const transactions = extrinsicsData?.list
   return (
     <div className="bg-blue-50 rounded-lg p-3 sm:p-5">
-      <h2 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4">PVM Transaction</h2>
+      <h2 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4">Smart Contract Transaction</h2>
       <Skeleton className="w-full rounded-lg" isLoaded={!isLoading}>
         <div>
           {_.map(transactions, (tx) => (

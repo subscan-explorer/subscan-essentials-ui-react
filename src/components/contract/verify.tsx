@@ -227,7 +227,7 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
       </div>
       {compilerType === 'single' && (
         <div>
-          <div className="mb-2">PVM Version</div>
+          <div className="mb-2">Smart Contract Version</div>
           <Select
             className="max-w-xs"
             label=""

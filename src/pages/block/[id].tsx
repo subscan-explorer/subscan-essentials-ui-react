@@ -28,7 +28,7 @@ export default function Page() {
           ) : (blockData && (
             <>
               <div className="flex flex-col lg:flex-row gap-1">
-                <div className="text-base">PVM Block</div>
+                <div className="text-base">Smart Contract Block</div>
                 <div className="text-sm break-all sm:text-base">#{id}</div>
               </div>
               <Card>

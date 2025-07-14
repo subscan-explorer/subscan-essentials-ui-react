@@ -17,7 +17,7 @@ const PVMBlockList: React.FC<PVMBlockListProps> = ({}) => {
   const blocks = extrinsicsData?.list
   return (
     <div className="bg-blue-50 rounded-lg p-3 sm:p-5">
-      <h2 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4">PVM Block</h2>
+      <h2 className="text-base sm:text-lg font-semibold mb-2 sm:mb-4">Smart Contract Block</h2>
       <Skeleton className="w-full rounded-lg" isLoaded={!isLoading}>
         <div>
           {_.map(blocks, (block) => (

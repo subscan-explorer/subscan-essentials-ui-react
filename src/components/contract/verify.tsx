@@ -171,7 +171,7 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
           addToast({
             title: 'Error',
             description: res.data.result || res.data.message,
-            color: 'danger',
+            color: 'secondary',
           });
         } else {
           window.location.reload()
@@ -182,7 +182,7 @@ const Component: React.FC<Props> = ({ children, className, address }) => {
         addToast({
             title: 'Error',
             description: err.response?.data?.result || err.message,
-            color: 'danger',
+            color: 'secondary',
           });
         setIsLoading(false)
       })

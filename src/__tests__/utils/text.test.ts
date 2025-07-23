@@ -11,8 +11,8 @@ import { BIGNUMBER_FMT } from '@/utils/const';
 
 describe('Utils - text', () => {
   describe('getThemeColor', () => {
-    it('should return "danger" if isSubstrate is true', () => {
-      expect(getThemeColor(true)).toBe('danger');
+    it('should return "secondary" if isSubstrate is true', () => {
+      expect(getThemeColor(true)).toBe('secondary');
     });
 
     it('should return "primary" if isSubstrate is false', () => {

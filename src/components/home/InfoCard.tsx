@@ -8,7 +8,7 @@ interface InfoCardProps {
   color?: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ title, value, href, color = 'pink-100' }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ title, value, href, color = 'secondary-50' }) => {
   return (
     <Link href={href} className='block'>
       <div className={`bg-white p-2 sm:p-4 rounded-lg hover:shadow-md transition-shadow`}>

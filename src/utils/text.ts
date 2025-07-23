@@ -21,9 +21,9 @@ export function parseFileText(file: File) {
   })
 }
 
-export type themeType = "danger" | "primary" | undefined
+export type themeType = "secondary" | "primary" | undefined
 export function getThemeColor(isSubstrate?: boolean): themeType {
-  return isSubstrate ? 'danger': 'primary'
+  return isSubstrate ? 'secondary': 'primary'
 }
 export function checkIsExtrinsicIndex(extrinsicKey: string): boolean {
   const reg = /^[0-9]+-[0-9]+$/

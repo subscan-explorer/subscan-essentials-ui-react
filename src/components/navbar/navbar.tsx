@@ -169,11 +169,18 @@ const Component: React.FC<Props> = ({ children, className }) => {
     }
   }, [metadata?.enable_evm, metadata?.enable_substrate])
 
+  const bannerBackgroundImage = useMemo(() => {
+    if (metadata?.networkNode) {
+      return `url('/images/network/${metadata.networkNode}/banner.png'), url('/images/network/default/banner.png')`
+    }
+    return `url('/images/network/default/banner.png')`
+  }, [metadata?.networkNode])
+
   return (
     <div
       className="bg-no-repeat bg-cover bg-center"
       style={{
-        backgroundImage: 'url(/images/banner/navbar.png)',
+        backgroundImage: bannerBackgroundImage,
         backgroundSize: 'cover',
       }}>
       <Navbar
@@ -186,6 +193,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
         <NavbarBrand>
           <Link href="/" className="text-inherit">
             <Image className="rounded-none" alt="subscan" src="/images/logo.png" width={202} height={25} />
+            {/* <div className='text-white ml-2'>{metadata?.networkNode}</div> */}
           </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="end">
@@ -370,7 +378,7 @@ const Component: React.FC<Props> = ({ children, className }) => {
                 height={0}
                 sizes="100vw"
                 className="hidden md:block h-[30px] w-auto"
-                src={`/images/network/${metadata?.networkNode}.png`} 
+                src={`/images/network/${metadata?.networkNode || 'default'}/logo.png`}
                 alt={metadata?.networkNode || 'Network Name'}
               />
             </div>

@@ -3,11 +3,21 @@ import { Footer } from '@/components/Footer'
 import { GetServerSidePropsContext } from 'next'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useData } from '@/context'
+
+const MainContainer = ({ children }: { children: React.ReactNode }) => {
+  const { metadata } = useData()
+
+  return (
+    <div className={`${metadata?.networkNode} flex flex-col min-h-screen`}>
+      <div className="flex-grow">{children}</div>
+      <Footer />
+    </div>
+  )
+}
 
 export default function RootLayout({
-  context,
   children,
-  pageProps,
 }: {
   context?: GetServerSidePropsContext
   children: React.ReactNode
@@ -20,12 +30,7 @@ export default function RootLayout({
         <script src="/__ENV.js" />
       </Head>
       <Providers>
-        <div className="flex flex-col min-h-screen">
-          <div className="flex-grow">
-            {children}
-          </div>
-          <Footer />
-        </div>
+        <MainContainer>{children}</MainContainer>
       </Providers>
     </div>
   )

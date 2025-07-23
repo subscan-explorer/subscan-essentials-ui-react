@@ -33,7 +33,7 @@ module.exports = {
   plugins: [
     heroui({
       themes: {
-        'purple-dark': {
+        '${networkNode}': {
           extend: 'dark',
           colors: {
             primary: {
@@ -60,10 +60,10 @@ module.exports = {
 ```
 
 ```javascript
-// Example of customizing theme in layout.tsx, add corresponding theme name in className
+// Example of customizing theme in layout.tsx, corresponding theme name will be applied in className
 
 <Providers>
-    <div className="purple-dark flex flex-col min-h-screen">
+    <div className="${networkNode} flex flex-col min-h-screen">
         <div className="flex-grow">
         {children}
         </div>
@@ -77,22 +77,22 @@ module.exports = {
 
 #### Network Logo
 
-Network logos should be placed in the `/public/images/network/` directory with the following specifications:
+Network logos should be placed in the `/public/images/network/${networkNode}` directory with the following specifications:
 
 * File Format: PNG format (transparent background recommended)
-* File Naming: Should match the network identifier (e.g., `assethub-westend.png`, `paseo.png`)
 * Design Style: Both circular or square logos are acceptable, but visual clarity should be ensured
 
 Currently available network logos:
 
-* `assethub-westend.png`
-* `paseo.png`
+* `assethub-westend`
+* `paseo`
+* `bifrost-testnet`
 
 #### Network Banner Images
 
 Network banner images should be placed in:
 
-* Path: `/public/images/banner/`
+* Path: `/public/images/network/${networkNode}`
 * File Format: PNG or JPG
 * Banner images will be displayed at the top of network pages
 * Design Style: Should reflect the network's characteristics and may include the network name, logo, and related visual elements
@@ -100,8 +100,8 @@ Network banner images should be placed in:
 #### Adding New Network Images
 
 1. Prepare image files according to the specifications above
-2. Add the network logo to `/public/images/network/[network-id].png`
-3. Update the network banner to `/public/images/banner/navbar.png`
+2. Add the network logo to `/public/images/network/${networkNode}/logo.png`
+3. Update the network banner to `/public/images/network/${networkNode}/banner.png`
 4. The application will automatically detect and display the corresponding images based on the network identifier
 
 ## Getting Started

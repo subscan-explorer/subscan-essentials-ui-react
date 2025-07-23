@@ -18,13 +18,13 @@ const HomePage: React.FC = () => {
       <div className={`grid grid-cols-1 gap-4 sm:gap-6 ${columns === 2 ? 'lg:grid-cols-2' : ''}`}>
         {metadata.enable_substrate && (
           <div>
-            <div className="bg-pink-50 rounded-lg p-3 sm:p-5 mb-4 sm:mb-5">
+            <div className="bg-secondary/10 rounded-lg p-3 sm:p-5 mb-4 sm:mb-5">
               <div className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold">Substrate</div>
               <div className={`grid gap-4 mb-4 ${columns === 2 ? 'grid-cols-2' : 'grid-cols-4'}`}>
-                <InfoCard title="Substrate Block" value={formatNumber(metadata.finalized_blockNum)} href="/sub/block" color="text-danger" />
-                <InfoCard title="Extrinsic" value={formatNumber(metadata.count_extrinsic)} href="/sub/extrinsic" color="text-danger" />
-                <InfoCard title="Account" value={formatNumber(metadata.total_account)} href="/sub/account" color="text-danger" />
-                <InfoCard title="Transfer" value={formatNumber(metadata.total_transfer)} href="/sub/transfer" color="text-danger" />
+                <InfoCard title="Substrate Block" value={formatNumber(metadata.finalized_blockNum)} href="/sub/block" color="text-secondary" />
+                <InfoCard title="Extrinsic" value={formatNumber(metadata.count_extrinsic)} href="/sub/extrinsic" color="text-secondary" />
+                <InfoCard title="Account" value={formatNumber(metadata.total_account)} href="/sub/account" color="text-secondary" />
+                <InfoCard title="Transfer" value={formatNumber(metadata.total_transfer)} href="/sub/transfer" color="text-secondary" />
               </div>
             </div>
             <div className={`grid gap-4 grid-cols-1 ${columns === 1 ? 'lg:grid-cols-2' : ''}`}>

@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
                 <InfoCard title="Smart Contract Block" value={formatNumber(metadata.finalized_blockNum)} href="/block" />
                 <InfoCard title="Transaction" value={formatNumber(metadata.total_transaction)} href="/tx" />
                 <InfoCard title="Smart Contract Account" value={formatNumber(metadata.total_evm_account)} href="/address" />
-                <InfoCard title="Smart Contract Contract" value={formatNumber(metadata.total_evm_contract)} href="/contract" />
+                <InfoCard title="Smart Contract" value={formatNumber(metadata.total_evm_contract)} href="/contract" />
               </div>
             </div>
             <div className={`grid gap-4 grid-cols-1 ${columns === 1 ? 'lg:grid-cols-2' : ''}`}>

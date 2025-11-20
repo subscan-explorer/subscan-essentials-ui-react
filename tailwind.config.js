@@ -83,6 +83,23 @@ module.exports = {
             },
           },
         },
+        'alephzero': {
+          colors: {
+            secondary: {
+              50: '#d7fffc',
+              100: '#abfff3',
+              200: '#7affea',
+              300: '#48ffe2',
+              400: '#1affda',
+              500: '#00e6c0',
+              600: '#00b396',
+              700: '#00806b',
+              800: '#004e40',
+              900: '#001c15',
+              DEFAULT: '#00e6c0',
+            },
+          },
+        },
       },
     }),
     require('@tailwindcss/typography'),

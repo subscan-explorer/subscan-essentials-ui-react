@@ -94,11 +94,19 @@ export const useBlock = (host: string, data: getBlockParams) => {
 export type getBlockListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
 }
 
 export type blocksListType = {
     blocks: blockType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export const useBlocks = (host: string, data: getBlockListParams) => {
@@ -139,11 +147,19 @@ export const useExtrinsic = (host: string, data: getExtrinsicParams) => {
 export type extrinsicsListType = {
     extrinsics: extrinsicType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getExtrinsicListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     block_num?: number
     address?: string
     hidden_params?: boolean
@@ -177,11 +193,19 @@ export const useEvent = (host: string, data: getEventParams) => {
 export type eventListType = {
     events: eventType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getEventListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     block_num?: number
     extrinsic_index?: string
     hidden_params?: boolean
@@ -205,11 +229,19 @@ export type transferType = {
 export type transferListType = {
     list: transferType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getTransferListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     block_num?: number
     address?: string
 }
@@ -237,11 +269,19 @@ export const useAccount = (host: string, data: getAccountParams) => {
 export type accountListType = {
     list: accountType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getAccountListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
 }
 
 export const useAccounts = (host: string, data: getAccountListParams) => {
@@ -305,6 +345,8 @@ export const usePVMBlock = (host: string, data: getPVMBlockParams) => {
 export type getPVMBlockListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
 }
 
 export type pvmBlockType = {
@@ -317,6 +359,12 @@ export type pvmBlockType = {
 export type pvmBlocksListType = {
     list: pvmBlockType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export const usePVMBlocks = (host: string, data: getPVMBlockListParams) => {
@@ -362,6 +410,8 @@ export const usePVMTx = (host: string, data: getPVMTxParams) => {
 export type getPVMTxListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     address?: string
     block_num?: number
 }
@@ -378,6 +428,12 @@ export type pvmTxType = {
 export type pvmTxListType = {
     list: pvmTxType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export const usePVMTxs = (host: string, data: getPVMTxListParams) => {
@@ -392,11 +448,19 @@ export type pvmAccountType = {
 export type pvmAccountListType = {
     list: pvmAccountType[] | null
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getPVMAccountListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     address?: string
 }
 
@@ -418,11 +482,19 @@ export type pvmTokenType = {
 export type pvmTokenListType = {
     list: pvmTokenType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getPVMTokenListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     contract?: string
     category?: string
 }
@@ -440,11 +512,19 @@ export type pvmTokenHolderType = {
 export type pvmTokenHolderListType = {
     holders: pvmTokenHolderType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getPVMTokenHolderListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     token_address?: string
 }
 
@@ -470,11 +550,19 @@ export type pvmTokenTransferType = {
 export type pvmTokenTransferListType = {
     transfers: pvmTokenTransferType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getPVMTokenTransferListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
     token_address?: string
     address?: string
     category?: string
@@ -548,11 +636,19 @@ export type pvmContractInfoType = {
 export type pvmContractListType = {
     list: pvmContractType[]
     count: number
+    pagination: {
+      start_cursor: number,
+      end_cursor: number,
+      has_next_page: boolean,
+      has_previous_page: boolean
+    }
 }
 
 export type getPVMContractListParams = {
     page?: number
     row?: number
+    after?: number
+    before?: number
 }
 
 type getPVMContractParams = {

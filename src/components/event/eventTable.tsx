@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react'
 
 import { BareProps } from '@/types/page'
-import { Table, Pagination, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner } from '@heroui/react'
 import { getThemeColor, timeAgo } from '@/utils/text'
 import { getEventListParams, unwrap, useEvents } from '@/utils/api'
 import { PAGE_SIZE } from '@/utils/const'
 import { Link } from '../link'
+import { CursorPagination } from '../cursorPagination'
 import { env } from 'next-runtime-env'
 
 interface Props extends BareProps {
@@ -14,38 +15,42 @@ interface Props extends BareProps {
 
 const Component: React.FC<Props> = ({ children, className, args }) => {
   const [page, setPage] = React.useState(1)
+  const [cursor, setCursor] = React.useState<{ after?: number; before?: number }>({})
   const rowsPerPage = PAGE_SIZE
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
   const { data, isLoading } = useEvents(NEXT_PUBLIC_API_HOST, {
     ...args,
-    page: page - 1,
     row: rowsPerPage,
     hidden_params: true,
+    ...cursor,
   })
   const extrinsicsData = unwrap(data)
-  const total = extrinsicsData?.count || 0
   const items = extrinsicsData?.events
-  const pages = useMemo(() => {
-    return extrinsicsData?.count ? Math.ceil(extrinsicsData?.count / rowsPerPage) : 0
-  }, [extrinsicsData?.count, rowsPerPage])
+  const pagination = extrinsicsData?.pagination
+
+  const handlePrevious = () => {
+    if (pagination?.has_previous_page && pagination.start_cursor !== undefined) {
+      setCursor({ before: pagination.start_cursor })
+      setPage(page - 1)
+    }
+  }
+
+  const handleNext = () => {
+    if (pagination?.has_next_page && pagination.end_cursor !== undefined) {
+      setCursor({ after: pagination.end_cursor })
+      setPage(page + 1)
+    }
+  }
   return (
     <Table
       aria-label="Table"
       bottomContent={
-        <div className="flex w-full justify-center">
-          {pages > 0 && (
-            <Pagination
-              color={getThemeColor(true)}
-              isCompact
-              showControls
-              showShadow
-              initialPage={1}
-              page={page}
-              total={pages}
-              onChange={(page) => setPage(page)}
-            />
-          )}
-        </div>
+        <CursorPagination
+          pagination={pagination}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          color={getThemeColor(true)}
+        />
       }
       classNames={{
         wrapper: 'min-h-[222px]',

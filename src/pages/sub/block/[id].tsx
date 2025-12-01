@@ -13,9 +13,13 @@ import { LoadingSpinner, LoadingText } from '@/components/loading'
 export default function Page() {
   const router = useRouter()
   const id = router.query.id
+  const blockNum = Number(id)
+  if (isNaN(blockNum)) {
+    return <LoadingText />
+  }
   const NEXT_PUBLIC_API_HOST = env('NEXT_PUBLIC_API_HOST') || ''
   const { data, isLoading } = useBlock(NEXT_PUBLIC_API_HOST, {
-    block_num: Number(id),
+    block_num: blockNum,
   })
 
   const blockData = unwrap(data)

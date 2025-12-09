@@ -173,7 +173,8 @@ const Component: React.FC<Props> = ({ children, className }) => {
     if (metadata?.networkNode) {
       return `url('/images/network/${metadata.networkNode}/banner.png'), url('/images/network/default/banner.png')`
     }
-    return `url('/images/network/default/banner.png')`
+    return ''
+    // return `url('/images/network/default/banner.png')`
   }, [metadata?.networkNode])
 
   return (

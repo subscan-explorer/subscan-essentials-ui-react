@@ -2,6 +2,18 @@
 
 React UI for Subscan Essentials
 
+## Development
+
+Use Node.js 24.22.1, matching `.nvmrc`, CI and Docker:
+
+```bash
+nvm install
+nvm use
+npm ci --no-audit --no-fund
+npm test -- --runInBand
+npm run build
+```
+
 ## Demo
 
 A demo of the application is available at [https://essentials-stg.vercel.app/](https://essentials-stg.vercel.app/)
@@ -209,7 +221,6 @@ For advanced configuration and environment variable details, please refer to the
 To check for linting and formatting errors:
 
 ```bash
-npm run lint
 npm run prettier
 ```
 

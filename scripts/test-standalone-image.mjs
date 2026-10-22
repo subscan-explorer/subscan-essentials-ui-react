@@ -63,6 +63,10 @@ async function verifyImageOptimizer(coldCache) {
   assert.equal(metadata.format, 'webp');
   assert.equal(metadata.width, 64);
   assert.ok(metadata.height > 0);
+  const decoded = await sharp(optimized).raw().toBuffer({ resolveWithObject: true });
+  assert.equal(decoded.info.width, 64);
+  assert.equal(decoded.data.length, decoded.info.width * decoded.info.height * decoded.info.channels);
+  assert.ok(decoded.data.length > 0, 'the optimized image must decode to actual pixels');
   assert.notDeepEqual(optimized, source, 'the original PNG must not be passed through');
 
   const second = await request();
@@ -96,6 +100,7 @@ async function verifyImageOptimizer(coldCache) {
     format: metadata.format,
     width: metadata.width,
     height: metadata.height,
+    decodedBytes: decoded.data.length,
     firstCache: first.headers.get('x-nextjs-cache'),
     secondCache: second.headers.get('x-nextjs-cache'),
     diskCacheFiles: files.length,

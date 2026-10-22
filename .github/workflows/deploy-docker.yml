@@ -1,6 +1,7 @@
 name: Deploy Docker
 
 on:
+  pull_request:
   push:
     branches: [main]
 
@@ -11,7 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Docker login
-        uses: docker/login-action@v1
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.QUAY_IO_BOT_USERNAME }}
           password: ${{ secrets.QUAY_IO_BOT_PASSWORD }}
@@ -20,15 +22,19 @@ jobs:
         id: short-sha
         with:
           length: 7
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18.20.2
+          node-version: 24.22.1
           cache: 'npm'
-      - name: Install dependencies && build
-        run: npm install && npm run build
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Unit tests
+        run: npm test -- --runInBand
+      - name: Build
+        run: npm run build
       - name: Push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: quay.io/subscan-explorer/subscan-essentials-ui:sha-${{ steps.short-sha.outputs.sha }}-${{ github.run_number }}

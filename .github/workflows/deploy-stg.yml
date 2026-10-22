@@ -11,15 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
       - uses: darwinia-network/devops/actions/smart-vercel@main
         name: Deploy
         with:
-          node_version: 22
+          node_version: 24.22.1
           vercel_token: ${{ secrets.VERCEL_TOKEN }}
           vercel_group: itering
           preview_output: true
-          alias_domain: "essentials-stg"
-          project_name: "subscan-essentials-ui-react"
+          alias_domain: 'essentials-stg'
+          project_name: 'subscan-essentials-ui-react'
           script_run: false
           dist_path: .
           enable_notify_slack: true

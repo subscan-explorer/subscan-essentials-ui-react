@@ -82,5 +82,8 @@
     "ts-jest": "^29.3.4",
     "tsconfig-paths-webpack-plugin": "~4.0.1",
     "tsx": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=24.22.1 <25"
   }
 }

@@ -32,9 +32,19 @@ jobs:
         run: npm test -- --runInBand
       - name: Build
         run: npm run build
-      - name: Push Docker image
+      - name: Build runtime image
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: ${{ github.event_name != 'pull_request' }}
+          load: true
+          push: false
+          tags: subscan-essentials-ui:ci
+      - name: Standalone image optimization regression
+        run: npm run test:standalone -- subscan-essentials-ui:ci
+      - name: Push Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
           tags: quay.io/subscan-explorer/subscan-essentials-ui:sha-${{ steps.short-sha.outputs.sha }}-${{ github.run_number }}

@@ -14,6 +14,17 @@ npm test -- --runInBand
 npm run build
 ```
 
+Build and verify the production standalone image with Docker:
+
+```bash
+docker build -t subscan-essentials-ui:local .
+npm run test:standalone -- subscan-essentials-ui:local
+```
+
+The Docker build installs and traces `sharp` inside Alpine, matching the runtime's native library platform. It creates `.next/cache` for the Node image's non-root `node` user (UID/GID 1000), matching the production process identity. Any orchestration UID/GID override must match this ownership. Do not replace this with a standalone directory built on macOS or a different Linux libc.
+
+The image regression runs without an external network. It requests an existing local PNG through `/_next/image`, decodes the resized WebP with the image's own `sharp`, checks cache ownership and MISS/HIT responses, and restarts the container to verify a disk-cache hit. PR CI runs this check before any image publication; PRs do not push images or deploy.
+
 ## Demo
 
 A demo of the application is available at [https://essentials-stg.vercel.app/](https://essentials-stg.vercel.app/)
